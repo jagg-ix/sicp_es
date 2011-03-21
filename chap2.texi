@@ -1,4 +1,4 @@
-@chapter Building Abstractions with Data
+@chapter Creando abstracciones con datos
 
 @quotation
 We now come to the decisive step of mathematical abstraction: we forget about
