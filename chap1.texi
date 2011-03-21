@@ -1,0 +1,4269 @@
+@chapter Building Abstractions with Procedures
+
+@quotation
+
+En las ocasiones donde la mente ejerce su poder sobre ideas simples, claramemnte son éstas tres: 1. Combinando varias 
+ideas simples dentro de una compuesta, de ésta manera se crean todas las ideas complejas.
+
+Donde la mente ejerce su verdadero poder sobre las ideas simples son mayormente: 1. Combinando varias ideas 
+simples para fomar una compuesta, así estan hechas todas las ideas complejas. 2. La segunda, es juntando  dos ideas, simples o complejas, entrelazandolas y poder verlas a la vez, without uniting them into one, by which it gets
+all its ideas of relations.  3.  The third is separating them from all other
+ideas that accompany them in their real existence: this is called abstraction,
+and thus all its general ideas are made.
+
+---John Locke, @emph{An Essay Concerning Human Understanding} (1690)
+@end quotation
+Estamos apunto de estudiar una idea: el @newterm{proceso computacional}. Los procesos
+computacionales son seres abstractos que habitan las computadoras. A medida que 
+evolucionan, los procesos manipulan otros seres abstractos llamdos @newterm{datos}. La
+evolucion de un proceso es dirigida por un patron de reglas llamadas @newterm{programas}. Las
+personas crean programas para dirigir procesos. En efecto, nosotros invocamos los espiritus de la
+computadora con nuestros conjuros.
+
+Un proceso computacional de hecho muy parecido a la idea que tienen un brujo sobre los espirutos. Ellos 
+no pueden ser vistos ni tocados. No estan compuestos de materia alguna. Sin embargo, es muy real. Puede
+realizar trabajo intelectual. Puede constestar preguntas. Puede afectar al mundo desembolsando dinero en 
+un banco o controlando el brazo de un robot en una fábrica. Los programas que usamos para conjurar procesos
+son parecidos a los hechizos de un mago. Ellos se encuentran compuestos cuidadosamente por expresiones simbólicas
+en @newter{lenguajes de programación} arcanos y esotéricos que  que prescriben las tareas que deseamos sean
+realizadas por nuestros procesos.
+
+Un proceso computacional, es una computadora que esta operando correctamente, ejecuta programas
+meticulosa y precisamente. Así, al igual que el aprendiz de un hechicero, los programadores novicios deben aprender
+a enternder y a anticiparce a las consecuencias de sus conjuros. Incluos pequeños errores (usualmente llamados @newterm{bugs} o
+ @newterm{problemas técnicos} en los programas pueden tener consecuencias complejas e imprevistas.
+
+Afortunadamente, aprender a programar es considerablemente menos peligroso que aprender hechicería, principalmente debido
+a que los espiritus con que tratamos estan contenidos combenientemente de forma segura. La programación en el mundo real, sin 
+embargo, requiere cuidado, pericia y sabiduría. Por ejemplo, un pequeño bug en el diseño de un programa de ayuda por computadora, 
+puede causar un calapso catastrófico de un avion o un daño e incluso la autodestrucción de un robot industrial.
+
+Ingenieros de software consumados tiene la habilidad para organizar los programas de manera que ellos esten razonablemente
+seguros que los procesos resultantes realizaran las tarea esperadas. Ellos pueden visualizar el comportamiento del sistema por adelantado. Saben como estructurar los programas de tal forma que los problemas imprevistos no causen
+problemas catastróficos.
+
+Sistemas de cómputo bien diseñados, al igual que los automoviles bien diseñados o reactores nucleares, son diseñados de manera modular, de tal modo que las partes pueden ser construidas, remplazadas y revizadas de manera separada.
+
+@subsubheading Programación en Lisp
+
+Necesitamos un lenguaje apropiado para describir procesos, para éste propósito usaremos en lenguaje de programación Lisp. Al igual que nuestros pensamientos diarios usualmente son expresados en nuestro lenguaje natal ( sea ingles, fraces, japones o español), y tal como las descripciones cuantitativas son expresados con notaciones matemáticas, nuestros pensamientos sobre procedimientos los expresaremos en Lisp. 
+
+Lisp fue inventado a finales de los 50 como un formalismo para razonamientos sobre el uso de cierto tipo 
+de expresiones lógicas, llamadas @newterm{ecuaciones recursivas}, como modelo para la computación. El 
+lenguaje fue consevido por John McCarthy y su artículo ``Funciones recursivas de expresiones simbólicas y
+su computación por maquina'' (McCarthy 1960).
+
+Apesar de su acepciónn como un formalismo matemático, Lisp es un lenguaje 
+de programación practico. Un @newterm{interprete} de Lisp es una maquina que lleva acabo
+procesos descritos en lenguaje Lisp. El primer interprete de Lisp fue implementado por McCarthy con la ayuda
+de colegas y estudiantes en el grupo de inteligencia artificial en el laboratorio de investigación de
+electrónica y del Centro de Computación del @acronym{MIT}.@footnote{El @cite{1er manual de programación Lisp} aparecio en
+ 1960, y el @cite{Manual del programador Lisp 1.5} (McCarthy 1965) fue publicado en 1962. La historia sobre 
+los principios de Lisp está descrita en McCarthy 1978.} Lisp, cuyo nombres es un acrónmo 
+para LIST Processing o procesado de texto, fue diseñado para proveer capacidades de manipulación de símbolos
+para atacar problemas de programacion tales como diferenciación simbólica e integración de 
+expresiones algebráicas. Para éste propósito se incluyeron nuevos objetos de datos llamados átomos y listas, los 
+cuales sorprendentemente los apartar de los demás lenguajes de su época.
+
+Lisp no fue el producto prediseñado. En cambio, evolucionó informalmente de un modo experimental en
+ respuesta a las necesidades
+de los usuarios y de las concideraciones de implementación. La evolución informal de Lisp ha continuado al pasar de los años, y 
+la comunidad de usuarios de Lisp tiene una resistencia tradicionalista a los intentos de promulgar cualquier definición
+``oficial'' del lenguaje. 
+Ésta evolución, junto con la flexibilidad y elegancia de su concepción inicial, ha permitido a Lisp, el cual es el 
+segundo lenguaje más antiguo y en uso actual (únicamente Fortran es mayor), a continuar adaptandose para abarcar 
+las ideas más modernas en el diseño de programas. Por tanto, Lisp es por ahora una familia de dialectos, los cuales, 
+
+aunque comparten la mayoría de sus características, pueden diferir de una a otra en formas distintas. El dialecto de Lisp
+usado en éste libro es llamado Scheme.@footnote{Los dos dialectos en los cuales se escribieron la mayoria de los
+ programas Lisp escritos en 1970s estaban en MacLisp (Moon 1978; Pitman 1983), desarrollado en el Proyecto @acronym{MAC} 
+del @acronym{MIT},
+e InterLisp (Teitelman 1974),desarrolado en Blot Beranek y Newman Inc. y el  Xerox Palo Alto Research Center.
+Portable Standard Lisp (Hearn 1969; Griss 1981) fue un diealecto de Lisp diseñado para ser portable facilmente
+entre diferentes máquinas. MacLisp originó varios subdialectos, tales como Franz Lisp, el cual fue desarrollado en 
+la Universidad de California en Berkeley, y Zetalisp (Moon 1982), la cual se basó en un procesador es propósito
+ especial diseñado en el Laboratorio de Inteligencia Artificial de @acronym{MOT} para correr Lisp eficientemente. El 
+dialecto de Lisp usado en este libro, llamado Scheme (Steele 1975), fue inventado en 1975 
+por Guy Steele Jr. y Gerald Jay Sussman   en el Laboratorio de Inteligencia Artificial del @acronym{MIT}, luego fue 
+reimplementado para uso uso como herramienta de educativa en el @acronym{MIT}. Scheme se combirtio en  convirtió en
+un estandar @acronym{IEEE} en 1990 (@acronym{IEEE} 1990). El dialecto Common Lisp (Steel 1982, Steele 1990) fue
+desarrollado por la comunidad Lisp para combinar las características de dialectos previos orientados a crear un
+estandar industrial para Lisp. Common Lisp se convirtió en un estandar @acronym{ANSI} en 1994 ( @acronym{ANSI} 1994).}
+
+Debido a su caracter experimental y a su enfasis en manipulación de símbolos, Lisp inicialmente fue muy ineficiente para realizar operaciones numéricas, al menos en comparación a Fortran. Sin embargo, al pasar los años, se han desarrollado compiladores de Lisp que traducen programas en código máquina que puede realizar operaciones matemáticas
+con una eficiencia razonable. 
+Y para aplicaciones especiales, Lisp ha sido usando con gran efectividad.
+@footnote{Una aplicacion de éstas fue rompeolas computacional de importancia científica - una integración
+del movimiento del Sistema Solar que extendio resultados previos aproximadamente en dos ordenes
+de magnitud, demostró que la dinámica del Sistema Solar es caótico. Éste calculo fue posible
+de realizar gracias a nuevos algoritmos de integración, un compilador de propósito especial, todos 
+escritos con la ayuda de herramientas de sistema escritos en Lisp (Abelson et al. 1992; Sussman y Wisdom 1992)
+}
+}
+Debido a su caracter experimental y su énfasis en manipulación de símbolos, Lisp fue al principio
+muy ineficiente para realizar cálculos numéricos, al menos en comparación con Fortran. Sin embargo
+al paso de los años, se han desarrollado compiladores de Lisp los cuales traducen programas Lisp a código
+máquina que puede realizar operaciones matemáticas de manera eficiente.  And for special applications, Lisp has
+been used with great effectiveness.@footnote{One such special application was a
+breakthrough computation of scientific importance---an integration of the
+motion of the Solar System that extended previous results by nearly two orders
+of magnitude, and demonstrated that the dynamics of the Solar System is
+chaotic.  This computation was made possible by new integration algorithms, a
+special-purpose compiler, and a special-purpose computer all implemented with
+the aid of software tools written in Lisp (Abelson et al. 1992; Sussman and
+Wisdom 1992).}  Although Lisp has not yet overcome its old reputation as
+hopelessly inefficient, Lisp is now used in many applications where efficiency
+is not the central concern.  For example, Lisp has become a language of choice
+for operating-system shell languages and for extension languages for editors
+and computer-aided design systems.
+
+If Lisp is not a mainstream language, why are we using it as the framework for
+our discussion of programming?  Because the language possesses unique features
+that make it an excellent medium for studying important programming constructs
+and data structures and for relating them to the linguistic features that
+support them.  The most significant of these features is the fact that Lisp
+descriptions of processes, called @newterm{procedures}, can themselves be
+represented and manipulated as Lisp data.  The importance of this is that there
+are powerful program-design techniques that rely on the ability to blur the
+traditional distinction between ``passive'' data and ``active'' processes.  As
+we shall discover, Lisp's flexibility in handling procedures as data makes it
+one of the most convenient languages in existence for exploring these
+techniques.  The ability to represent procedures as data also makes Lisp an
+excellent language for writing programs that must manipulate other programs as
+data, such as the interpreters and compilers that support computer languages.
+Above and beyond these considerations, programming in Lisp is great fun.
+
+@menu
+* 1-1::              The Elements of Programming
+* 1-2::              Procedures and the Processes They Generate
+* 1-3::              Formulating Abstractions with Higher-Order Procedures
+@end menu
+
+@node	1-1, 1-2, Chapter 1, Chapter 1
+@section The Elements of Programming
+
+A powerful programming language is more than just a means for instructing a
+computer to perform tasks.  The language also serves as a framework within
+which we organize our ideas about processes.  Thus, when we describe a
+language, we should pay particular attention to the means that the language
+provides for combining simple ideas to form more complex ideas.  Every powerful
+language has three mechanisms for accomplishing this:
+
+@table @newterm
+
+@item primitive expressions
+which represent the simplest entities the language is concerned with,
+
+@item means of combination
+by which compound elements are built from simpler ones, and
+
+@item means of abstraction
+by which compound elements can be named and manipulated as units.
+
+@end table
+
+In programming, we deal with two kinds of elements: procedures and data. (Later
+we will discover that they are really not so distinct.)  Informally, data is
+``stuff'' that we want to manipulate, and procedures are descriptions of the
+rules for manipulating the data.  Thus, any powerful programming language
+should be able to describe primitive data and primitive procedures and should
+have methods for combining and abstracting procedures and data.
+
+In this chapter we will deal only with simple numerical data so that we can
+focus on the rules for building procedures.@footnote{The characterization of
+numbers as ``simple data'' is a barefaced bluff.  In fact, the treatment of
+numbers is one of the trickiest and most confusing aspects of any programming
+language.  Some typical issues involved are these: Some computer systems
+distinguish @newterm{integers}, such as 2, from @newterm{real numbers}, such as
+2.71.  Is the real number 2.00 different from the integer 2?  Are the
+arithmetic operations used for integers the same as the operations used for
+real numbers?  Does 6 divided by 2 produce 3, or 3.0?  How large a number can
+we represent?  How many decimal places of accuracy can we represent?  Is the
+range of integers the same as the range of real numbers?  Above and beyond
+these questions, of course, lies a collection of issues concerning roundoff and
+truncation errors -- the entire science of numerical analysis.  Since our focus
+in this book is on large-scale program design rather than on numerical
+techniques, we are going to ignore these problems.  The numerical examples in
+this chapter will exhibit the usual roundoff behavior that one observes when
+using arithmetic operations that preserve a limited number of decimal places of
+accuracy in noninteger operations.} In later chapters we will see that these
+same rules allow us to build procedures to manipulate compound data as well.
+
+@menu
+* 1-1-1::            Expressions
+* 1-1-2::            Naming and the Environment
+* 1-1-3::            Evaluating Combinations
+* 1-1-4::            Compound Procedures
+* 1-1-5::            The Substitution Model for Procedure Application
+* 1-1-6::            Conditional Expressions and Predicates
+* 1-1-7::            Example: Square Roots by Newton's Method
+* 1-1-8::            Procedures as Black-Box Abstractions
+@end menu
+
+@node	1-1-1, 1-1-2, 1-1, 1-1
+@subsection Expressions
+
+One easy way to get started at programming is to examine some typical
+interactions with an interpreter for the Scheme dialect of Lisp.  Imagine that
+you are sitting at a computer terminal.  You type an @newterm{expression}, and
+the interpreter responds by displaying the result of its @newterm{evaluating}
+that expression.
+
+One kind of primitive expression you might type is a number.  (More precisely,
+the expression that you type consists of the numerals that represent the number
+in base 10.)  If you present Lisp with a number
+
+@lisp
+486
+@end lisp
+
+@noindent
+the interpreter will respond by printing @footnote{Throughout this book, when
+we wish to emphasize the distinction between the input typed by the user and
+the response printed by the interpreter, we will show the latter in slanted
+characters.}
+
+@lisp
+@i{486}
+@end lisp
+
+Expressions representing numbers may be combined with an expression
+representing a primitive procedure (such as @code{+} or @code{*}) to form a
+compound expression that represents the application of the procedure to those
+numbers.  For example:
+
+@lisp
+(+ 137 349)
+@i{486}
+
+(- 1000 334)
+@i{666}
+
+(* 5 99)
+@i{495}
+
+(/ 10 5)
+@i{2}
+
+(+ 2.7 10)
+@i{12.7}
+@end lisp
+
+Expressions such as these, formed by delimiting a list of expressions within
+parentheses in order to denote procedure application, are called
+@newterm{combinations}.  The leftmost element in the list is called the
+@newterm{operator}, and the other elements are called @newterm{operands}.  The
+value of a combination is obtained by applying the procedure specified by the
+operator to the @newterm{arguments} that are the values of the operands.
+
+The convention of placing the operator to the left of the operands is known as
+@newterm{prefix notation}, and it may be somewhat confusing at first because it
+departs significantly from the customary mathematical convention.  Prefix
+notation has several advantages, however.  One of them is that it can
+accommodate procedures that may take an arbitrary number of arguments, as in
+the following examples:
+
+@lisp
+(+ 21 35 12 7)
+@i{75}
+
+(* 25 4 12)
+@i{1200}
+@end lisp
+
+No ambiguity can arise, because the operator is always the leftmost element and
+the entire combination is delimited by the parentheses.
+
+A second advantage of prefix notation is that it extends in a straightforward
+way to allow combinations to be @i{nested}, that is, to have combinations whose
+elements are themselves combinations:
+
+@lisp
+(+ (* 3 5) (- 10 6))
+@i{19}
+@end lisp
+
+There is no limit (in principle) to the depth of such nesting and to the
+overall complexity of the expressions that the Lisp interpreter can evaluate.
+It is we humans who get confused by still relatively simple expressions such as
+
+@lisp
+(+ (* 3 (+ (* 2 4) (+ 3 5))) (+ (- 10 7) 6))
+@end lisp
+
+@noindent
+which the interpreter would readily evaluate to be 57.  We can help ourselves
+by writing such an expression in the form
+
+@lisp
+(+ (* 3
+      (+ (* 2 4)
+         (+ 3 5)))
+   (+ (- 10 7)
+      6))
+@end lisp
+
+@noindent
+following a formatting convention known as @newterm{pretty-printing}, in which
+each long combination is written so that the operands are aligned vertically.
+The resulting indentations display clearly the structure of the
+expression.@footnote{Lisp systems typically provide features to aid the user in
+formatting expressions.  Two especially useful features are one that
+automatically indents to the proper pretty-print position whenever a new line
+is started and one that highlights the matching left parenthesis whenever a
+right parenthesis is typed.}
+
+Even with complex expressions, the interpreter always operates in the same
+basic cycle: It reads an expression from the terminal, evaluates the
+expression, and prints the result.  This mode of operation is often expressed
+by saying that the interpreter runs in a @newterm{read-eval-print loop}.
+Observe in particular that it is not necessary to explicitly instruct the
+interpreter to print the value of the expression.@footnote{Lisp obeys the
+convention that every expression has a value. This convention, together with
+the old reputation of Lisp as an inefficient language, is the source of the
+quip by Alan Perlis (paraphrasing Oscar Wilde) that ``Lisp programmers know the
+value of everything but the cost of nothing.''}
+
+@node	1-1-2, 1-1-3, 1-1-1, 1-1
+@subsection Naming and the Environment
+
+A critical aspect of a programming language is the means it provides for using
+names to refer to computational objects.  We say that the name identifies a
+@newterm{variable} whose @newterm{value} is the object.
+
+In the Scheme dialect of Lisp, we name things with @code{define}.  Typing
+
+@lisp
+(define size 2)
+@end lisp
+
+@noindent
+causes the interpreter to associate the value 2 with the name
+@code{size}.@footnote{In this book, we do not show the interpreter's response
+to evaluating definitions, since this is highly implementation-dependent.} Once
+the name @code{size} has been associated with the number 2, we can refer to the
+value 2 by name:
+
+@lisp
+size
+@i{2}
+
+(* 5 size)
+@i{10}
+@end lisp
+
+Here are further examples of the use of @code{define}:
+
+@lisp
+(define pi 3.14159)
+
+(define radius 10)
+
+(* pi (* radius radius))
+@i{314.159}
+
+(define circumference (* 2 pi radius))
+
+circumference
+@i{62.8318}
+@end lisp
+
+@code{Define} is our language's simplest means of abstraction, for it allows us
+to use simple names to refer to the results of compound operations, such as the
+@code{circumference} computed above.  In general, computational objects may
+have very complex structures, and it would be extremely inconvenient to have to
+remember and repeat their details each time we want to use them.  Indeed,
+complex programs are constructed by building, step by step, computational
+objects of increasing complexity. The interpreter makes this step-by-step
+program construction particularly convenient because name-object associations
+can be created incrementally in successive interactions.  This feature
+encourages the incremental development and testing of programs and is largely
+responsible for the fact that a Lisp program usually consists of a large number
+of relatively simple procedures.
+
+It should be clear that the possibility of associating values with symbols and
+later retrieving them means that the interpreter must maintain some sort of
+memory that keeps track of the name-object pairs.  This memory is called the
+@newterm{environment} (more precisely the @newterm{global environment}, since
+we will see later that a computation may involve a number of different
+environments).@footnote{@ref{Chapter 3} will show that this notion of
+environment is crucial, both for understanding how the interpreter works and
+for implementing interpreters.}
+
+@node	1-1-3, 1-1-4, 1-1-2, 1-1
+@subsection Evaluating Combinations
+
+One of our goals in this chapter is to isolate issues about thinking
+procedurally.  As a case in point, let us consider that, in evaluating
+combinations, the interpreter is itself following a procedure.
+
+@quotation
+To evaluate a combination, do the following:
+
+@enumerate 1
+
+@item
+Evaluate the subexpressions of the combination.
+
+@item
+Apply the procedure that is the value of the leftmost subexpression (the
+operator) to the arguments that are the values of the other subexpressions (the
+operands).
+
+@end enumerate
+@end quotation
+
+Even this simple rule illustrates some important points about processes in
+general.  First, observe that the first step dictates that in order to
+accomplish the evaluation process for a combination we must first perform the
+evaluation process on each element of the combination.  Thus, the evaluation
+rule is @newterm{recursive} in nature; that is, it includes, as one of its
+steps, the need to invoke the rule itself.@footnote{It may seem strange that
+the evaluation rule says, as part of the first step, that we should evaluate
+the leftmost element of a combination, since at this point that can only be an
+operator such as @code{+} or @code{*} representing a built-in primitive
+procedure such as addition or multiplication.  We will see later that it is
+useful to be able to work with combinations whose operators are themselves
+compound expressions.}
+
+Notice how succinctly the idea of recursion can be used to express what, in the
+case of a deeply nested combination, would otherwise be viewed as a rather
+complicated process.  For example, evaluating
+
+@lisp
+(* (+ 2 (* 4 6))
+   (+ 3 5 7))
+@end lisp
+
+@noindent
+requires that the evaluation rule be applied to four different combinations.
+We can obtain a picture of this process by representing the combination in the
+form of a tree, as shown in @ref{Figure 1-1}.  Each combination is represented
+by a node with branches corresponding to the operator and the operands of the
+combination stemming from it.  The terminal nodes (that is, nodes with no
+branches stemming from them) represent either operators or numbers.  Viewing
+evaluation in terms of the tree, we can imagine that the values of the operands
+percolate upward, starting from the terminal nodes and then combining at higher
+and higher levels.  In general, we shall see that recursion is a very powerful
+technique for dealing with hierarchical, treelike objects.  In fact, the
+``percolate values upward'' form of the evaluation rule is an example of a
+general kind of process known as @newterm{tree accumulation}.
+
+@quotation
+@strong{@anchor{Figure 1-1}Figure 1.1:} Tree representation, showing the value
+of each subcombination.
+
+@example
+   390
+   /|\____________
+  / |             \
+ *  26            15
+    /|\            |
+   / | \         // \\
+  +  2  24      / |  | \
+        /|\    +  3  5  7
+       / | \
+      *  4  6
+@end example
+@end quotation
+
+Next, observe that the repeated application of the first step brings us to the
+point where we need to evaluate, not combinations, but primitive expressions
+such as numerals, built-in operators, or other names.  We take care of the
+primitive cases by stipulating that
+
+@itemize @bullet
+
+@item
+the values of numerals are the numbers that they name,
+
+@item
+the values of built-in operators are the machine instruction sequences that
+carry out the corresponding operations, and
+
+@item
+the values of other names are the objects associated with those names in the
+environment.
+
+@end itemize
+
+We may regard the second rule as a special case of the third one by stipulating
+that symbols such as @code{+} and @code{*} are also included in the global
+environment, and are associated with the sequences of machine instructions that
+are their ``values.''  The key point to notice is the role of the environment
+in determining the meaning of the symbols in expressions.  In an interactive
+language such as Lisp, it is meaningless to speak of the value of an expression
+such as @code{(+ x 1)} without specifying any information about the environment
+that would provide a meaning for the symbol @code{x} (or even for the symbol
+@code{+}).  As we shall see in @ref{Chapter 3}, the general notion of the
+environment as providing a context in which evaluation takes place will play an
+important role in our understanding of program execution.
+
+Notice that the evaluation rule given above does not handle definitions.  For
+instance, evaluating @code{(define x 3)} does not apply @code{define} to two
+arguments, one of which is the value of the symbol @code{x} and the other of
+which is 3, since the purpose of the @code{define} is precisely to associate
+@code{x} with a value.  (That is, @code{(define x 3)} is not a combination.)
+
+Such exceptions to the general evaluation rule are called @newterm{special
+forms}.  @code{Define} is the only example of a special form that we have seen
+so far, but we will meet others shortly.  Each special form has its own
+evaluation rule. The various kinds of expressions (each with its associated
+evaluation rule) constitute the syntax of the programming language.  In
+comparison with most other programming languages, Lisp has a very simple
+syntax; that is, the evaluation rule for expressions can be described by a
+simple general rule together with specialized rules for a small number of
+special forms.@footnote{Special syntactic forms that are simply convenient
+alternative surface structures for things that can be written in more uniform
+ways are sometimes called @newterm{syntactic sugar}, to use a phrase coined by
+Peter Landin.  In comparison with users of other languages, Lisp programmers,
+as a rule, are less concerned with matters of syntax.  (By contrast, examine
+any Pascal manual and notice how much of it is devoted to descriptions of
+syntax.)  This disdain for syntax is due partly to the flexibility of Lisp,
+which makes it easy to change surface syntax, and partly to the observation
+that many ``convenient'' syntactic constructs, which make the language less
+uniform, end up causing more trouble than they are worth when programs become
+large and complex.  In the words of Alan Perlis, ``Syntactic sugar causes
+cancer of the semicolon.''}
+
+@node	1-1-4, 1-1-5, 1-1-3, 1-1
+@subsection Compound Procedures
+
+We have identified in Lisp some of the elements that must appear in any
+powerful programming language:
+
+@itemize @bullet
+
+@item
+Numbers and arithmetic operations are primitive data and procedures.
+
+@item
+Nesting of combinations provides a means of combining operations.
+
+@item
+Definitions that associate names with values provide a limited means of
+abstraction.
+
+@end itemize
+
+Now we will learn about @newterm{procedure definitions}, a much more powerful
+abstraction technique by which a compound operation can be given a name and
+then referred to as a unit.
+
+We begin by examining how to express the idea of ``squaring.''  We might say,
+``To square something, multiply it by itself.''  This is expressed in our
+language as
+
+@lisp
+(define (square x) (* x x))
+@end lisp
+
+We can understand this in the following way:
+
+@example
+(define (square    x)         (*      x         x))
+  |        |       |           |      |         |
+ To     square  something,  multiply  it  by  itself.
+@end example
+
+We have here a @newterm{compound procedure}, which has been given the name
+@code{square}.  The procedure represents the operation of multiplying something
+by itself.  The thing to be multiplied is given a local name, @code{x}, which
+plays the same role that a pronoun plays in natural language.  Evaluating the
+definition creates this compound procedure and associates it with the name
+@code{square}.@footnote{Observe that there are two different operations being
+combined here: we are creating the procedure, and we are giving it the name
+@code{square}.  It is possible, indeed important, to be able to separate these
+two notions---to create procedures without naming them, and to give names to
+procedures that have already been created.  We will see how to do this in
+section @ref{1-3-2}.}
+
+The general form of a procedure definition is
+
+@lisp
+(define (<@var{name}> <@var{formal parameters}>) <@var{body}>)
+@end lisp
+
+The <@var{name}> is a symbol to be associated with the procedure definition in
+the environment.@footnote{Throughout this book, we will describe the general
+syntax of expressions by using italic symbols delimited by angle
+brackets---e.g., <@var{name}>---to denote the ``slots'' in the expression to be
+filled in when such an expression is actually used.} The <@var{formal
+parameters}> are the names used within the body of the procedure to refer to
+the corresponding arguments of the procedure.  The <@var{body}> is an
+expression that will yield the value of the procedure application when the
+formal parameters are replaced by the actual arguments to which the procedure
+is applied.@footnote{More generally, the body of the procedure can be a
+sequence of expressions.  In this case, the interpreter evaluates each
+expression in the sequence in turn and returns the value of the final
+expression as the value of the procedure application.}  The <@var{name}> and
+the <@var{formal parameters}> are grouped within parentheses, just as they
+would be in an actual call to the procedure being defined.
+
+Having defined @code{square}, we can now use it:
+
+@lisp
+(square 21)
+@i{441}
+
+(square (+ 2 5))
+@i{49}
+
+(square (square 3))
+@i{81}
+@end lisp
+
+We can also use @code{square} as a building block in defining other procedures.
+For example, @i{x}^2 + @i{y}^2 can be expressed as
+
+@lisp
+(+ (square x) (square y))
+@end lisp
+
+We can easily define a procedure @code{sum-of-squares} that, given any two
+numbers as arguments, produces the sum of their squares:
+
+@lisp
+(define (sum-of-squares x y)
+  (+ (square x) (square y)))
+(sum-of-squares 3 4)
+@i{25}
+@end lisp
+
+Now we can use @code{sum-of-squares} as a building block in constructing
+further procedures:
+
+@lisp
+(define (f a)
+  (sum-of-squares (+ a 1) (* a 2)))
+
+(f 5)
+@i{136}
+@end lisp
+
+Compound procedures are used in exactly the same way as primitive procedures.
+Indeed, one could not tell by looking at the definition of
+@code{sum-of-squares} given above whether @code{square} was built into the
+interpreter, like @code{+} and @code{*}, or defined as a compound procedure.
+
+@node	1-1-5, 1-1-6, 1-1-4, 1-1
+@subsection The Substitution Model for Procedure Application
+
+To evaluate a combination whose operator names a compound procedure, the
+interpreter follows much the same process as for combinations whose operators
+name primitive procedures, which we described in section @ref{1-1-3}.  That is,
+the interpreter evaluates the elements of the combination and applies the
+procedure (which is the value of the operator of the combination) to the
+arguments (which are the values of the operands of the combination).
+
+We can assume that the mechanism for applying primitive procedures to arguments
+is built into the interpreter.  For compound procedures, the application
+process is as follows:
+
+@quotation
+To apply a compound procedure to arguments, evaluate the body of the procedure
+with each formal parameter replaced by the corresponding argument.
+@end quotation
+
+To illustrate this process, let's evaluate the combination
+
+@lisp
+(f 5)
+@end lisp
+
+@noindent
+where @code{f} is the procedure defined in section @ref{1-1-4}.  We begin by
+retrieving the body of @code{f}:
+
+@lisp
+(sum-of-squares (+ a 1) (* a 2))
+@end lisp
+
+Then we replace the formal parameter @code{a} by the argument 5:
+
+@lisp
+(sum-of-squares (+ 5 1) (* 5 2))
+@end lisp
+
+Thus the problem reduces to the evaluation of a combination with two operands
+and an operator @code{sum-of-squares}.  Evaluating this combination involves
+three subproblems.  We must evaluate the operator to get the procedure to be
+applied, and we must evaluate the operands to get the arguments.  Now @code{(+
+5 1)} produces 6 and @code{(* 5 2)} produces 10, so we must apply the
+@code{sum-of-squares} procedure to 6 and 10.  These values are substituted for
+the formal parameters @code{x} and @code{y} in the body of
+@code{sum-of-squares}, reducing the expression to
+
+@lisp
+(+ (square 6) (square 10))
+@end lisp
+
+If we use the definition of @code{square}, this reduces to
+
+@lisp
+(+ (* 6 6) (* 10 10))
+@end lisp
+
+@noindent
+which reduces by multiplication to
+
+@lisp
+(+ 36 100)
+@end lisp
+
+@noindent
+and finally to
+
+@lisp
+136
+@end lisp
+
+The process we have just described is called the @newterm{substitution model}
+for procedure application.  It can be taken as a model that determines the
+``meaning'' of procedure application, insofar as the procedures in this chapter
+are concerned.  However, there are two points that should be stressed:
+
+@itemize @bullet
+
+@item
+The purpose of the substitution is to help us think about procedure
+application, not to provide a description of how the interpreter really works.
+Typical interpreters do not evaluate procedure applications by manipulating the
+text of a procedure to substitute values for the formal parameters.  In
+practice, the ``substitution'' is accomplished by using a local environment for
+the formal parameters.  We will discuss this more fully in @ref{Chapter 3} and
+@ref{Chapter 4} when we examine the implementation of an interpreter in detail.
+
+@item
+Over the course of this book, we will present a sequence of increasingly
+elaborate models of how interpreters work, culminating with a complete
+implementation of an interpreter and compiler in @ref{Chapter 5}.  The
+substitution model is only the first of these models---a way to get started
+thinking formally about the evaluation process.  In general, when modeling
+phenomena in science and engineering, we begin with simplified, incomplete
+models.  As we examine things in greater detail, these simple models become
+inadequate and must be replaced by more refined models.  The substitution model
+is no exception.  In particular, when we address in @ref{Chapter 3} the use of
+procedures with ``mutable data,'' we will see that the substitution model
+breaks down and must be replaced by a more complicated model of procedure
+application.@footnote{Despite the simplicity of the substitution idea, it turns
+out to be surprisingly complicated to give a rigorous mathematical definition
+of the substitution process.  The problem arises from the possibility of
+confusion between the names used for the formal parameters of a procedure and
+the (possibly identical) names used in the expressions to which the procedure
+may be applied.  Indeed, there is a long history of erroneous definitions of
+@newterm{substitution} in the literature of logic and programming semantics.
+See Stoy 1977 for a careful discussion of substitution.}
+
+@end itemize
+
+@subsubheading Applicative order versus normal order
+
+According to the description of evaluation given in section @ref{1-1-3}, the
+interpreter first evaluates the operator and operands and then applies the
+resulting procedure to the resulting arguments.  This is not the only way to
+perform evaluation.  An alternative evaluation model would not evaluate the
+operands until their values were needed.  Instead it would first substitute
+operand expressions for parameters until it obtained an expression involving
+only primitive operators, and would then perform the evaluation.  If we used
+this method, the evaluation of @code{(f 5)} would proceed according to the
+sequence of expansions
+
+@lisp
+(sum-of-squares (+ 5 1) (* 5 2))
+
+(+    (square (+ 5 1))      (square (* 5 2))  )
+
+(+    (* (+ 5 1) (+ 5 1))   (* (* 5 2) (* 5 2)))
+@end lisp
+
+@noindent
+followed by the reductions
+
+@lisp
+(+         (* 6 6)             (* 10 10))
+
+(+           36                   100)
+
+                    136
+@end lisp
+
+This gives the same answer as our previous evaluation model, but the process is
+different.  In particular, the evaluations of @code{(+ 5 1)} and @code{(* 5 2)}
+are each performed twice here, corresponding to the reduction of the expression
+@code{(* x x)} with @code{x} replaced respectively by @code{(+ 5 1)} and
+@code{(* 5 2)}.
+
+This alternative ``fully expand and then reduce'' evaluation method is known as
+@newterm{normal-order evaluation}, in contrast to the ``evaluate the arguments
+and then apply'' method that the interpreter actually uses, which is called
+@newterm{applicative-order evaluation}.  It can be shown that, for procedure
+applications that can be modeled using substitution (including all the
+procedures in the first two chapters of this book) and that yield legitimate
+values, normal-order and applicative-order evaluation produce the same value.
+(See @ref{Exercise 1-5} for an instance of an ``illegitimate'' value where
+normal-order and applicative-order evaluation do not give the same result.)
+
+Lisp uses applicative-order evaluation, partly because of the additional
+efficiency obtained from avoiding multiple evaluations of expressions such as
+those illustrated with @code{(+ 5 1)} and @code{(* 5 2)} above and, more
+significantly, because normal-order evaluation becomes much more complicated to
+deal with when we leave the realm of procedures that can be modeled by
+substitution.  On the other hand, normal-order evaluation can be an extremely
+valuable tool, and we will investigate some of its implications in @ref{Chapter
+3} and @ref{Chapter 4}.@footnote{In @ref{Chapter 3} we will introduce
+@newterm{stream processing}, which is a way of handling apparently ``infinite''
+data structures by incorporating a limited form of normal-order evaluation.  In
+section @ref{4-2} we will modify the Scheme interpreter to produce a
+normal-order variant of Scheme.}
+
+@node	1-1-6, 1-1-7, 1-1-5, 1-1
+@subsection Conditional Expressions and Predicates
+
+The expressive power of the class of procedures that we can define at this
+point is very limited, because we have no way to make tests and to perform
+different operations depending on the result of a test.  For instance, we
+cannot define a procedure that computes the absolute value of a number by
+testing whether the number is positive, negative, or zero and taking different
+actions in the different cases according to the rule
+
+@example
+      /
+      |   x  if x > 0
+|x| = <   0  if x = 0
+      |  -x  if x < 0
+      \
+@end example
+
+This construct is called a @newterm{case analysis}, and there is a special form
+in Lisp for notating such a case analysis.  It is called @code{cond} (which
+stands for ``conditional''), and it is used as follows:
+
+@lisp
+(define (abs x)
+  (cond ((> x 0) x)
+        ((= x 0) 0)
+        ((< x 0) (- x))))
+@end lisp
+
+The general form of a conditional expression is
+
+@lisp
+(cond (<@var{p1}> <@var{e1}>)
+      (<@var{p2}> <@var{e2}>)
+      @dots{}
+      (<@var{pn}> <@var{en}>))
+@end lisp
+
+@noindent
+consisting of the symbol @code{cond} followed by parenthesized pairs of
+expressions
+
+@lisp
+(<@var{p}> <@var{e}>)
+@end lisp
+
+@noindent
+called @newterm{clauses}. The first expression in each pair is a
+@newterm{predicate}---that is, an expression whose value is interpreted as
+either true or false.@footnote{``Interpreted as either true or false'' means
+this: In Scheme, there are two distinguished values that are denoted by the
+constants @code{#t} and @code{#f}.  When the interpreter checks a predicate's
+value, it interprets @code{#f} as false.  Any other value is treated as true.
+(Thus, providing @code{#t} is logically unnecessary, but it is convenient.)  In
+this book we will use names @code{true} and @code{false}, which are associated
+with the values @code{#t} and @code{#f} respectively.}
+
+Conditional expressions are evaluated as follows.  The predicate <@var{p1}> is
+evaluated first.  If its value is false, then <@var{p2}> is evaluated.  If
+<@var{p2}>'s value is also false, then <@var{p3}> is evaluated.  This process
+continues until a predicate is found whose value is true, in which case the
+interpreter returns the value of the corresponding @newterm{consequent
+expression} <@var{e}> of the clause as the value of the conditional expression.
+If none of the <@var{p}>'s is found to be true, the value of the @code{cond} is
+undefined.
+
+The word @newterm{predicate} is used for procedures that return true or false,
+as well as for expressions that evaluate to true or false.  The absolute-value
+procedure @code{abs} makes use of the primitive predicates @code{>}, @code{<},
+and @code{=}.@footnote{@code{Abs} also uses the ``minus'' operator @code{-},
+which, when used with a single operand, as in @code{(- x)}, indicates
+negation.} These take two numbers as arguments and test whether the first
+number is, respectively, greater than, less than, or equal to the second
+number, returning true or false accordingly.
+
+Another way to write the absolute-value procedure is
+
+@lisp
+(define (abs x)
+  (cond ((< x 0) (- x))
+        (else x)))
+@end lisp
+
+@noindent
+which could be expressed in English as ``If @i{x} is less than zero return -
+@i{x}; otherwise return @i{x}.''  @code{Else} is a special symbol that can be
+used in place of the <@var{p}> in the final clause of a @code{cond}.  This
+causes the @code{cond} to return as its value the value of the corresponding
+<@var{e}> whenever all previous clauses have been bypassed.  In fact, any
+expression that always evaluates to a true value could be used as the <@var{p}>
+here.
+
+Here is yet another way to write the absolute-value procedure:
+
+@lisp
+(define (abs x)
+  (if (< x 0)
+      (- x)
+      x))
+@end lisp
+
+This uses the special form @code{if}, a restricted type of conditional that can
+be used when there are precisely two cases in the case analysis.  The general
+form of an @code{if} expression is
+
+@lisp
+(if <@var{predicate}> <@var{consequent}> <@var{alternative}>)
+@end lisp
+
+To evaluate an @code{if} expression, the interpreter starts by evaluating the
+<@var{predicate}> part of the expression.  If the <@var{predicate}> evaluates
+to a true value, the interpreter then evaluates the <@var{consequent}> and
+returns its value.  Otherwise it evaluates the <@var{alternative}> and returns
+its value.@footnote{A minor difference between @code{if} and @code{cond} is
+that the <@var{e}> part of each @code{cond} clause may be a sequence of
+expressions.  If the corresponding <@var{p}> is found to be true, the
+expressions <@var{e}> are evaluated in sequence and the value of the final
+expression in the sequence is returned as the value of the @code{cond}.  In an
+@code{if} expression, however, the <@var{consequent}> and <@var{alternative}>
+must be single expressions.}
+
+In addition to primitive predicates such as @code{<}, @code{=}, and @code{>},
+there are logical composition operations, which enable us to construct compound
+predicates.  The three most frequently used are these:
+
+@itemize @bullet
+
+@item
+@code{(and <@var{e1}> @dots{} <@var{en}>)}
+
+The interpreter evaluates the expressions <@var{e}> one at a time, in
+left-to-right order.  If any <@var{e}> evaluates to false, the value of the
+@code{and} expression is false, and the rest of the <@var{e}>'s are not
+evaluated.  If all <@var{e}>'s evaluate to true values, the value of the
+@code{and} expression is the value of the last one.
+
+@item
+@code{(or <@var{e1}> @dots{} <@var{en}>)}
+
+The interpreter evaluates the expressions <@var{e}> one at a time, in
+left-to-right order.  If any <@var{e}> evaluates to a true value, that value is
+returned as the value of the @code{or} expression, and the rest of the
+<@var{e}>'s are not evaluated.  If all <@var{e}>'s evaluate to false, the value
+of the @code{or} expression is false.
+
+@item
+@code{(not <@var{e}>)}
+
+The value of a @code{not} expression is true when the expression <@var{e}>
+evaluates to false, and false otherwise.
+
+@end itemize
+
+Notice that @code{and} and @code{or} are special forms, not procedures, because
+the subexpressions are not necessarily all evaluated.  @code{Not} is an
+ordinary procedure.
+
+As an example of how these are used, the condition that a number @i{x} be in
+the range 5 < @i{x} < 10 may be expressed as
+
+@lisp
+(and (> x 5) (< x 10))
+@end lisp
+
+As another example, we can define a predicate to test whether one number is
+greater than or equal to another as
+
+@lisp
+(define (>= x y)
+  (or (> x y) (= x y)))
+@end lisp
+
+@noindent
+or alternatively as
+
+@lisp
+(define (>= x y)
+  (not (< x y)))
+@end lisp
+
+@quotation
+@strong{@anchor{Exercise 1-1}Exercise 1.1:} Below is a sequence of expressions.
+What is the result printed by the interpreter in response to each expression?
+Assume that the sequence is to be evaluated in the order in which it is
+presented.
+
+@lisp
+10
+
+(+ 5 3 4)
+
+(- 9 1)
+
+(/ 6 2)
+
+(+ (* 2 4) (- 4 6))
+
+(define a 3)
+
+(define b (+ a 1))
+
+(+ a b (* a b))
+
+(= a b)
+
+(if (and (> b a) (< b (* a b)))
+    b
+    a)
+
+(cond ((= a 4) 6)
+      ((= b 4) (+ 6 7 a))
+      (else 25))
+
+(+ 2 (if (> b a) b a))
+
+(* (cond ((> a b) a)
+         ((< a b) b)
+         (else -1))
+   (+ a 1))
+@end lisp
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-2}Exercise 1.2:} Translate the following expression
+into prefix form.
+
+@example
+5 + 4 + (2 - (3 - (6 + 4/5)))
+-----------------------------
+       3(6 - 2)(2 - 7)
+@end example
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-3}Exercise 1.3:} Define a procedure that takes three
+numbers as arguments and returns the sum of the squares of the two larger
+numbers.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-4}Exercise 1.4:} Observe that our model of
+evaluation allows for combinations whose operators are compound expressions.
+Use this observation to describe the behavior of the following procedure:
+
+@lisp
+(define (a-plus-abs-b a b)
+  ((if (> b 0) + -) a b))
+@end lisp
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-5}Exercise 1.5:} Ben Bitdiddle has invented a test
+to determine whether the interpreter he is faced with is using
+applicative-order evaluation or normal-order evaluation.  He defines the
+following two procedures:
+
+@lisp
+(define (p) (p))
+
+(define (test x y)
+  (if (= x 0)
+      0
+      y))
+@end lisp
+
+Then he evaluates the expression
+
+@lisp
+(test 0 (p))
+@end lisp
+
+What behavior will Ben observe with an interpreter that uses applicative-order
+evaluation?  What behavior will he observe with an interpreter that uses
+normal-order evaluation?  Explain your answer.  (Assume that the evaluation
+rule for the special form @code{if} is the same whether the interpreter is
+using normal or applicative order: The predicate expression is evaluated first,
+and the result determines whether to evaluate the consequent or the alternative
+expression.)
+@end quotation
+
+@node	1-1-7, 1-1-8, 1-1-6, 1-1
+@subsection Example: Square Roots by Newton's Method
+
+Procedures, as introduced above, are much like ordinary mathematical functions.
+They specify a value that is determined by one or more parameters.  But there
+is an important difference between mathematical functions and computer
+procedures.  Procedures must be effective.
+
+As a case in point, consider the problem of computing square roots.  We can
+define the square-root function as
+
+@example
+sqrt(x) = the y such that y >= 0 and y^2 = x
+@end example
+
+This describes a perfectly legitimate mathematical function.  We could use it
+to recognize whether one number is the square root of another, or to derive
+facts about square roots in general.  On the other hand, the definition does
+not describe a procedure.  Indeed, it tells us almost nothing about how to
+actually find the square root of a given number.  It will not help matters to
+rephrase this definition in pseudo-Lisp:
+
+@lisp
+(define (sqrt x)
+  (the y (and (>= y 0)
+              (= (square y) x))))
+@end lisp
+
+This only begs the question.
+
+The contrast between function and procedure is a reflection of the general
+distinction between describing properties of things and describing how to do
+things, or, as it is sometimes referred to, the distinction between declarative
+knowledge and imperative knowledge.  In mathematics we are usually concerned
+with declarative (what is) descriptions, whereas in computer science we are
+usually concerned with imperative (how to) descriptions.@footnote{Declarative
+and imperative descriptions are intimately related, as indeed are mathematics
+and computer science.  For instance, to say that the answer produced by a
+program is ``correct'' is to make a declarative statement about the program.
+There is a large amount of research aimed at establishing techniques for
+proving that programs are correct, and much of the technical difficulty of this
+subject has to do with negotiating the transition between imperative statements
+(from which programs are constructed) and declarative statements (which can be
+used to deduce things).  In a related vein, an important current area in
+programming-language design is the exploration of so-called very high-level
+languages, in which one actually programs in terms of declarative statements.
+The idea is to make interpreters sophisticated enough so that, given ``what
+is'' knowledge specified by the programmer, they can generate ``how to''
+knowledge automatically.  This cannot be done in general, but there are
+important areas where progress has been made.  We shall revisit this idea in
+@ref{Chapter 4}.}
+
+How does one compute square roots?  The most common way is to use Newton's
+method of successive approximations, which says that whenever we have a guess
+@i{y} for the value of the square root of a number @i{x}, we can perform a
+simple manipulation to get a better guess (one closer to the actual square
+root) by averaging @i{y} with @i{x}/@i{y}.@footnote{This square-root algorithm
+is actually a special case of Newton's method, which is a general technique for
+finding roots of equations.  The square-root algorithm itself was developed by
+Heron of Alexandria in the first century @acronym{A.D.}  We will see how to
+express the general Newton's method as a Lisp procedure in section
+@ref{1-3-4}.} For example, we can compute the square root of 2 as follows.
+Suppose our initial guess is 1:
+
+@example
+Guess  Quotient             Average
+1      (2/1) = 2            ((2 + 1)/2) = 1.5
+1.5    (2/1.5) = 1.3333     ((1.3333 + 1.5)/2) = 1.4167
+1.4167 (2/1.4167) = 1.4118  ((1.4167 + 1.4118)/2) = 1.4142
+1.4142 ...                  ...
+@end example
+
+@noindent
+Continuing this process, we obtain better and better approximations to the
+square root.
+
+Now let's formalize the process in terms of procedures.  We start with a value
+for the radicand (the number whose square root we are trying to compute) and a
+value for the guess.  If the guess is good enough for our purposes, we are
+done; if not, we must repeat the process with an improved guess.  We write this
+basic strategy as a procedure:
+
+@lisp
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+      guess
+      (sqrt-iter (improve guess x)
+                 x)))
+@end lisp
+
+A guess is improved by averaging it with the quotient of the radicand and the
+old guess:
+
+@lisp
+(define (improve guess x)
+  (average guess (/ x guess)))
+@end lisp
+
+@noindent
+where
+
+@lisp
+(define (average x y)
+  (/ (+ x y) 2))
+@end lisp
+
+We also have to say what we mean by ``good enough.''  The following will do for
+illustration, but it is not really a very good test.  (See exercise
+@ref{Exercise 1-7}.)  The idea is to improve the answer until it is close
+enough so that its square differs from the radicand by less than a
+predetermined tolerance (here 0.001):@footnote{We will usually give predicates
+names ending with question marks, to help us remember that they are predicates.
+This is just a stylistic convention.  As far as the interpreter is concerned,
+the question mark is just an ordinary character.}
+
+@lisp
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+@end lisp
+
+Finally, we need a way to get started.  For instance, we can always guess that
+the square root of any number is 1:@footnote{Observe that we express our
+initial guess as 1.0 rather than 1.  This would not make any difference in many
+Lisp implementations.  @acronym{MIT} Scheme, however, distinguishes between
+exact integers and decimal values, and dividing two integers produces a
+rational number rather than a decimal.  For example, dividing 10 by 6 yields
+5/3, while dividing 10.0 by 6.0 yields 1.6666666666666667.  (We will learn how
+to implement arithmetic on rational numbers in section @ref{2-1-1}.)  If we
+start with an initial guess of 1 in our square-root program, and @i{x} is an
+exact integer, all subsequent values produced in the square-root computation
+will be rational numbers rather than decimals.  Mixed operations on rational
+numbers and decimals always yield decimals, so starting with an initial guess
+of 1.0 forces all subsequent values to be decimals.}
+
+@lisp
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+@end lisp
+
+If we type these definitions to the interpreter, we can use @code{sqrt} just as
+we can use any procedure:
+
+@lisp
+(sqrt 9)
+@i{3.00009155413138}
+
+(sqrt (+ 100 37))
+@i{11.704699917758145}
+
+(sqrt (+ (sqrt 2) (sqrt 3)))
+@i{1.7739279023207892}
+
+(square (sqrt 1000))
+@i{1000.000369924366}
+@end lisp
+
+The @code{sqrt} program also illustrates that the simple procedural language we
+have introduced so far is sufficient for writing any purely numerical program
+that one could write in, say, C or Pascal.  This might seem surprising, since
+we have not included in our language any iterative (looping) constructs that
+direct the computer to do something over and over again.  @code{Sqrt-iter}, on
+the other hand, demonstrates how iteration can be accomplished using no special
+construct other than the ordinary ability to call a procedure.@footnote{Readers
+who are worried about the efficiency issues involved in using procedure calls
+to implement iteration should note the remarks on ``tail recursion'' in section
+@ref{1-2-1}.}
+
+@quotation
+@strong{@anchor{Exercise 1-6}Exercise 1.6:} Alyssa P. Hacker doesn't see why
+@code{if} needs to be provided as a special form.  ``Why can't I just define it
+as an ordinary procedure in terms of @code{cond}?'' she asks.  Alyssa's friend
+Eva Lu Ator claims this can indeed be done, and she defines a new version of
+@code{if}:
+
+@lisp
+(define (new-if predicate then-clause else-clause)
+  (cond (predicate then-clause)
+        (else else-clause)))
+@end lisp
+
+Eva demonstrates the program for Alyssa:
+
+@lisp
+(new-if (= 2 3) 0 5)
+@i{5}
+
+(new-if (= 1 1) 0 5)
+@i{0}
+@end lisp
+
+Delighted, Alyssa uses @code{new-if} to rewrite the square-root program:
+
+@lisp
+(define (sqrt-iter guess x)
+  (new-if (good-enough? guess x)
+          guess
+          (sqrt-iter (improve guess x)
+                     x)))
+@end lisp
+
+What happens when Alyssa attempts to use this to compute square roots?
+Explain.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-7}Exercise 1.7:} The @code{good-enough?} test used
+in computing square roots will not be very effective for finding the square
+roots of very small numbers.  Also, in real computers, arithmetic operations
+are almost always performed with limited precision.  This makes our test
+inadequate for very large numbers.  Explain these statements, with examples
+showing how the test fails for small and large numbers.  An alternative
+strategy for implementing @code{good-enough?} is to watch how @code{guess}
+changes from one iteration to the next and to stop when the change is a very
+small fraction of the guess.  Design a square-root procedure that uses this
+kind of end test.  Does this work better for small and large numbers?
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-8}Exercise 1.8:} Newton's method for cube roots is
+based on the fact that if @i{y} is an approximation to the cube root of @i{x},
+then a better approximation is given by the value
+
+@example
+x/y^2 + 2y
+----------
+    3
+@end example
+
+@noindent
+Use this formula to implement a cube-root procedure analogous to the
+square-root procedure.  (In section @ref{1-3-4} we will see how to implement
+Newton's method in general as an abstraction of these square-root and cube-root
+procedures.)
+@end quotation
+
+@node	1-1-8,  , 1-1-7, 1-1
+@subsection Procedures as Black-Box Abstractions
+
+@code{Sqrt} is our first example of a process defined by a set of mutually
+defined procedures.  Notice that the definition of @code{sqrt-iter} is
+@newterm{recursive}; that is, the procedure is defined in terms of itself.  The
+idea of being able to define a procedure in terms of itself may be disturbing;
+it may seem unclear how such a ``circular'' definition could make sense at all,
+much less specify a well-defined process to be carried out by a computer.  This
+will be addressed more carefully in section @ref{1-2}.  But first let's
+consider some other important points illustrated by the @code{sqrt} example.
+
+Observe that the problem of computing square roots breaks up naturally into a
+number of subproblems: how to tell whether a guess is good enough, how to
+improve a guess, and so on.  Each of these tasks is accomplished by a separate
+procedure.  The entire @code{sqrt} program can be viewed as a cluster of
+procedures (shown in @ref{Figure 1-2}) that mirrors the decomposition of the
+problem into subproblems.
+
+@quotation
+@strong{@anchor{Figure 1-2}Figure 1.2:} Procedural decomposition of the
+@code{sqrt} program.
+
+@example
+            sqrt
+             |
+         sqrt-iter
+         /       \
+ good-enough    improve
+   /    \          |
+square  abs     average
+@end example
+@end quotation
+
+The importance of this decomposition strategy is not simply that one is
+dividing the program into parts.  After all, we could take any large program
+and divide it into parts---the first ten lines, the next ten lines, the next
+ten lines, and so on.  Rather, it is crucial that each procedure accomplishes
+an identifiable task that can be used as a module in defining other procedures.
+For example, when we define the @code{good-enough?} procedure in terms of
+@code{square}, we are able to regard the @code{square} procedure as a ``black
+box.''  We are not at that moment concerned with @emph{how} the procedure
+computes its result, only with the fact that it computes the square.  The
+details of how the square is computed can be suppressed, to be considered at a
+later time.  Indeed, as far as the @code{good-enough?} procedure is concerned,
+@code{square} is not quite a procedure but rather an abstraction of a
+procedure, a so-called @newterm{procedural abstraction}.  At this level of
+abstraction, any procedure that computes the square is equally good.
+
+Thus, considering only the values they return, the following two procedures for
+squaring a number should be indistinguishable.  Each takes a numerical argument
+and produces the square of that number as the value.@footnote{It is not even
+clear which of these procedures is a more efficient implementation.  This
+depends upon the hardware available.  There are machines for which the
+``obvious'' implementation is the less efficient one.  Consider a machine that
+has extensive tables of logarithms and antilogarithms stored in a very
+efficient manner.}
+
+@lisp
+(define (square x) (* x x))
+
+(define (square x)
+  (exp (double (log x))))
+
+(define (double x) (+ x x))
+@end lisp
+
+So a procedure definition should be able to suppress detail.  The users of the
+procedure may not have written the procedure themselves, but may have obtained
+it from another programmer as a black box.  A user should not need to know how
+the procedure is implemented in order to use it.
+
+@subsubheading Local names
+
+One detail of a procedure's implementation that should not matter to the user
+of the procedure is the implementer's choice of names for the procedure's
+formal parameters.  Thus, the following procedures should not be
+distinguishable:
+
+@lisp
+(define (square x) (* x x))
+
+(define (square y) (* y y))
+@end lisp
+
+This principle---that the meaning of a procedure should be independent of the
+parameter names used by its author---seems on the surface to be self-evident,
+but its consequences are profound.  The simplest consequence is that the
+parameter names of a procedure must be local to the body of the procedure.  For
+example, we used @code{square} in the definition of @code{good-enough?} in our
+square-root procedure:
+
+@lisp
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+@end lisp
+
+The intention of the author of @code{good-enough?} is to determine if the
+square of the first argument is within a given tolerance of the second
+argument.  We see that the author of @code{good-enough?} used the name
+@code{guess} to refer to the first argument and @code{x} to refer to the second
+argument.  The argument of @code{square} is @code{guess}.  If the author of
+@code{square} used @code{x} (as above) to refer to that argument, we see that
+the @code{x} in @code{good-enough?} must be a different @code{x} than the one
+in @code{square}.  Running the procedure @code{square} must not affect the
+value of @code{x} that is used by @code{good-enough?}, because that value of
+@code{x} may be needed by @code{good-enough?} after @code{square} is done
+computing.
+
+If the parameters were not local to the bodies of their respective procedures,
+then the parameter @code{x} in @code{square} could be confused with the
+parameter @code{x} in @code{good-enough?}, and the behavior of
+@code{good-enough?} would depend upon which version of @code{square} we used.
+Thus, @code{square} would not be the black box we desired.
+
+A formal parameter of a procedure has a very special role in the procedure
+definition, in that it doesn't matter what name the formal parameter has.  Such
+a name is called a @newterm{bound variable}, and we say that the procedure
+definition @newterm{binds} its formal parameters.  The meaning of a procedure
+definition is unchanged if a bound variable is consistently renamed throughout
+the definition.@footnote{The concept of consistent renaming is actually subtle
+and difficult to define formally.  Famous logicians have made embarrassing
+errors here.}  If a variable is not bound, we say that it is @newterm{free}.
+The set of expressions for which a binding defines a name is called the
+@newterm{scope} of that name.  In a procedure definition, the bound variables
+declared as the formal parameters of the procedure have the body of the
+procedure as their scope.
+
+In the definition of @code{good-enough?} above, @code{guess} and @code{x} are
+bound variables but @code{<}, @code{-}, @code{abs}, and @code{square} are free.
+The meaning of @code{good-enough?} should be independent of the names we choose
+for @code{guess} and @code{x} so long as they are distinct and different from
+@code{<}, @code{-}, @code{abs}, and @code{square}.  (If we renamed @code{guess}
+to @code{abs} we would have introduced a bug by @newterm{capturing} the
+variable @code{abs}.  It would have changed from free to bound.)  The meaning
+of @code{good-enough?} is not independent of the names of its free variables,
+however.  It surely depends upon the fact (external to this definition) that
+the symbol @code{abs} names a procedure for computing the absolute value of a
+number.  @code{Good-enough?} will compute a different function if we substitute
+@code{cos} for @code{abs} in its definition.
+
+@subsubheading Internal definitions and block structure
+
+We have one kind of name isolation available to us so far: The formal
+parameters of a procedure are local to the body of the procedure.  The
+square-root program illustrates another way in which we would like to control
+the use of names.  The existing program consists of separate procedures:
+
+@lisp
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+      guess
+      (sqrt-iter (improve guess x) x)))
+
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+@end lisp
+
+The problem with this program is that the only procedure that is important to
+users of @code{sqrt} is @code{sqrt}.  The other procedures (@code{sqrt-iter},
+@code{good-enough?}, and @code{improve}) only clutter up their minds.  They may
+not define any other procedure called @code{good-enough?} as part of another
+program to work together with the square-root program, because @code{sqrt}
+needs it.  The problem is especially severe in the construction of large
+systems by many separate programmers.  For example, in the construction of a
+large library of numerical procedures, many numerical functions are computed as
+successive approximations and thus might have procedures named
+@code{good-enough?} and @code{improve} as auxiliary procedures.  We would like
+to localize the subprocedures, hiding them inside @code{sqrt} so that
+@code{sqrt} could coexist with other successive approximations, each having its
+own private @code{good-enough?} procedure.  To make this possible, we allow a
+procedure to have internal definitions that are local to that procedure.  For
+example, in the square-root problem we can write
+
+@lisp
+(define (sqrt x)
+  (define (good-enough? guess x)
+    (< (abs (- (square guess) x)) 0.001))
+  (define (improve guess x)
+    (average guess (/ x guess)))
+  (define (sqrt-iter guess x)
+    (if (good-enough? guess x)
+        guess
+        (sqrt-iter (improve guess x) x)))
+  (sqrt-iter 1.0 x))
+@end lisp
+
+Such nesting of definitions, called @newterm{block structure}, is basically the
+right solution to the simplest name-packaging problem.  But there is a better
+idea lurking here.  In addition to internalizing the definitions of the
+auxiliary procedures, we can simplify them.  Since @code{x} is bound in the
+definition of @code{sqrt}, the procedures @code{good-enough?}, @code{improve},
+and @code{sqrt-iter}, which are defined internally to @code{sqrt}, are in the
+scope of @code{x}.  Thus, it is not necessary to pass @code{x} explicitly to
+each of these procedures.  Instead, we allow @code{x} to be a free variable in
+the internal definitions, as shown below. Then @code{x} gets its value from the
+argument with which the enclosing procedure @code{sqrt} is called.  This
+discipline is called @newterm{lexical scoping}.@footnote{[Footnote
+28]@anchor{Footnote 28} Lexical scoping dictates that free variables in a
+procedure are taken to refer to bindings made by enclosing procedure
+definitions; that is, they are looked up in the environment in which the
+procedure was defined. We will see how this works in detail in chapter 3 when
+we study environments and the detailed behavior of the interpreter.}
+
+@lisp
+(define (sqrt x)
+  (define (good-enough? guess)
+    (< (abs (- (square guess) x)) 0.001))
+  (define (improve guess)
+    (average guess (/ x guess)))
+  (define (sqrt-iter guess)
+    (if (good-enough? guess)
+        guess
+        (sqrt-iter (improve guess))))
+  (sqrt-iter 1.0))
+@end lisp
+
+We will use block structure extensively to help us break up large
+programs into tractable pieces.@footnote{Embedded definitions must come
+first in a procedure body. The management is not responsible for the
+consequences of running programs that intertwine definition and use.}
+The idea of block structure originated with the programming language
+Algol 60. It appears in most advanced programming languages and is an
+important tool for helping to organize the construction of large
+programs.
+
+@node	1-2, 1-3, 1-1, Chapter 1
+@section Procedures and the Processes They Generate
+
+We have now considered the elements of programming: We have used primitive
+arithmetic operations, we have combined these operations, and we have
+abstracted these composite operations by defining them as compound procedures.
+But that is not enough to enable us to say that we know how to program.  Our
+situation is analogous to that of someone who has learned the rules for how the
+pieces move in chess but knows nothing of typical openings, tactics, or
+strategy.  Like the novice chess player, we don't yet know the common patterns
+of usage in the domain.  We lack the knowledge of which moves are worth making
+(which procedures are worth defining).  We lack the experience to predict the
+consequences of making a move (executing a procedure).
+
+The ability to visualize the consequences of the actions under consideration is
+crucial to becoming an expert programmer, just as it is in any synthetic,
+creative activity.  In becoming an expert photographer, for example, one must
+learn how to look at a scene and know how dark each region will appear on a
+print for each possible choice of exposure and development conditions.  Only
+then can one reason backward, planning framing, lighting, exposure, and
+development to obtain the desired effects.  So it is with programming, where we
+are planning the course of action to be taken by a process and where we control
+the process by means of a program.  To become experts, we must learn to
+visualize the processes generated by various types of procedures.  Only after
+we have developed such a skill can we learn to reliably construct programs that
+exhibit the desired behavior.
+
+A procedure is a pattern for the @newterm{local evolution} of a computational
+process.  It specifies how each stage of the process is built upon the previous
+stage.  We would like to be able to make statements about the overall, or
+@newterm{global}, behavior of a process whose local evolution has been
+specified by a procedure.  This is very difficult to do in general, but we can
+at least try to describe some typical patterns of process evolution.
+
+In this section we will examine some common ``shapes'' for processes generated
+by simple procedures.  We will also investigate the rates at which these
+processes consume the important computational resources of time and space.  The
+procedures we will consider are very simple.  Their role is like that played by
+test patterns in photography: as oversimplified prototypical patterns, rather
+than practical examples in their own right.
+
+@menu
+* 1-2-1::            Linear Recursion and Iteration
+* 1-2-2::            Tree Recursion
+* 1-2-3::            Orders of Growth
+* 1-2-4::            Exponentiation
+* 1-2-5::            Greatest Common Divisors
+* 1-2-6::            Example: Testing for Primality
+@end menu
+
+@node	1-2-1, 1-2-2, 1-2, 1-2
+@subsection Linear Recursion and Iteration
+
+@quotation
+@strong{@anchor{Figure 1-3}Figure 1.3:} A linear recursive process for
+computing 6!.
+
+@example
+(factorial 6)        ------------------------.
+(* 6 (factorial 5))                          |
+(* 6 (* 5 (factorial 4)))                    |
+(* 6 (* 5 (* 4 (factorial 3))))              |
+(* 6 (* 5 (* 4 (* 3 (factorial 2)))))        |
+(* 6 (* 5 (* 4 (* 3 (* 2 (factorial 1))))))  |
+(* 6 (* 5 (* 4 (* 3 (* 2 1)))))              |
+(* 6 (* 5 (* 4 (* 3 2))))                    |
+(* 6 (* 5 (* 4 6)))                          |
+(* 6 (* 5 24))                               |
+(* 6 120)                                    |
+720          <-------------------------------'
+@end example
+@end quotation
+
+We begin by considering the factorial function, defined by
+
+@example
+n! = n * (n - 1) * (n - 2) ... 3 * 2 * 1
+@end example
+
+There are many ways to compute factorials.  One way is to make use of the
+observation that @i{n}! is equal to @i{n} times (@i{n} - 1)! for any positive
+integer @i{n}:
+
+@example
+n! = n * [(n - 1) * (n - 2) ... 3 * 2 * 1] = n * (n - 1)!
+@end example
+
+Thus, we can compute @i{n}! by computing (@i{n} - 1)! and multiplying the
+result by @i{n}.  If we add the stipulation that 1! is equal to 1, this
+observation translates directly into a procedure:
+
+@lisp
+(define (factorial n)
+  (if (= n 1)
+      1
+      (* n (factorial (- n 1)))))
+@end lisp
+
+We can use the substitution model of section @ref{1-1-5} to watch this
+procedure in action computing 6!, as shown in @ref{Figure 1-3}.
+
+Now let's take a different perspective on computing factorials.  We could
+describe a rule for computing @i{n}! by specifying that we first multiply 1 by
+2, then multiply the result by 3, then by 4, and so on until we reach @i{n}.
+More formally, we maintain a running product, together with a counter that
+counts from 1 up to @i{n}.  We can describe the computation by saying that the
+counter and the product simultaneously change from one step to the next
+according to the rule
+
+@example
+product  <-  counter  ...  product
+
+counter  <-  counter  +  1
+@end example
+
+@noindent
+and stipulating that @i{n}! is the value of the product when the counter
+exceeds @i{n}.
+
+@quotation
+@strong{@anchor{Figure 1-4}Figure 1.4:} A linear iterative process for
+computing 6!.
+
+@example
+(factorial 6)   -----.
+(fact-iter   1 1 6)  |
+(fact-iter   1 2 6)  |
+(fact-iter   2 3 6)  |
+(fact-iter   6 4 6)  |
+(fact-iter  24 5 6)  |
+(fact-iter 120 6 6)  |
+(fact-iter 720 7 6)  V
+720
+@end example
+@end quotation
+
+Once again, we can recast our description as a procedure for computing
+factorials:@footnote{In a real program we would probably use the block
+structure introduced in the last section to hide the definition of
+@code{fact-iter}:
+
+@lisp
+(define (factorial n)
+        (define (iter product counter)
+                (if (> counter n)
+                    product
+                    (iter (* counter product)
+                          (+ counter 1))))
+        (iter 1 1))
+@end lisp
+
+We avoided doing this here so as to minimize the number of things to think
+about at once.}
+
+@lisp
+(define (factorial n)
+  (fact-iter 1 1 n))
+
+(define (fact-iter product counter max-count)
+  (if (> counter max-count)
+      product
+      (fact-iter (* counter product)
+                 (+ counter 1)
+                 max-count)))
+@end lisp
+
+As before, we can use the substitution model to visualize the process of
+computing 6!, as shown in @ref{Figure 1-4}.
+
+Compare the two processes.  From one point of view, they seem hardly different
+at all.  Both compute the same mathematical function on the same domain, and
+each requires a number of steps proportional to @i{n} to compute @i{n}!.
+Indeed, both processes even carry out the same sequence of multiplications,
+obtaining the same sequence of partial products.  On the other hand, when we
+consider the ``shapes'' of the two processes, we find that they evolve quite
+differently.
+
+Consider the first process.  The substitution model reveals a shape of
+expansion followed by contraction, indicated by the arrow in @ref{Figure 1-3}.
+The expansion occurs as the process builds up a chain of @newterm{deferred
+operations} (in this case, a chain of multiplications).  The contraction occurs
+as the operations are actually performed.  This type of process, characterized
+by a chain of deferred operations, is called a @newterm{recursive process}.
+Carrying out this process requires that the interpreter keep track of the
+operations to be performed later on.  In the computation of @i{n}!, the length
+of the chain of deferred multiplications, and hence the amount of information
+needed to keep track of it, grows linearly with @i{n} (is proportional to
+@i{n}), just like the number of steps.  Such a process is called a
+@newterm{linear recursive process}.
+
+By contrast, the second process does not grow and shrink.  At each step, all we
+need to keep track of, for any @i{n}, are the current values of the variables
+@code{product}, @code{counter}, and @code{max-count}.  We call this an
+@newterm{iterative process}.  In general, an iterative process is one whose
+state can be summarized by a fixed number of @newterm{state variables},
+together with a fixed rule that describes how the state variables should be
+updated as the process moves from state to state and an (optional) end test
+that specifies conditions under which the process should terminate.  In
+computing @i{n}!, the number of steps required grows linearly with @i{n}.  Such
+a process is called a @newterm{linear iterative process}.
+
+The contrast between the two processes can be seen in another way.  In the
+iterative case, the program variables provide a complete description of the
+state of the process at any point.  If we stopped the computation between
+steps, all we would need to do to resume the computation is to supply the
+interpreter with the values of the three program variables.  Not so with the
+recursive process.  In this case there is some additional ``hidden''
+information, maintained by the interpreter and not contained in the program
+variables, which indicates ``where the process is'' in negotiating the chain of
+deferred operations.  The longer the chain, the more information must be
+maintained.@footnote{When we discuss the implementation of procedures on
+register machines in @ref{Chapter 5}, we will see that any iterative process
+can be realized ``in hardware'' as a machine that has a fixed set of registers
+and no auxiliary memory.  In contrast, realizing a recursive process requires a
+machine that uses an auxiliary data structure known as a @newterm{stack}.}
+
+In contrasting iteration and recursion, we must be careful not to confuse the
+notion of a recursive @newterm{process} with the notion of a recursive
+@newterm{procedure}.  When we describe a procedure as recursive, we are
+referring to the syntactic fact that the procedure definition refers (either
+directly or indirectly) to the procedure itself.  But when we describe a
+process as following a pattern that is, say, linearly recursive, we are
+speaking about how the process evolves, not about the syntax of how a procedure
+is written.  It may seem disturbing that we refer to a recursive procedure such
+as @code{fact-iter} as generating an iterative process.  However, the process
+really is iterative: Its state is captured completely by its three state
+variables, and an interpreter need keep track of only three variables in order
+to execute the process.
+
+One reason that the distinction between process and procedure may be confusing
+is that most implementations of common languages (including Ada, Pascal, and C)
+are designed in such a way that the interpretation of any recursive procedure
+consumes an amount of memory that grows with the number of procedure calls,
+even when the process described is, in principle, iterative.  As a consequence,
+these languages can describe iterative processes only by resorting to
+special-purpose ``looping constructs'' such as @code{do}, @code{repeat},
+@code{until}, @code{for}, and @code{while}.  The implementation of Scheme we
+shall consider in @ref{Chapter 5} does not share this defect.  It will execute
+an iterative process in constant space, even if the iterative process is
+described by a recursive procedure.  An implementation with this property is
+called @newterm{tail-recursive}.  With a tail-recursive implementation,
+iteration can be expressed using the ordinary procedure call mechanism, so that
+special iteration constructs are useful only as syntactic sugar.@footnote{Tail
+recursion has long been known as a compiler optimization trick.  A coherent
+semantic basis for tail recursion was provided by Carl Hewitt (1977), who
+explained it in terms of the ``message-passing'' model of computation that we
+shall discuss in @ref{Chapter 3}.  Inspired by this, Gerald Jay Sussman and Guy
+Lewis Steele Jr. (see Steele 1975) constructed a tail-recursive interpreter for
+Scheme.  Steele later showed how tail recursion is a consequence of the natural
+way to compile procedure calls (Steele 1977).  The @acronym{IEEE} standard for
+Scheme requires that Scheme implementations be tail-recursive.}
+
+@quotation
+@strong{@anchor{Exercise 1-9}Exercise 1.9:} Each of the following two
+procedures defines a method for adding two positive integers in terms of the
+procedures @code{inc}, which increments its argument by 1, and @code{dec},
+which decrements its argument by 1.
+
+@lisp
+(define (+ a b)
+  (if (= a 0)
+      b
+      (inc (+ (dec a) b))))
+
+(define (+ a b)
+  (if (= a 0)
+      b
+      (+ (dec a) (inc b))))
+@end lisp
+
+Using the substitution model, illustrate the process generated by each
+procedure in evaluating @code{(+ 4 5)}.  Are these processes iterative or
+recursive?
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-10}Exercise 1.10:} The following procedure computes
+a mathematical function called Ackermann's function.
+
+@lisp
+(define (A x y)
+  (cond ((= y 0) 0)
+        ((= x 0) (* 2 y))
+        ((= y 1) 2)
+        (else (A (- x 1)
+                 (A x (- y 1))))))
+@end lisp
+
+What are the values of the following expressions?
+
+@lisp
+(A 1 10)
+
+(A 2 4)
+
+(A 3 3)
+@end lisp
+
+Consider the following procedures, where @code{A} is the procedure
+defined above:
+
+@lisp
+(define (f n) (A 0 n))
+
+(define (g n) (A 1 n))
+
+(define (h n) (A 2 n))
+
+(define (k n) (* 5 n n))
+@end lisp
+
+Give concise mathematical definitions for the functions computed by the
+procedures @code{f}, @code{g}, and @code{h} for positive integer values of
+@i{n}.  For example, @code{(k n)} computes 5@i{n}^2.
+@end quotation
+
+@node	1-2-2, 1-2-3, 1-2-1, 1-2
+@subsection Tree Recursion
+
+Another common pattern of computation is called @newterm{tree recursion}.  As
+an example, consider computing the sequence of Fibonacci numbers, in which each
+number is the sum of the preceding two:
+
+0, 1, 1, 2, 3, 4, 8, 13, 21, @dots{}
+
+In general, the Fibonacci numbers can be defined by the rule
+
+@example
+         /
+         |  0                        if n = 0
+Fib(n) = <  1                        if n = 1
+         |  Fib(n - 1) + Fib(n - 2)  otherwise
+         \
+@end example
+
+We can immediately translate this definition into a recursive procedure for
+computing Fibonacci numbers:
+
+@lisp
+(define (fib n)
+  (cond ((= n 0) 0)
+        ((= n 1) 1)
+        (else (+ (fib (- n 1))
+                 (fib (- n 2))))))
+@end lisp
+
+@quotation
+@strong{@anchor{Figure 1-5}Figure 1.5:} The tree-recursive process generated in
+computing @code{(fib 5)}.
+
+@example
+                   ..<............ fib5   <.......... 
+                ...     ___________/  \___________   .  
+             ...       /       . .....            \    . 
+           ..       fib4     .        . . . .     fib3  .  
+         ..     ____/. \____  ..             .  __/  \__  .  
+       ..      /  . .  ..   \    .        ..   /  . .   \   . 
+     ..     fib3 .       .  fib2 .        . fib2 .   .  fib1 .
+   ..      / . \  .     .   /  \  .      .  /  \ ...  .  |  .
+ ..       / . . \   .  .   /  . \   .  .   / .  \   .  . 1 .
+.      fib2 . . fib1.  .fib1 .  fib0 . .fib1. . fib0 .  .  .
+.      /  \  . . |  .  . |  .  . |   . . |   . . |   .   .>
+V     /  . \   . 1  .  . 1  .  . 0  .  . 1  .  . 0  ..
+.  fib1 .. fib0..  .   .   .   .   .   V   .   ..  . 
+.   |  .  . |  . .>     .>.     . .    ..>.      .>
+.   1 .   . 0  .      
+ .   .     .  .       
+  .>.       ..        
+@end example
+@end quotation
+
+Consider the pattern of this computation.  To compute @code{(fib 5)}, we
+compute @code{(fib 4)} and @code{(fib 3)}.  To compute @code{(fib 4)}, we
+compute @code{(fib 3)} and @code{(fib 2)}.  In general, the evolved process
+looks like a tree, as shown in @ref{Figure 1-5}.  Notice that the branches
+split into two at each level (except at the bottom); this reflects the fact
+that the @code{fib} procedure calls itself twice each time it is invoked.
+
+This procedure is instructive as a prototypical tree recursion, but it is a
+terrible way to compute Fibonacci numbers because it does so much redundant
+computation.  Notice in @ref{Figure 1-5} that the entire computation of
+@code{(fib 3)}---almost half the work---is duplicated.  In fact, it is not hard
+to show that the number of times the procedure will compute @code{(fib 1)} or
+@code{(fib 0)} (the number of leaves in the above tree, in general) is
+precisely @emph{Fib}(@i{n} + 1).  To get an idea of how bad this is, one can
+show that the value of @emph{Fib}(@i{n}) grows exponentially with @i{n}.  More
+precisely (see @ref{Exercise 1-13}), @emph{Fib}(@i{n}) is the closest integer
+to @i{[phi]}^@i{n} /@i{[sqrt]}(5), where
+
+@example
+[phi] = (1 + [sqrt]5)/2 ~= 1.6180
+@end example
+
+@noindent
+is the @newterm{golden ratio}, which satisfies the equation
+
+@example
+[phi]^2 = [phi] + 1
+@end example
+
+Thus, the process uses a number of steps that grows exponentially with the
+input.  On the other hand, the space required grows only linearly with the
+input, because we need keep track only of which nodes are above us in the tree
+at any point in the computation.  In general, the number of steps required by a
+tree-recursive process will be proportional to the number of nodes in the tree,
+while the space required will be proportional to the maximum depth of the tree.
+
+We can also formulate an iterative process for computing the Fibonacci numbers.
+The idea is to use a pair of integers @i{a} and @i{b}, initialized to
+@emph{Fib}(1) = 1 and @emph{Fib}(0) = 0, and to repeatedly apply the
+simultaneous transformations
+
+@example
+a <- a + b
+b <- a
+@end example
+
+@noindent
+It is not hard to show that, after applying this transformation @i{n} times,
+@i{a} and @i{b} will be equal, respectively, to @emph{Fib}(@i{n} + 1) and
+@emph{Fib}(@i{n}).  Thus, we can compute Fibonacci numbers iteratively using
+the procedure
+
+@lisp
+(define (fib n)
+  (fib-iter 1 0 n))
+
+(define (fib-iter a b count)
+  (if (= count 0)
+      b
+      (fib-iter (+ a b) a (- count 1))))
+@end lisp
+
+This second method for computing @emph{Fib}(@i{n}) is a linear iteration.  The
+difference in number of steps required by the two methods---one linear in
+@i{n}, one growing as fast as @emph{Fib}(@i{n}) itself---is enormous, even for
+small inputs.
+
+One should not conclude from this that tree-recursive processes are useless.
+When we consider processes that operate on hierarchically structured data
+rather than numbers, we will find that tree recursion is a natural and powerful
+tool.@footnote{An example of this was hinted at in section @ref{1-1-3}: The
+interpreter itself evaluates expressions using a tree-recursive process.} But
+even in numerical operations, tree-recursive processes can be useful in helping
+us to understand and design programs.  For instance, although the first
+@code{fib} procedure is much less efficient than the second one, it is more
+straightforward, being little more than a translation into Lisp of the
+definition of the Fibonacci sequence.  To formulate the iterative algorithm
+required noticing that the computation could be recast as an iteration with
+three state variables.
+
+@subsubheading Example: Counting change
+
+It takes only a bit of cleverness to come up with the iterative Fibonacci
+algorithm.  In contrast, consider the following problem: How many different
+ways can we make change of $ 1.00, given half-dollars, quarters, dimes,
+nickels, and pennies?  More generally, can we write a procedure to compute the
+number of ways to change any given amount of money?
+
+This problem has a simple solution as a recursive procedure.  Suppose we think
+of the types of coins available as arranged in some order.  Then the following
+relation holds:
+
+The number of ways to change amount @i{a} using @i{n} kinds of coins equals
+
+@itemize @bullet
+
+@item
+the number of ways to change amount @i{a} using all but the first kind of coin,
+plus
+
+@item
+the number of ways to change amount @i{a} - @i{d} using all @i{n} kinds of
+coins, where @i{d} is the denomination of the first kind of coin.
+
+@end itemize
+
+To see why this is true, observe that the ways to make change can be divided
+into two groups: those that do not use any of the first kind of coin, and those
+that do.  Therefore, the total number of ways to make change for some amount is
+equal to the number of ways to make change for the amount without using any of
+the first kind of coin, plus the number of ways to make change assuming that we
+do use the first kind of coin.  But the latter number is equal to the number of
+ways to make change for the amount that remains after using a coin of the first
+kind.
+
+Thus, we can recursively reduce the problem of changing a given amount to the
+problem of changing smaller amounts using fewer kinds of coins.  Consider this
+reduction rule carefully, and convince yourself that we can use it to describe
+an algorithm if we specify the following degenerate cases:@footnote{For
+example, work through in detail how the reduction rule applies to the problem
+of making change for 10 cents using pennies and nickels.}
+
+@itemize @bullet
+
+@item
+If @i{a} is exactly 0, we should count that as 1 way to make change.
+
+@item
+If @i{a} is less than 0, we should count that as 0 ways to make change.
+
+@item
+If @i{n} is 0, we should count that as 0 ways to make change.
+
+@end itemize
+
+We can easily translate this description into a recursive procedure:
+
+@lisp
+(define (count-change amount)
+  (cc amount 5))
+
+(define (cc amount kinds-of-coins)
+  (cond ((= amount 0) 1)
+        ((or (< amount 0) (= kinds-of-coins 0)) 0)
+        (else (+ (cc amount
+                     (- kinds-of-coins 1))
+                 (cc (- amount
+                        (first-denomination kinds-of-coins))
+                     kinds-of-coins)))))
+
+(define (first-denomination kinds-of-coins)
+  (cond ((= kinds-of-coins 1) 1)
+        ((= kinds-of-coins 2) 5)
+        ((= kinds-of-coins 3) 10)
+        ((= kinds-of-coins 4) 25)
+        ((= kinds-of-coins 5) 50)))
+@end lisp
+
+(The @code{first-denomination} procedure takes as input the number of kinds of
+coins available and returns the denomination of the first kind.  Here we are
+thinking of the coins as arranged in order from largest to smallest, but any
+order would do as well.)  We can now answer our original question about
+changing a dollar:
+
+@lisp
+(count-change 100)
+@i{292}
+@end lisp
+
+@code{Count-change} generates a tree-recursive process with redundancies
+similar to those in our first implementation of @code{fib}.  (It will take
+quite a while for that 292 to be computed.)  On the other hand, it is not
+obvious how to design a better algorithm for computing the result, and we leave
+this problem as a challenge.  The observation that a tree-recursive process may
+be highly inefficient but often easy to specify and understand has led people
+to propose that one could get the best of both worlds by designing a ``smart
+compiler'' that could transform tree-recursive procedures into more efficient
+procedures that compute the same result.@footnote{One approach to coping with
+redundant computations is to arrange matters so that we automatically construct
+a table of values as they are computed.  Each time we are asked to apply the
+procedure to some argument, we first look to see if the value is already stored
+in the table, in which case we avoid performing the redundant computation.
+This strategy, known as @newterm{tabulation} or @newterm{memoization}, can be
+implemented in a straightforward way.  Tabulation can sometimes be used to
+transform processes that require an exponential number of steps (such as
+@code{count-change}) into processes whose space and time requirements grow
+linearly with the input.  See @ref{Exercise 3-27}.}
+
+@quotation
+@strong{@anchor{Exercise 1-11}Exercise 1.11:} A function @i{f} is defined by
+the rule that @i{f}(@i{n}) = @i{n} if @i{n}<3 and @i{f}(@i{n}) = @i{f}(@i{n} -
+1) + 2@i{f}(@i{n} - 2) + 3@i{f}(@i{n} - 3) if @i{n}>= 3.  Write a procedure
+that computes @i{f} by means of a recursive process.  Write a procedure that
+computes @i{f} by means of an iterative process.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-12}Exercise 1.12:} The following pattern of numbers
+is called @newterm{Pascal's triangle}.
+
+@example
+        1
+      1   1
+    1   2   1
+  1   3   3   1
+1   4   6   4   1
+@end example
+
+The numbers at the edge of the triangle are all 1, and each number inside the
+triangle is the sum of the two numbers above it.@footnote{The elements of
+Pascal's triangle are called the @newterm{binomial coefficients}, because the
+@i{n}th row consists of the coefficients of the terms in the expansion of
+(@i{x} + @i{y})^@i{n}.  This pattern for computing the coefficients appeared in
+Blaise Pascal's 1653 seminal work on probability theory, @cite{Trait@'e du
+triangle arithm@'etique}.  According to Knuth (1973), the same pattern appears
+in the @cite{Szu-yuen Y@"u-chien} (``The Precious Mirror of the Four
+Elements''), published by the Chinese mathematician Chu Shih-chieh in 1303, in
+the works of the twelfth-century Persian poet and mathematician Omar Khayyam,
+and in the works of the twelfth-century Hindu mathematician Bh@'ascara
+@'Ach@'arya.} Write a procedure that computes elements of Pascal's triangle by
+means of a recursive process.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-13}Exercise 1.13:} Prove that @emph{Fib}(@i{n}) is
+the closest integer to @i{[phi]}^@i{n}/@i{[sqrt]}(5), where @i{[phi]} = (1 +
+@i{[sqrt]}(5))/2.  Hint: Let @i{[illegiblesymbol]} = (1 - @i{[sqrt]}(5))/2.
+Use induction and the definition of the Fibonacci numbers (see section
+@ref{1-2-2}) to prove that @emph{Fib}(@i{n}) = (@i{[phi]}^@i{n} -
+@i{[illegiblesymbol]}^@i{n})/@i{[sqrt]}(5).
+@end quotation
+
+@node	1-2-3, 1-2-4, 1-2-2, 1-2
+@subsection Orders of Growth
+
+The previous examples illustrate that processes can differ considerably in the
+rates at which they consume computational resources.  One convenient way to
+describe this difference is to use the notion of @newterm{order of growth} to
+obtain a gross measure of the resources required by a process as the inputs
+become larger.
+
+Let @i{n} be a parameter that measures the size of the problem, and let
+@i{R}(@i{n}) be the amount of resources the process requires for a problem of
+size @i{n}.  In our previous examples we took @i{n} to be the number for which
+a given function is to be computed, but there are other possibilities.  For
+instance, if our goal is to compute an approximation to the square root of a
+number, we might take @i{n} to be the number of digits accuracy required.  For
+matrix multiplication we might take @i{n} to be the number of rows in the
+matrices.  In general there are a number of properties of the problem with
+respect to which it will be desirable to analyze a given process.  Similarly,
+@i{R}(@i{n}) might measure the number of internal storage registers used, the
+number of elementary machine operations performed, and so on.  In computers
+that do only a fixed number of operations at a time, the time required will be
+proportional to the number of elementary machine operations performed.
+
+We say that @i{R}(@i{n}) has order of growth @i{[theta]}(@i{f}(@i{n})), written
+@i{R}(@i{n}) = @i{[theta]}(@i{f}(@i{n})) (pronounced ``theta of
+@i{f}(@i{n})''), if there are positive constants @i{k}_1 and @i{k}_2
+independent of @i{n} such that
+
+@example
+k_1 f(n) <= R(n) <= k_2 f(n)
+@end example
+
+@noindent
+for any sufficiently large value of @i{n}.  (In other words, for large @i{n},
+the value @i{R}(@i{n}) is sandwiched between @i{k}_1@i{f}(@i{n}) and
+@i{k}_2@i{f}(@i{n}).)
+
+For instance, with the linear recursive process for computing factorial
+described in section @ref{1-2-1} the number of steps grows proportionally to
+the input @i{n}.  Thus, the steps required for this process grows as
+@i{[theta]}(@i{n}).  We also saw that the space required grows as
+@i{[theta]}(@i{n}).  For the iterative factorial, the number of steps is still
+@i{[theta]}(@i{n}) but the space is @i{[theta]}(1)---that is,
+constant.@footnote{These statements mask a great deal of oversimplification.
+For instance, if we count process steps as ``machine operations'' we are making
+the assumption that the number of machine operations needed to perform, say, a
+multiplication is independent of the size of the numbers to be multiplied,
+which is false if the numbers are sufficiently large.  Similar remarks hold for
+the estimates of space.  Like the design and description of a process, the
+analysis of a process can be carried out at various levels of abstraction.} The
+tree-recursive Fibonacci computation requires @i{[theta]}(@i{[phi]}^@i{n})
+steps and space @i{[theta]}(@i{n}), where @i{[phi]} is the golden ratio
+described in section @ref{1-2-2}.
+
+Orders of growth provide only a crude description of the behavior of a process.
+For example, a process requiring @i{n}^2 steps and a process requiring
+1000@i{n}^2 steps and a process requiring 3@i{n}^2 + 10@i{n} + 17 steps all
+have @i{[theta]}(@i{n}^2) order of growth.  On the other hand, order of growth
+provides a useful indication of how we may expect the behavior of the process
+to change as we change the size of the problem.  For a @i{[theta]}(@i{n})
+(linear) process, doubling the size will roughly double the amount of resources
+used.  For an exponential process, each increment in problem size will multiply
+the resource utilization by a constant factor.  In the remainder of section
+@ref{1-2} we will examine two algorithms whose order of growth is logarithmic,
+so that doubling the problem size increases the resource requirement by a
+constant amount.
+
+@quotation
+@strong{@anchor{Exercise 1-14}Exercise 1.14:} Draw the tree illustrating the
+process generated by the @code{count-change} procedure of section @ref{1-2-2}
+in making change for 11 cents.  What are the orders of growth of the space and
+number of steps used by this process as the amount to be changed increases?
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-15}Exercise 1.15:} The sine of an angle (specified
+in radians) can be computed by making use of the approximation @code{sin}
+@i{x}approx @i{x} if @i{x} is sufficiently small, and the trigonometric
+identity
+
+@example
+               x             x
+sin x = 3 sin --- - 4 sin^3 ---
+               3             3
+@end example
+
+@noindent
+to reduce the size of the argument of @code{sin}.  (For purposes of this
+exercise an angle is considered ``sufficiently small'' if its magnitude is not
+greater than 0.1 radians.) These ideas are incorporated in the following
+procedures:
+
+@lisp
+(define (cube x) (* x x x))
+
+(define (p x) (- (* 3 x) (* 4 (cube x))))
+
+(define (sine angle)
+   (if (not (> (abs angle) 0.1))
+       angle
+       (p (sine (/ angle 3.0)))))
+@end lisp
+
+@enumerate a
+
+@item
+How many times is the procedure @code{p} applied when @code{(sine 12.15)} is
+evaluated?
+
+@item
+What is the order of growth in space and number of steps (as a function of
+@i{a}) used by the process generated by the @code{sine} procedure when
+@code{(sine a)} is evaluated?
+
+@end enumerate
+@end quotation
+
+@node	1-2-4, 1-2-5, 1-2-3, 1-2
+@subsection Exponentiation
+
+Consider the problem of computing the exponential of a given number.  We would
+like a procedure that takes as arguments a base @i{b} and a positive integer
+exponent @i{n} and computes @i{b}^@i{n}.  One way to do this is via the
+recursive definition
+
+@example
+b^n = b * b^(n - 1)
+b^0 = 1
+@end example
+
+@noindent
+which translates readily into the procedure
+
+@lisp
+(define (expt b n)
+  (if (= n 0)
+      1
+      (* b (expt b (- n 1)))))
+@end lisp
+
+This is a linear recursive process, which requires @i{[theta]}(@i{n}) steps and
+@i{[theta]}(@i{n}) space.  Just as with factorial, we can readily formulate an
+equivalent linear iteration:
+
+@lisp
+(define (expt b n)
+  (expt-iter b n 1))
+
+(define (expt-iter b counter product)
+  (if (= counter 0)
+      product
+      (expt-iter b
+                (- counter 1)
+                (* b product))))
+@end lisp
+
+This version requires @i{[theta]}(@i{n}) steps and @i{[theta]}(1) space.
+
+We can compute exponentials in fewer steps by using successive squaring.  For
+instance, rather than computing @i{b}^8 as
+
+@example
+b * (b * (b * (b * (b * (b * (b * b))))))
+@end example
+
+@noindent
+we can compute it using three multiplications:
+
+@example
+b^2 = b * b
+b^4 = b^2 * b^2
+b^8 = b^4 * b^4
+@end example
+
+This method works fine for exponents that are powers of 2.  We can also take
+advantage of successive squaring in computing exponentials in general if we use
+the rule
+
+@example
+b^n = (b^(b/2))^2    if n is even
+b^n = b * b^(n - 1)  if n is odd
+@end example
+
+We can express this method as a procedure:
+
+@lisp
+(define (fast-expt b n)
+  (cond ((= n 0) 1)
+        ((even? n) (square (fast-expt b (/ n 2))))
+        (else (* b (fast-expt b (- n 1))))))
+@end lisp
+
+@noindent
+where the predicate to test whether an integer is even is defined in terms of
+the primitive procedure @code{remainder} by
+
+@lisp
+(define (even? n)
+  (= (remainder n 2) 0))
+@end lisp
+
+The process evolved by @code{fast-expt} grows logarithmically with @i{n} in
+both space and number of steps.  To see this, observe that computing
+@i{b}^(2@i{n}) using @code{fast-expt} requires only one more multiplication
+than computing @i{b}^@i{n}.  The size of the exponent we can compute therefore
+doubles (approximately) with every new multiplication we are allowed.  Thus,
+the number of multiplications required for an exponent of @i{n} grows about as
+fast as the logarithm of @i{n} to the base 2.  The process has
+@i{[theta]}(@code{log} @i{n}) growth.@footnote{More precisely, the number of
+multiplications required is equal to 1 less than the log base 2 of @i{n} plus
+the number of ones in the binary representation of @i{n}.  This total is always
+less than twice the log base 2 of @i{n}.  The arbitrary constants @i{k}_1 and
+@i{k}_2 in the definition of order notation imply that, for a logarithmic
+process, the base to which logarithms are taken does not matter, so all such
+processes are described as @i{[theta]}(@code{log} @i{n}).}
+
+The difference between @i{[theta]}(@code{log} @i{n}) growth and
+@i{[theta]}(@i{n}) growth becomes striking as @i{n} becomes large.  For
+example, @code{fast-expt} for @i{n} = 1000 requires only 14
+multiplications.@footnote{You may wonder why anyone would care about raising
+numbers to the 1000th power.  See section @ref{1-2-6}.} It is also possible to
+use the idea of successive squaring to devise an iterative algorithm that
+computes exponentials with a logarithmic number of steps (see @ref{Exercise
+1-16}), although, as is often the case with iterative algorithms, this is not
+written down so straightforwardly as the recursive algorithm.@footnote{This
+iterative algorithm is ancient.  It appears in the @cite{Chandah-sutra} by
+@'Ach@'arya Pingala, written before 200 @acronym{B.C.} See Knuth 1981, section
+4.6.3, for a full discussion and analysis of this and other methods of
+exponentiation.}
+
+@quotation
+@strong{@anchor{Exercise 1-16}Exercise 1.16:} Design a procedure that evolves
+an iterative exponentiation process that uses successive squaring and uses a
+logarithmic number of steps, as does @code{fast-expt}.  (Hint: Using the
+observation that (@i{b}^(@i{n}/2))^2 = (@i{b}^2)^(@i{n}/2), keep, along with
+the exponent @i{n} and the base @i{b}, an additional state variable @i{a}, and
+define the state transformation in such a way that the product @i{a}
+@i{b}^@i{n} is unchanged from state to state.  At the beginning of the process
+@i{a} is taken to be 1, and the answer is given by the value of @i{a} at the
+end of the process.  In general, the technique of defining an
+@newterm{invariant quantity} that remains unchanged from state to state is a
+powerful way to think about the design of iterative algorithms.)
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-17}Exercise 1.17:} The exponentiation algorithms in
+this section are based on performing exponentiation by means of repeated
+multiplication.  In a similar way, one can perform integer multiplication by
+means of repeated addition.  The following multiplication procedure (in which
+it is assumed that our language can only add, not multiply) is analogous to the
+@code{expt} procedure:
+
+@lisp
+(define (* a b)
+  (if (= b 0)
+      0
+      (+ a (* a (- b 1)))))
+@end lisp
+
+This algorithm takes a number of steps that is linear in @code{b}.  Now suppose
+we include, together with addition, operations @code{double}, which doubles an
+integer, and @code{halve}, which divides an (even) integer by 2.  Using these,
+design a multiplication procedure analogous to @code{fast-expt} that uses a
+logarithmic number of steps.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-18}Exercise 1.18:} Using the results of
+@ref{Exercise 1-16} and @ref{Exercise 1-17}, devise a procedure that generates
+an iterative process for multiplying two integers in terms of adding, doubling,
+and halving and uses a logarithmic number of steps.@footnote{This algorithm,
+which is sometimes known as the ``Russian peasant method'' of multiplication,
+is ancient.  Examples of its use are found in the Rhind Papyrus, one of the two
+oldest mathematical documents in existence, written about 1700 @acronym{B.C.}
+(and copied from an even older document) by an Egyptian scribe named A'h-mose.}
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-19}Exercise 1.19:} There is a clever algorithm for
+computing the Fibonacci numbers in a logarithmic number of steps.  Recall the
+transformation of the state variables @i{a} and @i{b} in the @code{fib-iter}
+process of section @ref{1-2-2}: @i{a} <- @i{a} + @i{b} and @i{b} <- @i{a}.
+Call this transformation @i{T}, and observe that applying @i{T} over and over
+again @i{n} times, starting with 1 and 0, produces the pair @emph{Fib}(@i{n} +
+1) and @emph{Fib}(@i{n}).  In other words, the Fibonacci numbers are produced
+by applying @i{T}^@i{n}, the @i{n}th power of the transformation @i{T},
+starting with the pair (1,0).  Now consider @i{T} to be the special case of
+@i{p} = 0 and @i{q} = 1 in a family of transformations @i{T}_(@i{p}@i{q}),
+where @i{T}_(@i{p}@i{q}) transforms the pair (@i{a},@i{b}) according to @i{a}
+<- @i{b}@i{q} + @i{a}@i{q} + @i{a}@i{p} and @i{b} <- @i{b}@i{p} + @i{a}@i{q}.
+Show that if we apply such a transformation @i{T}_(@i{p}@i{q}) twice, the
+effect is the same as using a single transformation @i{T}_(@i{p}'@i{q}') of the
+same form, and compute @i{p}' and @i{q}' in terms of @i{p} and @i{q}.  This
+gives us an explicit way to square these transformations, and thus we can
+compute @i{T}^@i{n} using successive squaring, as in the @code{fast-expt}
+procedure.  Put this all together to complete the following procedure, which
+runs in a logarithmic number of steps:@footnote{This exercise was suggested to
+us by Joe Stoy, based on an example in Kaldewaij 1990.}
+
+@lisp
+(define (fib n)
+  (fib-iter 1 0 0 1 n))
+
+(define (fib-iter a b p q count)
+  (cond ((= count 0) b)
+        ((even? count)
+         (fib-iter a
+                   b
+                   <@var{??}>      @r{; compute @i{p}'}
+                   <@var{??}>      @r{; compute @i{q}'}
+                   (/ count 2)))
+        (else (fib-iter (+ (* b q) (* a q) (* a p))
+                        (+ (* b p) (* a q))
+                        p
+                        q
+                        (- count 1)))))
+@end lisp
+@end quotation
+
+@node	1-2-5, 1-2-6, 1-2-4, 1-2
+@subsection Greatest Common Divisors
+
+The greatest common divisor (@acronym{GCD}) of two integers @i{a} and @i{b} is
+defined to be the largest integer that divides both @i{a} and @i{b} with no
+remainder.  For example, the @acronym{GCD} of 16 and 28 is 4.  In @ref{Chapter
+2}, when we investigate how to implement rational-number arithmetic, we will
+need to be able to compute @acronym{GCD}s in order to reduce rational numbers
+to lowest terms.  (To reduce a rational number to lowest terms, we must divide
+both the numerator and the denominator by their @acronym{GCD}.  For example,
+16/28 reduces to 4/7.)  One way to find the @acronym{GCD} of two integers is to
+factor them and search for common factors, but there is a famous algorithm that
+is much more efficient.
+
+The idea of the algorithm is based on the observation that, if @i{r} is the
+remainder when @i{a} is divided by @i{b}, then the common divisors of @i{a} and
+@i{b} are precisely the same as the common divisors of @i{b} and @i{r}.  Thus,
+we can use the equation
+
+@example
+GCD(a,b) = GCD(b,r)
+@end example
+
+@noindent
+to successively reduce the problem of computing a @acronym{GCD} to the problem
+of computing the @acronym{GCD} of smaller and smaller pairs of integers.  For
+example,
+
+@example
+GCD(206,40) = GCD(40,6)
+            = GCD(6,4)
+            = GCD(4,2)
+            = GCD(2,0)
+            = 2
+@end example
+
+@noindent
+reduces @acronym{GCD}(206,40) to @acronym{GCD}(2,0), which is 2.  It is
+possible to show that starting with any two positive integers and performing
+repeated reductions will always eventually produce a pair where the second
+number is 0.  Then the @acronym{GCD} is the other number in the pair.  This
+method for computing the @acronym{GCD} is known as @newterm{Euclid's
+Algorithm}.@footnote{Euclid's Algorithm is so called because it appears in
+Euclid's @cite{Elements} (Book 7, ca. 300 @acronym{B.C.}).  According to Knuth
+(1973), it can be considered the oldest known nontrivial algorithm.  The
+ancient Egyptian method of multiplication (@ref{Exercise 1-18}) is surely
+older, but, as Knuth explains, Euclid's algorithm is the oldest known to have
+been presented as a general algorithm, rather than as a set of illustrative
+examples.}
+
+It is easy to express Euclid's Algorithm as a procedure:
+
+@lisp
+(define (gcd a b)
+  (if (= b 0)
+      a
+      (gcd b (remainder a b))))
+@end lisp
+
+This generates an iterative process, whose number of steps grows as the
+logarithm of the numbers involved.
+
+The fact that the number of steps required by Euclid's Algorithm has
+logarithmic growth bears an interesting relation to the Fibonacci numbers:
+
+@comment [[this needs reformatting]
+@quotation
+@strong{Lam@'e's Theorem:} If Euclid's Algorithm requires @i{k} steps to
+compute the @acronym{GCD} of some pair, then the smaller number in the pair
+must be greater than or equal to the @i{k}th Fibonacci number.@footnote{This
+theorem was proved in 1845 by Gabriel Lam@'e, a French mathematician and
+engineer known chiefly for his contributions to mathematical physics.  To prove
+the theorem, we consider pairs (@i{a}_@i{k} ,@i{b}_@i{k}), where @i{a}_@i{k}>=
+@i{b}_@i{k}, for which Euclid's Algorithm terminates in @i{k} steps.  The proof
+is based on the claim that, if (@i{a}_(@i{k}+1), @i{b}_(@i{k}+1)) ->
+(@i{a}_@i{k}, @i{b}_@i{k}) -> (@i{a}_(@i{k}-1), @i{b}_(@i{k}-1)) are three
+successive pairs in the reduction process, then we must have @i{b}_(@i{k}+1)>=
+@i{b}_@i{k} + @i{b}_(@i{k}-1).  To verify the claim, consider that a reduction
+step is defined by applying the transformation @i{a}_(@i{k}-1) = @i{b}_@i{k},
+@i{b}_(@i{k}-1) = remainder of @i{a}_@i{k} divided by @i{b}_@i{k}.  The second
+equation means that @i{a}_@i{k} = @i{q}@i{b}_@i{k} + @i{b}_(@i{k}-1) for some
+positive integer @i{q}.  And since @i{q} must be at least 1 we have @i{a}_@i{k}
+= @i{q}@i{b}_@i{k} + @i{b}_(@i{k}-1) >= @i{b}_@i{k} + @i{b}_(@i{k}-1).  But in
+the previous reduction step we have @i{b}_(@i{k}+1) = @i{a}_@i{k}.  Therefore,
+@i{b}_(@i{k}+1) = @i{a}_@i{k}>= @i{b}_@i{k} + @i{b}_(@i{k}-1).  This verifies
+the claim.  Now we can prove the theorem by induction on @i{k}, the number of
+steps that the algorithm requires to terminate.  The result is true for @i{k} =
+1, since this merely requires that @i{b} be at least as large as @emph{Fib}(1)
+= 1.  Now, assume that the result is true for all integers less than or equal
+to @i{k} and establish the result for @i{k} + 1.  Let (@i{a}_(@i{k}+1),
+@i{b}_(@i{k}+1)) -> (@i{a}_@i{k}, @i{b}_@i{k}) -> (@i{a}_@i{k}-1),
+@i{b}_(@i{k}-1)) be successive pairs in the reduction process.  By our
+induction hypotheses, we have @i{b}_(@i{k}-1) >= @emph{Fib}(@i{k} - 1) and
+@i{b}_@i{k} >= @emph{Fib}(@i{k}).  Thus, applying the claim we just proved
+together with the definition of the Fibonacci numbers gives @i{b}_(@i{k}+1) >=
+@i{b}_@i{k} + @i{b}_(@i{k}-1) >= @emph{Fib}(@i{k}) + @emph{Fib}(@i{k} - 1) =
+@emph{Fib}(@i{k} + 1), which completes the proof of Lam@'e's Theorem.}
+@end quotation
+
+We can use this theorem to get an order-of-growth estimate for Euclid's
+Algorithm.  Let @i{n} be the smaller of the two inputs to the procedure.  If
+the process takes @i{k} steps, then we must have @i{n}>= @emph{Fib}(@i{k})
+approx @i{[phi]}^@i{k}/@i{[sqrt]}(5).  Therefore the number of steps @i{k}
+grows as the logarithm (to the base @i{[phi]}) of @i{n}.  Hence, the order of
+growth is @i{[theta]}(@code{log} @i{n}).
+
+@quotation
+@strong{@anchor{Exercise 1-20}Exercise 1.20:} The process that a procedure
+generates is of course dependent on the rules used by the interpreter.  As an
+example, consider the iterative @code{gcd} procedure given above.  Suppose we
+were to interpret this procedure using normal-order evaluation, as discussed in
+section @ref{1-1-5}.  (The normal-order-evaluation rule for @code{if} is
+described in @ref{Exercise 1-5}.)  Using the substitution method (for normal
+order), illustrate the process generated in evaluating @code{(gcd 206 40)} and
+indicate the @code{remainder} operations that are actually performed.  How many
+@code{remainder} operations are actually performed in the normal-order
+evaluation of @code{(gcd 206 40)}?  In the applicative-order evaluation?
+@end quotation
+
+@node	1-2-6,  , 1-2-5, 1-2
+@subsection Example: Testing for Primality
+
+This section describes two methods for checking the primality of an integer
+@i{n}, one with order of growth @i{[theta]}(@emph{[sqrt]}(@i{n})), and a
+``probabilistic'' algorithm with order of growth @i{[theta]}(@code{log} @i{n}).
+The exercises at the end of this section suggest programming projects based on
+these algorithms.
+
+@subsubheading Searching for divisors
+
+Since ancient times, mathematicians have been fascinated by problems concerning
+prime numbers, and many people have worked on the problem of determining ways
+to test if numbers are prime.  One way to test if a number is prime is to find
+the number's divisors.  The following program finds the smallest integral
+divisor (greater than 1) of a given number @i{n}.  It does this in a
+straightforward way, by testing @i{n} for divisibility by successive integers
+starting with 2.
+
+@lisp
+(define (smallest-divisor n)
+  (find-divisor n 2))
+
+(define (find-divisor n test-divisor)
+  (cond ((> (square test-divisor) n) n)
+        ((divides? test-divisor n) test-divisor)
+        (else (find-divisor n (+ test-divisor 1)))))
+
+(define (divides? a b)
+  (= (remainder b a) 0))
+@end lisp
+
+We can test whether a number is prime as follows: @i{n} is prime if and only if
+@i{n} is its own smallest divisor.
+
+@lisp
+(define (prime? n)
+  (= n (smallest-divisor n)))
+@end lisp
+
+The end test for @code{find-divisor} is based on the fact that if @i{n} is not
+prime it must have a divisor less than or equal to
+@emph{[sqrt]}(@i{n}).@footnote{If @i{d} is a divisor of @i{n}, then so is
+@i{n}/@i{d}.  But @i{d} and @i{n}/@i{d} cannot both be greater than
+@emph{[sqrt]}(@i{n}).}  This means that the algorithm need only test divisors
+between 1 and @emph{[sqrt]}(@i{n}).  Consequently, the number of steps required
+to identify @i{n} as prime will have order of growth
+@i{[theta]}(@emph{[sqrt]}(@i{n})).
+
+@subsubheading The Fermat test
+
+The @i{[theta]}(@code{log} @i{n}) primality test is based on a result from
+number theory known as Fermat's Little Theorem.@footnote{Pierre de Fermat
+(1601-1665) is considered to be the founder of modern number theory.  He
+obtained many important number-theoretic results, but he usually announced just
+the results, without providing his proofs.  Fermat's Little Theorem was stated
+in a letter he wrote in 1640.  The first published proof was given by Euler in
+1736 (and an earlier, identical proof was discovered in the unpublished
+manuscripts of Leibniz).  The most famous of Fermat's results---known as
+Fermat's Last Theorem---was jotted down in 1637 in his copy of the book
+@cite{Arithmetic} (by the third-century Greek mathematician Diophantus) with
+the remark ``I have discovered a truly remarkable proof, but this margin is too
+small to contain it.''  Finding a proof of Fermat's Last Theorem became one of
+the most famous challenges in number theory.  A complete solution was finally
+given in 1995 by Andrew Wiles of Princeton University.}
+
+@quotation
+@strong{Fermat's Little Theorem:} If @i{n} is a prime number and @i{a} is any
+positive integer less than @i{n}, then @i{a} raised to the @i{n}th power is
+congruent to @i{a} modulo @i{n}.
+@end quotation
+
+(Two numbers are said to be @newterm{congruent modulo} @i{n} if they both have
+the same remainder when divided by @i{n}.  The remainder of a number @i{a} when
+divided by @i{n} is also referred to as the @newterm{remainder of} @i{a}
+@newterm{modulo} @i{n}, or simply as @i{a} @newterm{modulo} @i{n}.)
+
+If @i{n} is not prime, then, in general, most of the numbers @i{a}< @i{n} will
+not satisfy the above relation.  This leads to the following algorithm for
+testing primality: Given a number @i{n}, pick a random number @i{a} < @i{n} and
+compute the remainder of @i{a}^@i{n} modulo @i{n}.  If the result is not equal
+to @i{a}, then @i{n} is certainly not prime.  If it is @i{a}, then chances are
+good that @i{n} is prime.  Now pick another random number @i{a} and test it
+with the same method.  If it also satisfies the equation, then we can be even
+more confident that @i{n} is prime.  By trying more and more values of @i{a},
+we can increase our confidence in the result.  This algorithm is known as the
+Fermat test.
+
+To implement the Fermat test, we need a procedure that computes the exponential
+of a number modulo another number:
+
+@lisp
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (remainder (square (expmod base (/ exp 2) m))
+                    m))
+        (else
+         (remainder (* base (expmod base (- exp 1) m))
+                    m))))
+@end lisp
+
+This is very similar to the @code{fast-expt} procedure of section @ref{1-2-4}.
+It uses successive squaring, so that the number of steps grows logarithmically
+with the exponent.@footnote{The reduction steps in the cases where the exponent
+@i{e} is greater than 1 are based on the fact that, for any integers @i{x},
+@i{y}, and @i{m}, we can find the remainder of @i{x} times @i{y} modulo @i{m}
+by computing separately the remainders of @i{x} modulo @i{m} and @i{y} modulo
+@i{m}, multiplying these, and then taking the remainder of the result modulo
+@i{m}.  For instance, in the case where @i{e} is even, we compute the remainder
+of @i{b}^(@i{e}/2) modulo @i{m}, square this, and take the remainder modulo
+@i{m}.  This technique is useful because it means we can perform our
+computation without ever having to deal with numbers much larger than @i{m}.
+(Compare @ref{Exercise 1-25}.)}
+
+The Fermat test is performed by choosing at random a number @i{a} between 1 and
+@i{n} - 1 inclusive and checking whether the remainder modulo @i{n} of the
+@i{n}th power of @i{a} is equal to @i{a}.  The random number @i{a} is chosen
+using the procedure @code{random}, which we assume is included as a primitive
+in Scheme. @code{Random} returns a nonnegative integer less than its integer
+input.  Hence, to obtain a random number between 1 and @i{n} - 1, we call
+@code{random} with an input of @i{n} - 1 and add 1 to the result:
+
+@lisp
+(define (fermat-test n)
+  (define (try-it a)
+    (= (expmod a n n) a))
+  (try-it (+ 1 (random (- n 1)))))
+@end lisp
+
+The following procedure runs the test a given number of times, as specified by
+a parameter.  Its value is true if the test succeeds every time, and false
+otherwise.
+
+@lisp
+(define (fast-prime? n times)
+  (cond ((= times 0) true)
+        ((fermat-test n) (fast-prime? n (- times 1)))
+        (else false)))
+@end lisp
+
+@subsubheading Probabilistic methods
+
+The Fermat test differs in character from most familiar algorithms, in which
+one computes an answer that is guaranteed to be correct.  Here, the answer
+obtained is only probably correct.  More precisely, if @i{n} ever fails the
+Fermat test, we can be certain that @i{n} is not prime.  But the fact that
+@i{n} passes the test, while an extremely strong indication, is still not a
+guarantee that @i{n} is prime.  What we would like to say is that for any
+number @i{n}, if we perform the test enough times and find that @i{n} always
+passes the test, then the probability of error in our primality test can be
+made as small as we like.
+
+Unfortunately, this assertion is not quite correct.  There do exist numbers
+that fool the Fermat test: numbers @i{n} that are not prime and yet have the
+property that @i{a}^@i{n} is congruent to @i{a} modulo @i{n} for all integers
+@i{a} < @i{n}.  Such numbers are extremely rare, so the Fermat test is quite
+reliable in practice.@footnote{[Footnote 1.47]@anchor{Footnote 1-47} Numbers
+that fool the Fermat test are called @newterm{Carmichael numbers}, and little
+is known about them other than that they are extremely rare.  There are 255
+Carmichael numbers below 100,000,000.  The smallest few are 561, 1105, 1729,
+2465, 2821, and 6601.  In testing primality of very large numbers chosen at
+random, the chance of stumbling upon a value that fools the Fermat test is less
+than the chance that cosmic radiation will cause the computer to make an error
+in carrying out a ``correct'' algorithm.  Considering an algorithm to be
+inadequate for the first reason but not for the second illustrates the
+difference between mathematics and engineering.}
+
+There are variations of the Fermat test that cannot be fooled.  In these tests,
+as with the Fermat method, one tests the primality of an integer @i{n} by
+choosing a random integer @i{a}<@i{n} and checking some condition that depends
+upon @i{n} and @i{a}.  (See @ref{Exercise 1-28} for an example of such a test.)
+On the other hand, in contrast to the Fermat test, one can prove that, for any
+@i{n}, the condition does not hold for most of the integers @i{a}<@i{n} unless
+@i{n} is prime.  Thus, if @i{n} passes the test for some random choice of
+@i{a}, the chances are better than even that @i{n} is prime.  If @i{n} passes
+the test for two random choices of @i{a}, the chances are better than 3 out of
+4 that @i{n} is prime. By running the test with more and more randomly chosen
+values of @i{a} we can make the probability of error as small as we like.
+
+The existence of tests for which one can prove that the chance of error becomes
+arbitrarily small has sparked interest in algorithms of this type, which have
+come to be known as @newterm{probabilistic algorithms}.  There is a great deal
+of research activity in this area, and probabilistic algorithms have been
+fruitfully applied to many fields.@footnote{One of the most striking
+applications of probabilistic prime testing has been to the field of
+cryptography.  Although it is now computationally infeasible to factor an
+arbitrary 200-digit number, the primality of such a number can be checked in a
+few seconds with the Fermat test.  This fact forms the basis of a technique for
+constructing ``unbreakable codes'' suggested by Rivest, Shamir, and Adleman
+(1977).  The resulting @newterm{RSA algorithm} has become a widely used
+technique for enhancing the security of electronic communications.  Because of
+this and related developments, the study of prime numbers, once considered the
+epitome of a topic in ``pure'' mathematics to be studied only for its own sake,
+now turns out to have important practical applications to cryptography,
+electronic funds transfer, and information retrieval.}
+
+@quotation
+@strong{@anchor{Exercise 1-21}Exercise 1.21:} Use the @code{smallest-divisor}
+procedure to find the smallest divisor of each of the following numbers: 199,
+1999, 19999.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-22}Exercise 1.22:} Most Lisp implementations include
+a primitive called @code{runtime} that returns an integer that specifies the
+amount of time the system has been running (measured, for example, in
+microseconds).  The following @code{timed-prime-test} procedure, when called
+with an integer @i{n}, prints @i{n} and checks to see if @i{n} is prime.  If
+@i{n} is prime, the procedure prints three asterisks followed by the amount of
+time used in performing the test.
+
+@lisp
+(define (timed-prime-test n)
+  (newline)
+  (display n)
+  (start-prime-test n (runtime)))
+
+(define (start-prime-test n start-time)
+  (if (prime? n)
+      (report-prime (- (runtime) start-time))))
+
+(define (report-prime elapsed-time)
+  (display " *** ")
+  (display elapsed-time))
+@end lisp
+
+Using this procedure, write a procedure @code{search-for-primes} that checks
+the primality of consecutive odd integers in a specified range.  Use your
+procedure to find the three smallest primes larger than 1000; larger than
+10,000; larger than 100,000; larger than 1,000,000.  Note the time needed to
+test each prime.  Since the testing algorithm has order of growth of
+@i{[theta]}(@emph{[sqrt]}(@i{n})), you should expect that testing for primes
+around 10,000 should take about @emph{[sqrt]}(10) times as long as testing for
+primes around 1000.  Do your timing data bear this out?  How well do the data
+for 100,000 and 1,000,000 support the @emph{[sqrt]}(@i{n}) prediction?  Is your
+result compatible with the notion that programs on your machine run in time
+proportional to the number of steps required for the computation?
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-23}Exercise 1.23:} The @code{smallest-divisor}
+procedure shown at the start of this section does lots of needless testing:
+After it checks to see if the number is divisible by 2 there is no point in
+checking to see if it is divisible by any larger even numbers.  This suggests
+that the values used for @code{test-divisor} should not be 2, 3, 4, 5, 6,
+@dots{}, but rather 2, 3, 5, 7, 9, @dots{}.  To implement this change, define a
+procedure @code{next} that returns 3 if its input is equal to 2 and otherwise
+returns its input plus 2.  Modify the @code{smallest-divisor} procedure to use
+@code{(next test-divisor)} instead of @code{(+ test-divisor 1)}.  With
+@code{timed-prime-test} incorporating this modified version of
+@code{smallest-divisor}, run the test for each of the 12 primes found in
+@ref{Exercise 1-22}.  Since this modification halves the number of test steps,
+you should expect it to run about twice as fast.  Is this expectation
+confirmed?  If not, what is the observed ratio of the speeds of the two
+algorithms, and how do you explain the fact that it is different from 2?
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-24}Exercise 1.24:} Modify the
+@code{timed-prime-test} procedure of @ref{Exercise 1-22} to use
+@code{fast-prime?} (the Fermat method), and test each of the 12 primes you
+found in that exercise.  Since the Fermat test has @i{[theta]}(@code{log}
+@i{n}) growth, how would you expect the time to test primes near 1,000,000 to
+compare with the time needed to test primes near 1000?  Do your data bear this
+out?  Can you explain any discrepancy you find?
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-25}Exercise 1.25:} Alyssa P. Hacker complains that
+we went to a lot of extra work in writing @code{expmod}.  After all, she says,
+since we already know how to compute exponentials, we could have simply written
+
+@lisp
+(define (expmod base exp m)
+  (remainder (fast-expt base exp) m))
+@end lisp
+
+Is she correct?  Would this procedure serve as well for our fast prime tester?
+Explain.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-26}Exercise 1.26:} Louis Reasoner is having great
+difficulty doing @ref{Exercise 1-24}.  His @code{fast-prime?} test seems to run
+more slowly than his @code{prime?} test.  Louis calls his friend Eva Lu Ator
+over to help.  When they examine Louis's code, they find that he has rewritten
+the @code{expmod} procedure to use an explicit multiplication, rather than
+calling @code{square}:
+
+@lisp
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (remainder (* (expmod base (/ exp 2) m)
+                       (expmod base (/ exp 2) m))
+                    m))
+        (else
+         (remainder (* base (expmod base (- exp 1) m))
+                    m))))
+@end lisp
+
+``I don't see what difference that could make,'' says Louis.  ``I do.''  says
+Eva.  ``By writing the procedure like that, you have transformed the
+@i{[theta]}(@code{log} @i{n}) process into a @i{[theta]}(@i{n}) process.''
+Explain.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-27}Exercise 1.27:} Demonstrate that the Carmichael
+numbers listed in @ref{Footnote 1-47} really do fool the Fermat test.  That is,
+write a procedure that takes an integer @i{n} and tests whether @i{a}^@i{n} is
+congruent to @i{a} modulo @i{n} for every @i{a}<@i{n}, and try your procedure
+on the given Carmichael numbers.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-28}Exercise 1.28:} One variant of the Fermat test
+that cannot be fooled is called the @newterm{Miller-Rabin test} (Miller 1976;
+Rabin 1980).  This starts from an alternate form of Fermat's Little Theorem,
+which states that if @i{n} is a prime number and @i{a} is any positive integer
+less than @i{n}, then @i{a} raised to the (@i{n} - 1)st power is congruent to 1
+modulo @i{n}.  To test the primality of a number @i{n} by the Miller-Rabin
+test, we pick a random number @i{a}<@i{n} and raise @i{a} to the (@i{n} - 1)st
+power modulo @i{n} using the @code{expmod} procedure.  However, whenever we
+perform the squaring step in @code{expmod}, we check to see if we have
+discovered a ``nontrivial square root of 1 modulo @i{n},'' that is, a number
+not equal to 1 or @i{n} - 1 whose square is equal to 1 modulo @i{n}.  It is
+possible to prove that if such a nontrivial square root of 1 exists, then @i{n}
+is not prime.  It is also possible to prove that if @i{n} is an odd number that
+is not prime, then, for at least half the numbers @i{a}<@i{n}, computing
+@i{a}^(@i{n}-1) in this way will reveal a nontrivial square root of 1 modulo
+@i{n}.  (This is why the Miller-Rabin test cannot be fooled.)  Modify the
+@code{expmod} procedure to signal if it discovers a nontrivial square root of
+1, and use this to implement the Miller-Rabin test with a procedure analogous
+to @code{fermat-test}.  Check your procedure by testing various known primes
+and non-primes.  Hint: One convenient way to make @code{expmod} signal is to
+have it return 0.
+@end quotation
+
+@node	1-3,  , 1-2, Chapter 1
+@section Formulating Abstractions with Higher-Order Procedures
+
+We have seen that procedures are, in effect, abstractions that describe
+compound operations on numbers independent of the particular numbers.  For
+example, when we
+
+@lisp
+(define (cube x) (* x x x))
+@end lisp
+
+@noindent
+we are not talking about the cube of a particular number, but rather about a
+method for obtaining the cube of any number.  Of course we could get along
+without ever defining this procedure, by always writing expressions such as
+
+@lisp
+(* 3 3 3)
+(* x x x)
+(* y y y)
+@end lisp
+
+@noindent
+and never mentioning @code{cube} explicitly.  This would place us at a serious
+disadvantage, forcing us to work always at the level of the particular
+operations that happen to be primitives in the language (multiplication, in
+this case) rather than in terms of higher-level operations.  Our programs would
+be able to compute cubes, but our language would lack the ability to express
+the concept of cubing.  One of the things we should demand from a powerful
+programming language is the ability to build abstractions by assigning names to
+common patterns and then to work in terms of the abstractions directly.
+Procedures provide this ability.  This is why all but the most primitive
+programming languages include mechanisms for defining procedures.
+
+Yet even in numerical processing we will be severely limited in our ability to
+create abstractions if we are restricted to procedures whose parameters must be
+numbers.  Often the same programming pattern will be used with a number of
+different procedures.  To express such patterns as concepts, we will need to
+construct procedures that can accept procedures as arguments or return
+procedures as values.  Procedures that manipulate procedures are called
+@newterm{higher-order procedures}.  This section shows how higher-order
+procedures can serve as powerful abstraction mechanisms, vastly increasing the
+expressive power of our language.
+
+@menu
+* 1-3-1::            Procedures as Arguments
+* 1-3-2::            Constructing Procedures Using @code{Lambda}
+* 1-3-3::            Procedures as General Methods
+* 1-3-4::            Procedures as Returned Values
+@end menu
+
+@node	1-3-1, 1-3-2, 1-3, 1-3
+@subsection Procedures as Arguments
+
+Consider the following three procedures.  The first computes the sum of the
+integers from @code{a} through @code{b}:
+
+@lisp
+(define (sum-integers a b)
+  (if (> a b)
+      0
+      (+ a (sum-integers (+ a 1) b))))
+@end lisp
+
+The second computes the sum of the cubes of the integers in the given range:
+
+@lisp
+(define (sum-cubes a b)
+  (if (> a b)
+      0
+      (+ (cube a) (sum-cubes (+ a 1) b))))
+@end lisp
+
+The third computes the sum of a sequence of terms in the series
+
+@example
+  1       1       1
+----- + ----- + ------ + ...
+1 * 3   5 * 7   9 * 11
+@end example
+
+@noindent
+which converges to @i{[pi]}/8 (very slowly):@footnote{This series, usually
+written in the equivalent form (@i{[pi]}/4) = 1 - (1/3) + (1/5) - (1/7) +
+@dots{}, is due to Leibniz.  We'll see how to use this as the basis for some
+fancy numerical tricks in section @ref{3-5-3}.}
+
+@lisp
+(define (pi-sum a b)
+  (if (> a b)
+      0
+      (+ (/ 1.0 (* a (+ a 2))) (pi-sum (+ a 4) b))))
+@end lisp
+
+These three procedures clearly share a common underlying pattern.  They are for
+the most part identical, differing only in the name of the procedure, the
+function of @code{a} used to compute the term to be added, and the function
+that provides the next value of @code{a}.  We could generate each of the
+procedures by filling in slots in the same template:
+
+@lisp
+(define (<@var{name}> a b)
+  (if (> a b)
+      0
+      (+ (<@var{term}> a)
+         (<@var{name}> (<@var{next}> a) b))))
+@end lisp
+
+The presence of such a common pattern is strong evidence that there is a useful
+abstraction waiting to be brought to the surface.  Indeed, mathematicians long
+ago identified the abstraction of @newterm{summation of a series} and invented
+``sigma notation,'' for example
+
+@example
+  b
+ ---
+ >    f(n) = f(a) + ... + f(b)
+ ---
+ n=a
+@end example
+
+@noindent
+to express this concept.  The power of sigma notation is that it allows
+mathematicians to deal with the concept of summation itself rather than only
+with particular sums---for example, to formulate general results about sums
+that are independent of the particular series being summed.
+
+Similarly, as program designers, we would like our language to be powerful
+enough so that we can write a procedure that expresses the concept of summation
+itself rather than only procedures that compute particular sums.  We can do so
+readily in our procedural language by taking the common template shown above
+and transforming the ``slots'' into formal parameters:
+
+@lisp
+(define (sum term a next b)
+  (if (> a b)
+      0
+      (+ (term a)
+         (sum term (next a) next b))))
+@end lisp
+
+Notice that @code{sum} takes as its arguments the lower and upper bounds
+@code{a} and @code{b} together with the procedures @code{term} and @code{next}.
+We can use @code{sum} just as we would any procedure.  For example, we can use
+it (along with a procedure @code{inc} that increments its argument by 1) to
+define @code{sum-cubes}:
+
+@lisp
+(define (inc n) (+ n 1))
+
+(define (sum-cubes a b)
+  (sum cube a inc b))
+@end lisp
+
+Using this, we can compute the sum of the cubes of the integers from 1 to 10:
+
+@lisp
+(sum-cubes 1 10)
+@i{3025}
+@end lisp
+
+With the aid of an identity procedure to compute the term, we can define
+@code{sum-integers} in terms of @code{sum}:
+
+@lisp
+(define (identity x) x)
+
+(define (sum-integers a b)
+  (sum identity a inc b))
+@end lisp
+
+Then we can add up the integers from 1 to 10:
+
+@lisp
+(sum-integers 1 10)
+@i{55}
+@end lisp
+
+We can also define @code{pi-sum} in the same way:@footnote{Notice that we have
+used block structure (section @ref{1-1-8}) to embed the definitions of
+@code{pi-next} and @code{pi-term} within @code{pi-sum}, since these procedures
+are unlikely to be useful for any other purpose.  We will see how to get rid of
+them altogether in section @ref{1-3-2}.}
+
+@lisp
+(define (pi-sum a b)
+  (define (pi-term x)
+    (/ 1.0 (* x (+ x 2))))
+  (define (pi-next x)
+    (+ x 4))
+  (sum pi-term a pi-next b))
+@end lisp
+
+Using these procedures, we can compute an approximation to @i{[pi]}:
+
+@lisp
+(* 8 (pi-sum 1 1000))
+@i{3.139592655589783}
+@end lisp
+
+Once we have @code{sum}, we can use it as a building block in formulating
+further concepts.  For instance, the definite integral of a function @i{f}
+between the limits @i{a} and @i{b} can be approximated numerically using the
+formula
+
+@example
+/b     /  /     dx \    /          dx \    /           dx \      \
+|  f = | f| a + -- | + f| a + dx + -- | + f| a + 2dx + -- | + ...| dx
+/a     \  \     2  /    \          2  /    \           2  /      /
+@end example
+
+@noindent
+for small values of @i{d}@i{x}.  We can express this directly as a procedure:
+
+@lisp
+(define (integral f a b dx)
+  (define (add-dx x) (+ x dx))
+  (* (sum f (+ a (/ dx 2.0)) add-dx b)
+     dx))
+
+(integral cube 0 1 0.01)
+@i{.24998750000000042}
+
+(integral cube 0 1 0.001)
+@i{.249999875000001}
+@end lisp
+
+@noindent
+(The exact value of the integral of @code{cube} between 0 and 1 is 1/4.)
+
+@quotation
+@strong{@anchor{Exercise 1-29}Exercise 1.29:} Simpson's Rule is a more accurate
+method of numerical integration than the method illustrated above.  Using
+Simpson's Rule, the integral of a function @i{f} between @i{a} and @i{b} is
+approximated as
+
+@example
+h
+- (y_0 + 4y_1 + 2y_2 + 4y_3 + 2y_4 + ... + 2y_(n-2) + 4y_(n-1) + y_n)
+3
+@end example
+
+@noindent
+where @i{h} = (@i{b} - @i{a})/@i{n}, for some even integer @i{n}, and
+@i{y}_@i{k} = @i{f}(@i{a} + @i{k}@i{h}).  (Increasing @i{n} increases the
+accuracy of the approximation.)  Define a procedure that takes as arguments
+@i{f}, @i{a}, @i{b}, and @i{n} and returns the value of the integral, computed
+using Simpson's Rule.  Use your procedure to integrate @code{cube} between 0
+and 1 (with @i{n} = 100 and @i{n} = 1000), and compare the results to those of
+the @code{integral} procedure shown above.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-30}Exercise 1.30:} The @code{sum} procedure above
+generates a linear recursion.  The procedure can be rewritten so that the sum
+is performed iteratively.  Show how to do this by filling in the missing
+expressions in the following definition:
+
+@lisp
+(define (sum term a next b)
+  (define (iter a result)
+    (if <@var{??}>
+        <@var{??}>
+        (iter <@var{??}> <@var{??}>)))
+  (iter <@var{??}> <@var{??}>))
+@end lisp
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-31}Exercise 1.31:} @enumerate a
+
+@item
+The @code{sum} procedure is only the simplest of a vast number of similar
+abstractions that can be captured as higher-order procedures.@footnote{The
+intent of @ref{Exercise 1-31} through @ref{Exercise 1-33} is to demonstrate the
+expressive power that is attained by using an appropriate abstraction to
+consolidate many seemingly disparate operations.  However, though accumulation
+and filtering are elegant ideas, our hands are somewhat tied in using them at
+this point since we do not yet have data structures to provide suitable means
+of combination for these abstractions.  We will return to these ideas in
+section @ref{2-2-3} when we show how to use @newterm{sequences} as interfaces
+for combining filters and accumulators to build even more powerful
+abstractions.  We will see there how these methods really come into their own
+as a powerful and elegant approach to designing programs.}  Write an analogous
+procedure called @code{product} that returns the product of the values of a
+function at points over a given range.  Show how to define @code{factorial} in
+terms of @code{product}.  Also use @code{product} to compute approximations to
+@i{[pi]} using the formula@footnote{This formula was discovered by the
+seventeenth-century English mathematician John Wallis.}
+
+@example
+pi   2 * 4 * 4 * 6 * 6 * 8 ...
+-- = -------------------------
+ 4   3 * 3 * 5 * 5 * 7 * 7 ...
+@end example
+
+@item
+If your @code{product} procedure generates a recursive process, write one that
+generates an iterative process.  If it generates an iterative process, write
+one that generates a recursive process.
+
+@end enumerate
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-32}Exercise 1.32:} @enumerate a
+
+@item
+Show that @code{sum} and @code{product} (@ref{Exercise 1-31}) are both special
+cases of a still more general notion called @code{accumulate} that combines a
+collection of terms, using some general accumulation function:
+
+@lisp
+(accumulate combiner null-value term a next b)
+@end lisp
+
+@code{Accumulate} takes as arguments the same term and range specifications as
+@code{sum} and @code{product}, together with a @code{combiner} procedure (of
+two arguments) that specifies how the current term is to be combined with the
+accumulation of the preceding terms and a @code{null-value} that specifies what
+base value to use when the terms run out.  Write @code{accumulate} and show how
+@code{sum} and @code{product} can both be defined as simple calls to
+@code{accumulate}.
+
+@item
+If your @code{accumulate} procedure generates a recursive process, write one
+that generates an iterative process.  If it generates an iterative process,
+write one that generates a recursive process.
+
+@end enumerate
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-33}Exercise 1.33:} You can obtain an even more
+general version of @code{accumulate} (@ref{Exercise 1-32}) by introducing the
+notion of a @newterm{filter} on the terms to be combined.  That is, combine
+only those terms derived from values in the range that satisfy a specified
+condition.  The resulting @code{filtered-accumulate} abstraction takes the same
+arguments as accumulate, together with an additional predicate of one argument
+that specifies the filter.  Write @code{filtered-accumulate} as a procedure.
+Show how to express the following using @code{filtered-accumulate}:
+
+@enumerate a
+
+@item
+the sum of the squares of the prime numbers in the interval @i{a} to @i{b}
+(assuming that you have a @code{prime?} predicate already written)
+
+@item
+the product of all the positive integers less than @i{n} that are relatively
+prime to @i{n} (i.e., all positive integers @i{i} < @i{n} such that
+@i{GCD}(@i{i},@i{n}) = 1).
+
+@end enumerate
+@end quotation
+
+@node	1-3-2, 1-3-3, 1-3-1, 1-3
+@subsection Constructing Procedures Using @code{Lambda}
+
+In using @code{sum} as in section @ref{1-3-1}, it seems terribly awkward to
+have to define trivial procedures such as @code{pi-term} and @code{pi-next}
+just so we can use them as arguments to our higher-order procedure.  Rather
+than define @code{pi-next} and @code{pi-term}, it would be more convenient to
+have a way to directly specify ``the procedure that returns its input
+incremented by 4'' and ``the procedure that returns the reciprocal of its input
+times its input plus 2.''  We can do this by introducing the special form
+@code{lambda}, which creates procedures.  Using @code{lambda} we can describe
+what we want as
+
+@lisp
+(lambda (x) (+ x 4))
+@end lisp
+
+@noindent
+and
+
+@lisp
+(lambda (x) (/ 1.0 (* x (+ x 2))))
+@end lisp
+
+Then our @code{pi-sum} procedure can be expressed without defining any
+auxiliary procedures as
+
+@lisp
+(define (pi-sum a b)
+  (sum (lambda (x) (/ 1.0 (* x (+ x 2))))
+       a
+       (lambda (x) (+ x 4))
+       b))
+@end lisp
+
+Again using @code{lambda}, we can write the @code{integral} procedure without
+having to define the auxiliary procedure @code{add-dx}:
+
+@lisp
+(define (integral f a b dx)
+  (* (sum f
+          (+ a (/ dx 2.0))
+          (lambda (x) (+ x dx))
+          b)
+     dx))
+@end lisp
+
+In general, @code{lambda} is used to create procedures in the same way as
+@code{define}, except that no name is specified for the procedure:
+
+@lisp
+(lambda (<@var{formal-parameters}>) <@var{body}>)
+@end lisp
+
+The resulting procedure is just as much a procedure as one that is created
+using @code{define}.  The only difference is that it has not been associated
+with any name in the environment.  In fact,
+
+@lisp
+(define (plus4 x) (+ x 4))
+@end lisp
+
+@noindent
+is equivalent to
+
+@lisp
+(define plus4 (lambda (x) (+ x 4)))
+@end lisp
+
+We can read a @code{lambda} expression as follows:
+
+@lisp
+(lambda                     (x)     (+   x     4))
+    |                        |       |   |     |
+the procedure of an argument x that adds x and 4
+@end lisp
+
+Like any expression that has a procedure as its value, a @code{lambda}
+expression can be used as the operator in a combination such as
+
+@lisp
+((lambda (x y z) (+ x y (square z))) 1 2 3)
+@i{12}
+@end lisp
+
+@noindent
+or, more generally, in any context where we would normally use a procedure
+name.@footnote{It would be clearer and less intimidating to people learning
+Lisp if a name more obvious than @code{lambda}, such as @code{make-procedure},
+were used.  But the convention is firmly entrenched.  The notation is adopted
+from the @i{[lambda]} calculus, a mathematical formalism introduced by the
+mathematical logician Alonzo Church (1941).  Church developed the @i{[lambda]}
+calculus to provide a rigorous foundation for studying the notions of function
+and function application.  The @i{[lambda]} calculus has become a basic tool
+for mathematical investigations of the semantics of programming languages.}
+
+@subsubheading Using @code{let} to create local variables
+
+Another use of @code{lambda} is in creating local variables.  We often need
+local variables in our procedures other than those that have been bound as
+formal parameters.  For example, suppose we wish to compute the function
+
+@example
+f(x,y) = x(1 + xy)^2 + y(1 - y) + (1 + xy)(1 - y)
+@end example
+
+@noindent
+which we could also express as
+
+@example
+     a = 1 + xy
+     b = 1 - y
+f(x,y) = xa^2 + yb + ab
+@end example
+
+In writing a procedure to compute @i{f}, we would like to include as local
+variables not only @i{x} and @i{y} but also the names of intermediate
+quantities like @i{a} and @i{b}.  One way to accomplish this is to use an
+auxiliary procedure to bind the local variables:
+
+@lisp
+(define (f x y)
+  (define (f-helper a b)
+    (+ (* x (square a))
+       (* y b)
+       (* a b)))
+  (f-helper (+ 1 (* x y))
+            (- 1 y)))
+@end lisp
+
+Of course, we could use a @code{lambda} expression to specify an anonymous
+procedure for binding our local variables.  The body of @code{f} then becomes a
+single call to that procedure:
+
+@lisp
+(define (f x y)
+  ((lambda (a b)
+     (+ (* x (square a))
+        (* y b)
+        (* a b)))
+   (+ 1 (* x y))
+   (- 1 y)))
+@end lisp
+
+This construct is so useful that there is a special form called @code{let} to
+make its use more convenient.  Using @code{let}, the @code{f} procedure could
+be written as
+
+@lisp
+(define (f x y)
+  (let ((a (+ 1 (* x y)))
+        (b (- 1 y)))
+    (+ (* x (square a))
+       (* y b)
+       (* a b))))
+@end lisp
+
+The general form of a @code{let} expression is
+
+@lisp
+(let ((<@var{var1}> <@var{exp1}>)
+      (<@var{var2}> <@var{exp2}>)
+      @dots{}
+      (<@var{varN}> <@var{varN}>))
+   <@var{body}>)
+@end lisp
+
+@noindent
+which can be thought of as saying
+
+@example
+let <@var{var_1}> have the value <@var{exp_1}> and
+    <@var{var_2}> have the value <@var{exp_2}> and
+    @dots{}
+    <@var{var_@i{n}}> have the value <@var{exp_@i{n}}>
+in  <@var{body}>
+@end example
+
+The first part of the @code{let} expression is a list of name-expression pairs.
+When the @code{let} is evaluated, each name is associated with the value of the
+corresponding expression.  The body of the @code{let} is evaluated with these
+names bound as local variables.  The way this happens is that the @code{let}
+expression is interpreted as an alternate syntax for
+
+@lisp
+((lambda (<@var{var_1}> @dots{} <@var{var_@i{n}}>)
+    <@var{body}>)
+ <@var{exp_1}>
+ @dots{}
+ <@var{exp_@i{n}}>)
+@end lisp
+
+No new mechanism is required in the interpreter in order to provide local
+variables.  A @code{let} expression is simply syntactic sugar for the
+underlying @code{lambda} application.
+
+We can see from this equivalence that the scope of a variable specified by a
+@code{let} expression is the body of the @code{let}.  This implies that:
+
+@itemize @bullet
+
+@item
+@code{Let} allows one to bind variables as locally as possible to where they
+are to be used.  For example, if the value of @code{x} is 5, the value of the
+expression
+
+@lisp
+(+ (let ((x 3))
+     (+ x (* x 10)))
+   x)
+@end lisp
+
+@noindent
+is 38.  Here, the @code{x} in the body of the @code{let} is 3, so the value of
+the @code{let} expression is 33.  On the other hand, the @code{x} that is the
+second argument to the outermost @code{+} is still 5.
+
+@item
+The variables' values are computed outside the @code{let}.  This matters when
+the expressions that provide the values for the local variables depend upon
+variables having the same names as the local variables themselves.  For
+example, if the value of @code{x} is 2, the expression
+
+@lisp
+(let ((x 3)
+      (y (+ x 2)))
+  (* x y))
+@end lisp
+
+@noindent
+will have the value 12 because, inside the body of the @code{let}, @code{x}
+will be 3 and @code{y} will be 4 (which is the outer @code{x} plus 2).
+
+@end itemize
+
+Sometimes we can use internal definitions to get the same effect as with
+@code{let}.  For example, we could have defined the procedure @code{f} above as
+
+@lisp
+(define (f x y)
+  (define a (+ 1 (* x y)))
+  (define b (- 1 y))
+  (+ (* x (square a))
+     (* y b)
+     (* a b)))
+@end lisp
+
+We prefer, however, to use @code{let} in situations like this and to use
+internal @code{define} only for internal procedures.@footnote{Understanding
+internal definitions well enough to be sure a program means what we intend it
+to mean requires a more elaborate model of the evaluation process than we have
+presented in this chapter.  The subtleties do not arise with internal
+definitions of procedures, however.  We will return to this issue in section
+@ref{4-1-6}, after we learn more about evaluation.}
+
+@quotation
+@strong{@anchor{Exercise 1-34}Exercise 1.34:} Suppose we define the procedure
+
+@lisp
+(define (f g)
+  (g 2))
+@end lisp
+
+Then we have
+
+@lisp
+(f square)
+@i{4}
+
+(f (lambda (z) (* z (+ z 1))))
+@i{6}
+@end lisp
+
+What happens if we (perversely) ask the interpreter to evaluate the combination
+@code{(f f)}?  Explain.
+@end quotation
+
+@node	1-3-3, 1-3-4, 1-3-2, 1-3
+@subsection Procedures as General Methods
+
+We introduced compound procedures in section @ref{1-1-4} as a mechanism for
+abstracting patterns of numerical operations so as to make them independent of
+the particular numbers involved.  With higher-order procedures, such as the
+@code{integral} procedure of section @ref{1-3-1}, we began to see a more
+powerful kind of abstraction: procedures used to express general methods of
+computation, independent of the particular functions involved.  In this section
+we discuss two more elaborate examples---general methods for finding zeros and
+fixed points of functions---and show how these methods can be expressed
+directly as procedures.
+
+@subsubheading Finding roots of equations by the half-interval method
+
+The @newterm{half-interval method} is a simple but powerful technique for
+finding roots of an equation @i{f}(@i{x}) = 0, where @i{f} is a continuous
+function.  The idea is that, if we are given points @i{a} and @i{b} such that
+@i{f}(@i{a}) < 0 < @i{f}(@i{b}), then @i{f} must have at least one zero between
+@i{a} and @i{b}.  To locate a zero, let @i{x} be the average of @i{a} and @i{b}
+and compute @i{f}(@i{x}).  If @i{f}(@i{x}) > 0, then @i{f} must have a zero
+between @i{a} and @i{x}.  If @i{f}(@i{x}) < 0, then @i{f} must have a zero
+between @i{x} and @i{b}.  Continuing in this way, we can identify smaller and
+smaller intervals on which @i{f} must have a zero.  When we reach a point where
+the interval is small enough, the process stops.  Since the interval of
+uncertainty is reduced by half at each step of the process, the number of steps
+required grows as @i{[theta]}(@code{log}( @i{L}/@i{T})), where @i{L} is the
+length of the original interval and @i{T} is the error tolerance (that is, the
+size of the interval we will consider ``small enough'').  Here is a procedure
+that implements this strategy:
+
+@lisp
+(define (search f neg-point pos-point)
+  (let ((midpoint (average neg-point pos-point)))
+    (if (close-enough? neg-point pos-point)
+        midpoint
+        (let ((test-value (f midpoint)))
+          (cond ((positive? test-value)
+                 (search f neg-point midpoint))
+                ((negative? test-value)
+                 (search f midpoint pos-point))
+                (else midpoint))))))
+@end lisp
+
+We assume that we are initially given the function @i{f} together with points
+at which its values are negative and positive.  We first compute the midpoint
+of the two given points.  Next we check to see if the given interval is small
+enough, and if so we simply return the midpoint as our answer.  Otherwise, we
+compute as a test value the value of @i{f} at the midpoint.  If the test value
+is positive, then we continue the process with a new interval running from the
+original negative point to the midpoint.  If the test value is negative, we
+continue with the interval from the midpoint to the positive point.  Finally,
+there is the possibility that the test value is 0, in which case the midpoint
+is itself the root we are searching for.
+
+To test whether the endpoints are ``close enough'' we can use a procedure
+similar to the one used in section @ref{1-1-7} for computing square
+roots:@footnote{We have used 0.001 as a representative ``small'' number to
+indicate a tolerance for the acceptable error in a calculation.  The
+appropriate tolerance for a real calculation depends upon the problem to be
+solved and the limitations of the computer and the algorithm.  This is often a
+very subtle consideration, requiring help from a numerical analyst or some
+other kind of magician.}
+
+@lisp
+(define (close-enough? x y)
+  (< (abs (- x y)) 0.001))
+@end lisp
+
+@code{Search} is awkward to use directly, because we can accidentally give it
+points at which @i{f}'s values do not have the required sign, in which case we
+get a wrong answer.  Instead we will use @code{search} via the following
+procedure, which checks to see which of the endpoints has a negative function
+value and which has a positive value, and calls the @code{search} procedure
+accordingly.  If the function has the same sign on the two given points, the
+half-interval method cannot be used, in which case the procedure signals an
+error.@footnote{This can be accomplished using @code{error}, which takes as
+arguments a number of items that are printed as error messages.}
+
+@lisp
+(define (half-interval-method f a b)
+  (let ((a-value (f a))
+        (b-value (f b)))
+    (cond ((and (negative? a-value) (positive? b-value))
+           (search f a b))
+          ((and (negative? b-value) (positive? a-value))
+           (search f b a))
+          (else
+           (error "Values are not of opposite sign" a b)))))
+@end lisp
+
+The following example uses the half-interval method to approximate @i{[pi]} as
+the root between 2 and 4 of @code{sin} @i{x} = 0:
+
+@lisp
+(half-interval-method sin 2.0 4.0)
+@i{3.14111328125}
+@end lisp
+
+Here is another example, using the half-interval method to search for a root of
+the equation @i{x}^3 - 2@i{x} - 3 = 0 between 1 and 2:
+
+@lisp
+(half-interval-method (lambda (x) (- (* x x x) (* 2 x) 3))
+                      1.0
+                      2.0)
+@i{1.89306640625}
+@end lisp
+
+@subsubheading Finding fixed points of functions
+
+A number @i{x} is called a @newterm{fixed point} of a function @i{f} if @i{x}
+satisfies the equation @i{f}(@i{x}) = @i{x}.  For some functions @i{f} we can
+locate a fixed point by beginning with an initial guess and applying @i{f}
+repeatedly,
+
+@example
+f(x), f(f(x), (f(f(f(x))))
+@end example
+
+@noindent
+until the value does not change very much.  Using this idea, we can devise a
+procedure @code{fixed-point} that takes as inputs a function and an initial
+guess and produces an approximation to a fixed point of the function.  We apply
+the function repeatedly until we find two successive values whose difference is
+less than some prescribed tolerance:
+
+@lisp
+(define tolerance 0.00001)
+
+(define (fixed-point f first-guess)
+  (define (close-enough? v1 v2)
+    (< (abs (- v1 v2)) tolerance))
+  (define (try guess)
+    (let ((next (f guess)))
+      (if (close-enough? guess next)
+          next
+          (try next))))
+  (try first-guess))
+@end lisp
+
+For example, we can use this method to approximate the fixed point of the
+cosine function, starting with 1 as an initial approximation:@footnote{Try this
+during a boring lecture: Set your calculator to radians mode and then
+repeatedly press the @code{cos} button until you obtain the fixed point.}
+
+@lisp
+(fixed-point cos 1.0)
+@i{.7390822985224023}
+@end lisp
+
+Similarly, we can find a solution to the equation @i{y} = @code{sin}
+@i{y} + @code{cos} @i{y}:
+
+@lisp
+(fixed-point (lambda (y) (+ (sin y) (cos y)))
+             1.0)
+@i{1.2587315962971173}
+@end lisp
+
+The fixed-point process is reminiscent of the process we used for finding
+square roots in section @ref{1-1-7}.  Both are based on the idea of repeatedly
+improving a guess until the result satisfies some criterion.  In fact, we can
+readily formulate the square-root computation as a fixed-point search.
+Computing the square root of some number @i{x} requires finding a @i{y} such
+that @i{y}^2 = @i{x}.  Putting this equation into the equivalent form @i{y} =
+@i{x}/@i{y}, we recognize that we are looking for a fixed point of the
+function@footnote{|-> (pronounced ``maps to'') is the mathematician's way of
+writing @code{lambda}.  @i{y} |-> @i{x}/@i{y} means @code{(lambda(y) (/ x y))},
+that is, the function whose value at @i{y} is @i{x}/@i{y}.} @i{y} |->
+@i{x}/@i{y}, and we can therefore try to compute square roots as
+
+@lisp
+(define (sqrt x)
+  (fixed-point (lambda (y) (/ x y))
+               1.0))
+@end lisp
+
+Unfortunately, this fixed-point search does not converge.  Consider an initial
+guess @i{y}_1.  The next guess is @i{y}_2 = @i{x}/@i{y}_1 and the next guess is
+@i{y}_3 = @i{x}/@i{y}_2 = @i{x}/(@i{x}/@i{y}_1) = @i{y}_1.  This results in an
+infinite loop in which the two guesses @i{y}_1 and @i{y}_2 repeat over and
+over, oscillating about the answer.
+
+One way to control such oscillations is to prevent the guesses from changing so
+much.  Since the answer is always between our guess @i{y} and @i{x}/@i{y}, we
+can make a new guess that is not as far from @i{y} as @i{x}/@i{y} by averaging
+@i{y} with @i{x}/@i{y}, so that the next guess after @i{y} is (1/2)(@i{y} +
+@i{x}/@i{y}) instead of @i{x}/@i{y}.  The process of making such a sequence of
+guesses is simply the process of looking for a fixed point of @i{y} |->
+(1/2)(@i{y} + @i{x}/@i{y}):
+
+@lisp
+(define (sqrt x)
+  (fixed-point (lambda (y) (average y (/ x y)))
+               1.0))
+@end lisp
+
+(Note that @i{y} = (1/2)(@i{y} + @i{x}/@i{y}) is a simple transformation of the
+equation @i{y} = @i{x}/@i{y}; to derive it, add @i{y} to both sides of the
+equation and divide by 2.)
+
+With this modification, the square-root procedure works.  In fact, if we
+unravel the definitions, we can see that the sequence of approximations to the
+square root generated here is precisely the same as the one generated by our
+original square-root procedure of section @ref{1-1-7}.  This approach of
+averaging successive approximations to a solution, a technique we that we call
+@newterm{average damping}, often aids the convergence of fixed-point searches.
+
+@quotation
+@strong{@anchor{Exercise 1-35}Exercise 1.35:} Show that the golden ratio
+@i{[phi]} (section @ref{1-2-2}) is a fixed point of the transformation @i{x}
+|-> 1 + 1/@i{x}, and use this fact to compute @i{[phi]} by means of the
+@code{fixed-point} procedure.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-36}Exercise 1.36:} Modify @code{fixed-point} so that
+it prints the sequence of approximations it generates, using the @code{newline}
+and @code{display} primitives shown in @ref{Exercise 1-22}.  Then find a
+solution to @i{x}^@i{x} = 1000 by finding a fixed point of @i{x} |->
+@code{log}(1000)/@code{log}(@i{x}).  (Use Scheme's primitive @code{log}
+procedure, which computes natural logarithms.)  Compare the number of steps
+this takes with and without average damping.  (Note that you cannot start
+@code{fixed-point} with a guess of 1, as this would cause division by
+@code{log}(1) = 0.)
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-37}Exercise 1.37:} @enumerate a
+
+@item
+An infinite @newterm{continued fraction} is an expression of the form
+
+@example
+           N_1
+f = ---------------------
+               N_2
+    D_1 + ---------------
+                   N_3
+          D_2 + ---------
+                D_3 + ...
+@end example
+
+As an example, one can show that the infinite continued fraction expansion with
+the @i{n}_@i{i} and the @i{D}_@i{i} all equal to 1 produces 1/@i{[phi]}, where
+@i{[phi]} is the golden ratio (described in section @ref{1-2-2}).  One way to
+approximate an infinite continued fraction is to truncate the expansion after a
+given number of terms.  Such a truncation---a so-called @newterm{@i{k}-term
+finite continued fraction}---has the form
+
+@example
+       N_1
+-----------------
+          N_2
+D_1 + -----------
+      ...    N_K
+          + -----
+             D_K
+@end example
+
+Suppose that @code{n} and @code{d} are procedures of one argument (the term
+index @i{i}) that return the @i{n}_@i{i} and @i{D}_@i{i} of the terms of the
+continued fraction.  Define a procedure @code{cont-frac} such that evaluating
+@code{(cont-frac n d k)} computes the value of the @i{k}-term finite continued
+fraction.  Check your procedure by approximating 1/@i{[phi]} using
+
+@lisp
+(cont-frac (lambda (i) 1.0)
+           (lambda (i) 1.0)
+           k)
+@end lisp
+
+@noindent
+for successive values of @code{k}.  How large must you make @code{k} in order
+to get an approximation that is accurate to 4 decimal places?
+
+@item
+If your @code{cont-frac} procedure generates a recursive process, write one
+that generates an iterative process.  If it generates an iterative process,
+write one that generates a recursive process.
+
+@end enumerate
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-38}Exercise 1.38:} In 1737, the Swiss mathematician
+Leonhard Euler published a memoir @cite{De Fractionibus Continuis}, which
+included a continued fraction expansion for @i{e} - 2, where @i{e} is the base
+of the natural logarithms.  In this fraction, the @i{n}_@i{i} are all 1, and
+the @i{D}_@i{i} are successively 1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, @dots{}.
+Write a program that uses your @code{cont-frac} procedure from @ref{Exercise
+1-37} to approximate @i{e}, based on Euler's expansion.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-39}Exercise 1.39:} A continued fraction
+representation of the tangent function was published in 1770 by the German
+mathematician J.H. Lambert:
+
+@example
+              x
+tan x = ---------------
+                x^2
+        1 - -----------
+                  x^2
+            3 - -------
+                5 - ...
+@end example
+
+@noindent
+where @i{x} is in radians.  Define a procedure @code{(tan-cf x k)} that
+computes an approximation to the tangent function based on Lambert's formula.
+@code{K} specifies the number of terms to compute, as in @ref{Exercise 1-37}.
+@end quotation
+
+@node	1-3-4,  , 1-3-3, 1-3
+@subsection Procedures as Returned Values
+
+The above examples demonstrate how the ability to pass procedures as arguments
+significantly enhances the expressive power of our programming language.  We
+can achieve even more expressive power by creating procedures whose returned
+values are themselves procedures.
+
+We can illustrate this idea by looking again at the fixed-point example
+described at the end of section @ref{1-3-3}.  We formulated a new version of
+the square-root procedure as a fixed-point search, starting with the
+observation that @i{[sqrt]}@i{x} is a fixed-point of the function @i{y} |->
+@i{x}/@i{y}.  Then we used average damping to make the approximations converge.
+Average damping is a useful general technique in itself.  Namely, given a
+function @i{f}, we consider the function whose value at @i{x} is equal to the
+average of @i{x} and @i{f}(@i{x}).
+
+We can express the idea of average damping by means of the following procedure:
+
+@lisp
+(define (average-damp f)
+  (lambda (x) (average x (f x))))
+@end lisp
+
+@code{Average-damp} is a procedure that takes as its argument a procedure
+@code{f} and returns as its value a procedure (produced by the @code{lambda})
+that, when applied to a number @code{x}, produces the average of @code{x} and
+@code{(f x)}.  For example, applying @code{average-damp} to the @code{square}
+procedure produces a procedure whose value at some number @i{x} is the average
+of @i{x} and @i{x}^2.  Applying this resulting procedure to 10 returns the
+average of 10 and 100, or 55:@footnote{Observe that this is a combination whose
+operator is itself a combination.  @ref{Exercise 1-4} already demonstrated the
+ability to form such combinations, but that was only a toy example.  Here we
+begin to see the real need for such combinations---when applying a procedure
+that is obtained as the value returned by a higher-order procedure.}
+
+@lisp
+((average-damp square) 10)
+@i{55}
+@end lisp
+
+Using @code{average-damp}, we can reformulate the square-root procedure as
+follows:
+
+@lisp
+(define (sqrt x)
+  (fixed-point (average-damp (lambda (y) (/ x y)))
+               1.0))
+@end lisp
+
+Notice how this formulation makes explicit the three ideas in the method:
+fixed-point search, average damping, and the function @i{y} |-> @i{x}/@i{y}.
+It is instructive to compare this formulation of the square-root method with
+the original version given in section @ref{1-1-7}.  Bear in mind that these
+procedures express the same process, and notice how much clearer the idea
+becomes when we express the process in terms of these abstractions.  In
+general, there are many ways to formulate a process as a procedure.
+Experienced programmers know how to choose procedural formulations that are
+particularly perspicuous, and where useful elements of the process are exposed
+as separate entities that can be reused in other applications.  As a simple
+example of reuse, notice that the cube root of @i{x} is a fixed point of the
+function @i{y} |-> @i{x}/@i{y}^2, so we can immediately generalize our
+square-root procedure to one that extracts cube roots:@footnote{See
+@ref{Exercise 1-45} for a further generalization.}
+
+@lisp
+(define (cube-root x)
+  (fixed-point (average-damp (lambda (y) (/ x (square y))))
+               1.0))
+@end lisp
+
+@subsubheading Newton's method
+
+When we first introduced the square-root procedure, in section @ref{1-1-7}, we
+mentioned that this was a special case of @newterm{Newton's method}.  If @i{x}
+|-> @i{g}(@i{x}) is a differentiable function, then a solution of the equation
+@i{g}(@i{x}) = 0 is a fixed point of the function @i{x} |-> @i{f}(@i{x}) where
+
+@example
+           g(x)
+f(x) = x - -----
+           Dg(x)
+@end example
+
+@noindent
+and @i{D}@i{g}(@i{x}) is the derivative of @i{g} evaluated at @i{x}.  Newton's
+method is the use of the fixed-point method we saw above to approximate a
+solution of the equation by finding a fixed point of the function
+@i{f}.@footnote{Elementary calculus books usually describe Newton's method in
+terms of the sequence of approximations @i{x}_(@i{n}+1) = @i{x}_@i{n} -
+@i{g}(@i{x}_@i{n})/@i{D}@i{g}(@i{x}_@i{n}).  Having language for talking about
+processes and using the idea of fixed points simplifies the description of the
+method.}
+
+For many functions @i{g} and for sufficiently good initial guesses for @i{x},
+Newton's method converges very rapidly to a solution of @i{g}(@i{x}) =
+0.@footnote{Newton's method does not always converge to an answer, but it can
+be shown that in favorable cases each iteration doubles the number-of-digits
+accuracy of the approximation to the solution.  In such cases, Newton's method
+will converge much more rapidly than the half-interval method.}
+
+In order to implement Newton's method as a procedure, we must first express the
+idea of derivative.  Note that ``derivative,'' like average damping, is
+something that transforms a function into another function.  For instance, the
+derivative of the function @i{x} |-> @i{x}^3 is the function @i{x} |->
+3@i{x}^2.  In general, if @i{g} is a function and @i{d}@i{x} is a small number,
+then the derivative @i{D}@i{g} of @i{g} is the function whose value at any
+number @i{x} is given (in the limit of small @i{d}@i{x}) by
+
+@example
+        g(x + dx) - g(x)
+Dg(c) = ----------------
+               dx
+@end example
+
+@noindent
+Thus, we can express the idea of derivative (taking @i{d}@i{x} to be, say,
+0.00001) as the procedure
+
+@lisp
+(define (deriv g)
+  (lambda (x)
+    (/ (- (g (+ x dx)) (g x))
+       dx)))
+@end lisp
+
+@noindent
+along with the definition
+
+@lisp
+(define dx 0.00001)
+@end lisp
+
+Like @code{average-damp}, @code{deriv} is a procedure that takes a procedure as
+argument and returns a procedure as value.  For example, to approximate the
+derivative of @i{x} |-> @i{x}^3 at 5 (whose exact value is 75) we can evaluate
+
+@lisp
+(define (cube x) (* x x x))
+
+((deriv cube) 5)
+@i{75.00014999664018}
+@end lisp
+
+With the aid of @code{deriv}, we can express Newton's method as a fixed-point
+process:
+
+@lisp
+(define (newton-transform g)
+  (lambda (x)
+    (- x (/ (g x) ((deriv g) x)))))
+
+(define (newtons-method g guess)
+  (fixed-point (newton-transform g) guess))
+@end lisp
+
+The @code{newton-transform} procedure expresses the formula at the beginning of
+this section, and @code{newtons-method} is readily defined in terms of this.
+It takes as arguments a procedure that computes the function for which we want
+to find a zero, together with an initial guess.  For instance, to find the
+square root of @i{x}, we can use Newton's method to find a zero of the function
+@i{y} |-> @i{y}^2 - @i{x} starting with an initial guess of 1.@footnote{For
+finding square roots, Newton's method converges rapidly to the correct solution
+from any starting point.}
+
+This provides yet another form of the square-root procedure:
+
+@lisp
+(define (sqrt x)
+  (newtons-method (lambda (y) (- (square y) x))
+                  1.0))
+@end lisp
+
+@subsubheading Abstractions and first-class procedures
+
+We've seen two ways to express the square-root computation as an instance of a
+more general method, once as a fixed-point search and once using Newton's
+method.  Since Newton's method was itself expressed as a fixed-point process,
+we actually saw two ways to compute square roots as fixed points.  Each method
+begins with a function and finds a fixed point of some transformation of the
+function.  We can express this general idea itself as a procedure:
+
+@lisp
+(define (fixed-point-of-transform g transform guess)
+  (fixed-point (transform g) guess))
+@end lisp
+
+This very general procedure takes as its arguments a procedure @code{g} that
+computes some function, a procedure that transforms @code{g}, and an initial
+guess.  The returned result is a fixed point of the transformed function.
+
+Using this abstraction, we can recast the first square-root computation from
+this section (where we look for a fixed point of the average-damped version of
+@i{y} |-> @i{x}/@i{y}) as an instance of this general method:
+
+@lisp
+(define (sqrt x)
+  (fixed-point-of-transform (lambda (y) (/ x y))
+                            average-damp
+                            1.0))
+@end lisp
+
+Similarly, we can express the second square-root computation from this section
+(an instance of Newton's method that finds a fixed point of the Newton
+transform of @i{y} |-> @i{y}^2 - @i{x}) as
+
+@lisp
+(define (sqrt x)
+  (fixed-point-of-transform (lambda (y) (- (square y) x))
+                            newton-transform
+                            1.0))
+@end lisp
+
+We began section @ref{1-3} with the observation that compound procedures are a
+crucial abstraction mechanism, because they permit us to express general
+methods of computing as explicit elements in our programming language.  Now
+we've seen how higher-order procedures permit us to manipulate these general
+methods to create further abstractions.
+
+As programmers, we should be alert to opportunities to identify the underlying
+abstractions in our programs and to build upon them and generalize them to
+create more powerful abstractions.  This is not to say that one should always
+write programs in the most abstract way possible; expert programmers know how
+to choose the level of abstraction appropriate to their task.  But it is
+important to be able to think in terms of these abstractions, so that we can be
+ready to apply them in new contexts.  The significance of higher-order
+procedures is that they enable us to represent these abstractions explicitly as
+elements in our programming language, so that they can be handled just like
+other computational elements.
+
+In general, programming languages impose restrictions on the ways in which
+computational elements can be manipulated.  Elements with the fewest
+restrictions are said to have @newterm{first-class} status.  Some of the
+``rights and privileges'' of first-class elements are:@footnote{The notion of
+first-class status of programming-language elements is due to the British
+computer scientist Christopher Strachey (1916-1975).}
+
+@itemize @bullet
+
+@item
+They may be named by variables.
+
+@item
+They may be passed as arguments to procedures.
+
+@item
+They may be returned as the results of procedures.
+
+@item
+They may be included in data structures.@footnote{We'll see examples of this
+after we introduce data structures in @ref{Chapter 2}.}
+
+@end itemize
+
+Lisp, unlike other common programming languages, awards procedures full
+first-class status.  This poses challenges for efficient implementation, but
+the resulting gain in expressive power is enormous.@footnote{The major
+implementation cost of first-class procedures is that allowing procedures to be
+returned as values requires reserving storage for a procedure's free variables
+even while the procedure is not executing.  In the Scheme implementation we
+will study in section @ref{4-1}, these variables are stored in the procedure's
+environment.}
+
+@quotation
+@strong{@anchor{Exercise 1-40}Exercise 1.40:} Define a procedure @code{cubic}
+that can be used together with the @code{newtons-method} procedure in
+expressions of the form
+
+@lisp
+(newtons-method (cubic a b c) 1)
+@end lisp
+
+@noindent
+to approximate zeros of the cubic @i{x}^3 +
+@i{a}@i{x}^2 + @i{b}@i{x} + @i{c}.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-41}Exercise 1.41:} Define a procedure @code{double}
+that takes a procedure of one argument as argument and returns a procedure that
+applies the original procedure twice.  For example, if @code{inc} is a
+procedure that adds 1 to its argument, then @code{(double inc)} should be a
+procedure that adds 2.  What value is returned by
+
+@lisp
+(((double (double double)) inc) 5)
+@end lisp
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-42}Exercise 1.42:} Let @i{f} and @i{g} be two
+one-argument functions.  The @newterm{composition} @i{f} after @i{g} is defined
+to be the function @i{x} |-> @i{f}(@i{g}(@i{x})).  Define a procedure
+@code{compose} that implements composition.  For example, if @code{inc} is a
+procedure that adds 1 to its argument,
+
+@lisp
+((compose square inc) 6)
+@i{49}
+@end lisp
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-43}Exercise 1.43:} If @i{f} is a numerical function
+and @i{n} is a positive integer, then we can form the @i{n}th repeated
+application of @i{f}, which is defined to be the function whose value at @i{x}
+is @i{f}(@i{f}(@dots{}(@i{f}(@i{x}))@dots{})).  For example, if @i{f} is the
+function @i{x} |-> @i{x} + 1, then the @i{n}th repeated application of @i{f} is
+the function @i{x} |-> @i{x} + @i{n}.  If @i{f} is the operation of squaring a
+number, then the @i{n}th repeated application of @i{f} is the function that
+raises its argument to the 2^@i{n}th power.  Write a procedure that takes as
+inputs a procedure that computes @i{f} and a positive integer @i{n} and returns
+the procedure that computes the @i{n}th repeated application of @i{f}.  Your
+procedure should be able to be used as follows:
+
+@lisp
+((repeated square 2) 5)
+@i{625}
+@end lisp
+
+Hint: You may find it convenient to use @code{compose} from @ref{Exercise
+1-42}.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-44}Exercise 1.44:} The idea of @newterm{smoothing} a
+function is an important concept in signal processing.  If @i{f} is a function
+and @i{d}@i{x} is some small number, then the smoothed version of @i{f} is the
+function whose value at a point @i{x} is the average of @i{f}(@i{x} -
+@i{d}@i{x}), @i{f}(@i{x}), and @i{f}(@i{x} + @i{d}@i{x}).  Write a procedure
+@code{smooth} that takes as input a procedure that computes @i{f} and returns a
+procedure that computes the smoothed @i{f}.  It is sometimes valuable to
+repeatedly smooth a function (that is, smooth the smoothed function, and so on)
+to obtained the @newterm{@i{n}-fold smoothed function}.  Show how to generate
+the @i{n}-fold smoothed function of any given function using @code{smooth} and
+@code{repeated} from @ref{Exercise 1-43}.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-45}Exercise 1.45:} We saw in section @ref{1-3-3}
+that attempting to compute square roots by naively finding a fixed point of
+@i{y} |-> @i{x}/@i{y} does not converge, and that this can be fixed by average
+damping.  The same method works for finding cube roots as fixed points of the
+average-damped @i{y} |-> @i{x}/@i{y}^2.  Unfortunately, the process does not
+work for fourth roots---a single average damp is not enough to make a
+fixed-point search for @i{y} |-> @i{x}/@i{y}^3 converge.  On the other hand, if
+we average damp twice (i.e., use the average damp of the average damp of @i{y}
+|-> @i{x}/@i{y}^3) the fixed-point search does converge.  Do some experiments
+to determine how many average damps are required to compute @i{n}th roots as a
+fixed-point search based upon repeated average damping of @i{y} |->
+@i{x}/@i{y}^(@i{n}-1).  Use this to implement a simple procedure for computing
+@i{n}th roots using @code{fixed-point}, @code{average-damp}, and the
+@code{repeated} procedure of @ref{Exercise 1-43}.  Assume that any arithmetic
+operations you need are available as primitives.
+@end quotation
+
+@quotation
+@strong{@anchor{Exercise 1-46}Exercise 1.46:} Several of the numerical methods
+described in this chapter are instances of an extremely general computational
+strategy known as @newterm{iterative improvement}.  Iterative improvement says
+that, to compute something, we start with an initial guess for the answer, test
+if the guess is good enough, and otherwise improve the guess and continue the
+process using the improved guess as the new guess.  Write a procedure
+@code{iterative-improve} that takes two procedures as arguments: a method for
+telling whether a guess is good enough and a method for improving a guess.
+@code{Iterative-improve} should return as its value a procedure that takes a
+guess as argument and keeps improving the guess until it is good enough.
+Rewrite the @code{sqrt} procedure of section @ref{1-1-7} and the
+@code{fixed-point} procedure of section @ref{1-3-3} in terms of
+@code{iterative-improve}.
+@end quotation
+
+@node    Chapter 2, Chapter 3, Chapter 1, Top
