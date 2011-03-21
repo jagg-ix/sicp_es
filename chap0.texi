@@ -1,0 +1,795 @@
+\input texinfo
+@comment             **********************************************************
+@setfilename         sicp
+@settitle            Estructura e Interpretación de programas computacionales, 2 Ed.
+@comment             Formato Texinfo extraoficial
+@comment
+@set utfversion      2.neilvandyke4
+@set utfversiondate  Junio 30,2009
+@comment
+@comment             Este es un fichero Texinfo. Para convertirlo a formato Info hypertext, 
+@comment             necesitas el programa `makeinfo' del packete GNU Texinfo.
+@comment             
+@comment             Puedes encontrar varias veriones del fichero  sicp.texi y sicp.info
+@comment             en las páginas:
+@comment             
+@comment                 http://www.neilvandyke.org/sicp-texi/
+@comment                 [agrega la tuya aquí]
+@comment             
+@comment             **********************************************************
+
+@comment HISTORY:
+@comment
+@comment * Version 1 (unknown date) by Lytha Ayth.
+@comment
+@comment * Version 2 (April 20, 2001) by Lytha Ayth.
+@comment
+@comment * Version 2.nwv1 (March 11, 2002) by Neil W. Van Dyke.
+@comment   Cosmetic change to heading in Info format, and comment changes.
+@comment 
+@comment * Version 2.neilvandyke1 (February 10, 2003) by Neil W. Van Dyke
+@comment   Correction to Exercise 1.39 formula, spotted by Steve VanDevender.
+@comment   Added URL of Abelson and Sussman video lectures.
+@comment
+@comment * Version 2.neilvandyke2 (unreleased)
+@comment
+@comment * Version 2.neilvandyke3 (April 20, 2006) by Neil W. Van Dyke
+@comment   Pedro Kr@"oger patch to add missing Lisp example.
+@comment
+@comment * Version 2.neilvandyke4 (January 10, 2007) by Neil W. Van Dyke
+@comment   Brad Walker patch to add @code{@@dircategory} and @code{@@direntry}.
+@comment * Version 2.jorgegarcia1 (Jun 28, 2009) by Jorge A. Garcia Gonzalez
+
+@dircategory El lenguaje algoritmico Scheme
+@direntry
+h* SICP: (sicp). Estructura e Interpretación de programas computacionales
+@end direntry
+
+
+@macro newterm{term}
+@cindex \term\
+@dfn{\term\}
+@end macro
+
+@setchapternewpage odd
+@setshortcontentsaftertitlepage
+
+@titlepage
+@titlefont{Estructura e Interpretación}
+@sp 0.5
+@title  de programas computaciones
+@sp 0.2
+@subtitle Segunda Edición
+@subtitle  Formato Texinfo extraoficial  @value{utfversion}
+@author Harold Abelson y Gerald Jay Sussman
+@sp 0.2
+@author con colaboración de  Julie Sussman
+@sp 0.4
+@author prefacio por  Alan J. Perlis
+@sp 0.4
+
+@page
+@vskip 0pt plus 1filll
+@noindent
+Copyright @copyright{} 1996 by The Massachusetts Institute of Technology
+
+@sp 1
+@noindent
+Estructura e Interpretación de programas computaciones@*
+segunda edición
+
+@sp 1
+@noindent
+Harold Abelson y Gerald Jay Sussman@*
+con colaboración de  Julie Sussman
+
+@noindent
+prefacio por Alan J. Perlis
+
+@sp 1
+@noindent
+The @acronym{MIT} Press@*
+Cambridge, Massachusetts@*
+Londres, Inglaterra
+
+@noindent
+McGraw-Hill Book Company@*
+New York, St. Louis, San Francisco@*
+Montreal, Toronto
+
+@sp 1
+@noindent
+Este libro es parte de una serie escrita por la facultad de Ingeniería Electrica
+y el Departamento de Ciencias de la Computación del Massachusetts 
+Institute of Tecnology ( Instituto Tecnológico de Massachusetts). Editado y producido 
+por la editorial @acronym{MIT} bajo contrato de producción-distribución junton con McGraw-Hill Company.
+
+@sp 1
+@noindent
+Formato Texinfo no oficial @value{utfversion} (@value{utfversiondate})
+
+@end titlepage
+
+@node Top, UTF, (dir), (dir)
+
+@ifinfo
+
+@heading Structure and Interpretation of Computer Programs
+
+@noindent
+Segunda Edición@*
+Por Harold Abelson y Gerald Jay Sussman, colaboración de Julie Sussman@*
+prefacio por Alan J. Perles@*
+@copyrght{} 1996 Massachusetts Institute of Technology
+
+@noindent
+Unofficial Texinfo Format version @value{utfversion} (@value{utfversiondate})
+
+@end ifinfo
+
+@menu
+* UTF::              Formato Texinfo extraoficial
+* Dedication::       Dedicatoria
+* Foreword::         Prefacio
+* Preface::          Prefacio a la segunda ediciónn
+* Preface 1e::       Prefacio a la primera edición
+* Acknowledgements:: Reconocimientos
+* Chapter 1::        Creando Abstracciones con procedimientos
+* Chapter 2::        Creando Abstracciones con datos
+* Chapter 3::        Modularidad, objetos, y estado
+* Chapter 4::        Abstracciones metalinguisticas
+* Chapter 5::        Computando con maquinas de registros
+* References::       Referencias
+* Index::            Indice
+
+@detailmenu
+ --- The Detailed Node Listing ---
+
+Programando en Lisp
+
+* 1-1::              Los elementos de la programación
+* 1-2::              Procedimientos y los procesos que generan
+* 1-3::              Formulando abstracciones con procedimientos de alto-orden
+
+Los elementos de la programación
+
+* 1-1-1::            Expresiones
+* 1-1-2::            Nombrado y el entorno
+* 1-1-3::            Evaluando conbinaciones
+* 1-1-4::            Procedimientos compuestos
+* 1-1-5::            El modelo de substitución para aplicación de procedimientos
+* 1-1-6::            Expresiones condicionales y predicados
+* 1-1-7::            Ejemplo: Raiz cuadrada por el método de Newton
+* 1-1-8::            Procedimientos como abstracciones de caja negra
+
+Procedimientos y los procesos que generan
+
+* 1-2-1::            Recursion lineal e iteración
+* 1-2-2::            Recursion de Tree Recursion
+* 1-2-3::            Orden de crecimiento
+* 1-2-4::            Exponenciación
+* 1-2-5::            Maximo común divisor
+* 1-2-6::            Ejemplo: Prueba de primalidad.
+
+Formulando abstracciones como procedimientos de alto-orden
+
+* 1-3-1::            Procedimientos como argumentos
+* 1-3-2::            Construcción de procedimientos usando  @code{Lambda}
+* 1-3-3::            Procedimientos como métodos generales
+* 1-3-4::            Procedimientos como valores de retorno
+
+Creando abstracciones como datos
+
+* 2-1::              Introduction to Data Abstraction
+* 2-2::              Datos jerarquicoso y propiedad closure
+* 2-3::              Datos simbolicos
+* 2-4::              Multiples representaciones para datos abstractos
+* 2-5::              Sistemas con operaciones genericas
+
+Introducción a los datos abstractos
+
+* 2-1-1::            Ejemplo: Operaciones aritmeticas para números racionales
+* 2-1-2::            Barreras abstractas
+* 2-1-3::            Que se entiende por datos?
+* 2-1-4::            Ejercicio: Aritmética de intervalos.
+
+Datos jerarquicos y propiedad de clausula
+
+* 2-2-1::            Representando secuencias
+* 2-2-2::            Estructuras jerarquicas
+* 2-2-3::            Secuencias como interfaces convencionales
+* 2-2-4::            Ejemplo: Un lenguage para imágenes
+
+Datos simbólicos
+
+* 2-3-1::            Quotation
+* 2-3-2::            Ejemplo: Diferenciales simbólicas
+* 2-3-3::            Ejemplo: Representando conjuntos
+* 2-3-4::            Example: Arboles de Huffman 
+
+Multiples representaciones para datos abstractos
+
+* 2-4-1::            Representaciones para números complejos
+* 2-4-2::            Tagged data
+* 2-4-3::            Programación guiada por el dato y aditividad.
+
+Sistemas con operaciones genéricas
+
+* 2-5-1::            Operaciones aritméticas genéricas
+* 2-5-2::            Combinando datos de diferentes tipos
+* 2-5-3::            Ejemplo: Algebra simbólica
+
+Modularidad, objetos, y estado
+
+* 3-1::              Asignación y estado local
+* 3-2::              El entorno del modelo de evaluación
+* 3-3::              Modelado con datos mutables
+* 3-4::              Concurrencia: El tiempo es escencial
+* 3-5::              Streams
+
+Asignación y estado local
+
+* 3-1-1::            Variables con estado local
+* 3-1-2::            Los beneficios de introducir asignación
+* 3-1-3::            Los costos de introducir asignación
+
+El entorno del modelo de evaluación
+
+* 3-2-1::            Las reglas de evaluación
+* 3-2-2::            Aplicando procedimientos simples
+* 3-2-3::            Frames como repositorio de estado local
+* 3-2-4::            Definiciones internas
+
+Modelado con datos mutables
+
+* 3-3-1::            Mutable List Structure
+* 3-3-2::            Representando colas
+* 3-3-3::            Representando tablas
+* 3-3-4::            Un simulador de circuitos digitales
+* 3-3-5::            Propagación de limitaciones
+
+Concurrencia: El tiempo es escencial
+
+* 3-4-1::            La naturaleza del tiempo en sistemas concurrentes
+* 3-4-2::            Mecanismos para el control de la concurrencia
+
+Streams
+
+* 3-5-1::            Streams como listas retardadas
+* 3-5-2::            Streams infinitos
+* 3-5-3::            Explotando el paradigma de los Streams
+* 3-5-4::            Streams y evaluación retardada
+* 3-5-5::            Modularity of Functional Programs and Modularity of
+                     Objects
+
+Abstracciones metalinguísticas
+
+* 4-1::              Evaluador metacircular
+* 4-2::              Variaciones en Scheme -- Evaluación peresoza
+* 4-3::              Variaciones en Scheme -- Computación no determinística
+* 4-4::              Programación Lógica
+
+Evaluador metacircular
+
+* 4-1-1::            Nucleo del evaluador
+* 4-1-2::            Representando expresiones
+* 4-1-3::            Estructuras de datos del evaluador
+* 4-1-4::            Ejecutando el evaluador como un programa
+* 4-1-5::            Datos como programas
+* 4-1-6::            Definiciones internas
+* 4-1-7::            Separando el análisis sintáctico de la ejecución
+
+Variaciones en Scheme -- Evaluación peresoza
+
+* 4-2-1::            Orden normal y orden aplicativo
+* 4-2-2::            Un interprete con evaluación peresoza
+* 4-2-3::            Streams como listas peresozas
+
+Variaciones en Scheme -- Computación no determinística
+
+* 4-3-1::            Amb y búsqueda
+* 4-3-2::            Ejemplos de programas no determinísticos
+* 4-3-3::            Implementando el evaluador @code{Amb}
+
+Programción lógica
+
+* 4-4-1::            Recabado de información deductiva
+* 4-4-2::            Como funciona el sistema de Querys
+* 4-4-3::            La programación lógica es lógica matemática?
+* 4-4-4::            Implementando el sistema de Querys
+
+Implementando el sistema de Querys
+
+* 4-4-4-1::          El bucleThe Driver Loop and Instantiation
+* 4-4-4-2::          El Evaluador
+* 4-4-4-3::          Buscando aseveraciones por concordancia de patrones
+* 4-4-4-4::          Reglas y unificación
+* 4-4-4-5::          Mantenimiento de la base de datos
+* 4-4-4-6::          Operaciones sobre Streams
+* 4-4-4-7::          Query Syntax Procedures
+* 4-4-4-8::          Frames and Bindings
+
+Computando con maquinas de registros
+
+* 5-1::              Diseñando maquinas de registros
+* 5-2::              Un simulador de maquinas de registros
+* 5-3::              Storage Allocation and Garbage Collection
+* 5-4::              El evaluador de control explícito
+* 5-5::              Compilaciónn
+
+Diseñando maquinas de registros
+
+* 5-1-1::            Un lenguajes para descibir maquinas de registros
+* 5-1-2::            Abstracciones en el diseño de maquinas
+* 5-1-3::            Subrutinas
+* 5-1-4::            Usando una pila para implementar recursión
+* 5-1-5::            Instruction Summary
+
+Un simulador de máquinas de registro
+
+* 5-2-1::            La máquina modelo
+* 5-2-2::            El ensamblador
+* 5-2-3::            Generando procedimientos de ejecución para las instrucciones
+* 5-2-4::            Monitoreo de desempeño de la máquina
+
+Asignación de almacenamiento y recolección de basura
+
+* 5-3-1::            Memoria como vectores
+* 5-3-2::            Manteniendo la ilución de memoria infinita
+
+Registros y operaciones
+
+* 5-4-1::            El núcleo del evaluador de control explícito
+* 5-4-2::            Evaluación de secuencias y recursión de cola
+* 5-4-3::            Condicionales, asignación y definiciones
+* 5-4-4::            Ejecutando el evaluador
+
+Descripción general del compilador
+
+* 5-5-1::            Estructura del compilador
+* 5-5-2::            Compilando Expresiones
+* 5-5-3::            Compilando Combinaciones
+* 5-5-4::            Combinado secuencias de instrucciones
+* 5-5-5::            Un ejemplo de código compilado
+* 5-5-6::            Direccionamiento léxico
+* 5-5-7::            Conectando el código compilado al evaluador
+
+@end detailmenu
+@end menu
+
+@node    UTF, Dedicación, Top, Top
+@unnumbered Unofficial Texinfo Format
+
+@i{Esta es la segunda edición del libro @acronym{SICP}, extraido desde un fichero en formato extraoficial Texinfo.}
+
+@{Probabelmente estas leyendo desde un browser como el modo Info de Emacs. Alternativamente
+podrias leerlo en tu pantalla o impreso en papel.}
+}
+
+
+@i{ @acronym{UTF} es más facil de buscar que @acronym{HTML}. Tambien es más
+accesible a personas que tengan computadoras de gama baja, como equipos 386 donados. Un 
+386 puede, en teoría, correr Linux, Emacs y un interprete de Scheme simultaneamente, aun cuando 
+la mayoria de ellas probablemente  no pueda correr al mismo tiempo Netscape y X window
+sin introducir a los jovenes hackers en el concepto de @{thrashing}.} En UTF cabe
+perfectamente en un floppy  de 1,44@acronym{MB}, el cual viene bien cuando se
+tiene un ordenador sin acceso a INTERNET.
+
+@i{Si modificar @file{sicp.texi} para correjir errores o mejorar el 
+@acronym{ASCII} art, modifica la versión @code{@@set utfversion @value{utfversion}}
+para reflejar tu delta. Por ejemplo, si empesaste con la versión de Lytha
+@code{1}, y tu nombre es Bob, entonces puedes cambiar el nombre de las versiones sucesivas como
+@code{1.bob1}, @code{1.bob2}, @dots{} @code{1.bob@i{n}}.  Tambien cambia la version
+@code{utfversiondate}.  Si quieres distribuir tu versión en la Web entonces agrega el string ``sicp.texi''
+para que la gente pueda encontrarlo con los motores de busqueda web.
+
+@i{
+Se cree que el libro extraoficial en formato Texinfo es mantenido con el 
+espiritu de la versión de distribución libre en  @acronym{HTML}. Aunque nunca se sabe
+cuando la armada de abogados necesitará algo que hacer, asi que piensalo dos veces
+antes de usar tu nombre completo.
+} 
+
+@noindent
+@i{Peath,}
+
+@noindent
+@i{Lytha Ayth}
+
+Agregado: Vea tambien las clases SICP por Abelson y Sussman:
+@url{http://www.swiss.ai.mit.edu/classes/6.001/abelson-sussman-lectures/}
+
+@node    Dedicación, Foreword, UTF, Top
+@unnumbered Dedication
+
+Este libro está dedicado, con respeto y admiración, al espíritu que vive en la computadora.
+
+
+@quotation
+``Creo que es extraordinariamente importante que nosotros en las Ciencias de la Computación, sigamos manteniendo
+la diversión. Cuando empezó, habia mucha diversión. Claro que, de vez en cuando
+los clientes se quejaba y despues de un tiempo los empezamos a tomar en serio.
+Comenzamos a sentirnos realmente responsables por el exito y perfección en el uso de
+esas maquinas. No creo que lo seammos. Creo que somos responsables por extenderlas, llevarlas
+por nuevas direcciones, y de mantener la diverción en casa. Espero que el campo de las
+Ciencias de la Computación nunca pierda su sentido del humor. Sobre todo, espero que nunca
+nos convertiremos en misionarios. No te sientas como si fueras un vendedor de biblias. El mundo
+ya tiene demasiados. Lo que tu conoces sobre computación otras personas lo sabrán. No sientas como
+si la clave para el éxito de la computación está solo en tu manos. Lo que sí está en tus manos, creo
+y espero, es inteligencia: la habilidad de ver que tu fuiste capaz de hacerla más de lo que te llego a las manos.''
+
+@noindent
+---Alan J. Perlis (Abril 1, 1922 @- Febrero 7, 1990)
+@end quotation
+
+@node    Foreword, Preface, Dedication, Top
+@unnumbered Foreword
+Educadores, generales, dietistas, psicólogos, y padres, programan. Ejércitos,
+estudiantes, y angulas sociedades son programadas. Un enfrentamiento con los grandes problemas
+requieren una sucesion de programas, muchos de los cuales 
+Estos programas aparecen con problemas que parecen ser particulares únicamente
+a los problemas que abordan. Para apreciar la programación como una actividad
+intelectual por sí misma uno mismo debe sumergirce en la programación; tienes que
+leer y escribir los programas -- muchos de ellos. No importa mucho de que trata
+el programa o que aplicaciones tiene. Lo que realmente importa es que también
+lo realiza o cuan bien encaja con otros programas para crear programas incluso
+más grandes. El programador debe buscar a la vez perfección de las partes y 
+de el conjunto. En este libro el uso de ``programa'' está enfocado en la creación,
+ejecución, y estudio de programas escritos en un dialecto de lisp para su ejecución
+en computadoras digitales. Usando Lisp nos restringimos o limitamos no en que podemos
+programar, si no únicamente la notación para la descripción de nuestros programas.
+
+Nuestra jornada en los temas que trataremos en este libro nos llevará con
+Los temas que trataremos en éste libro nos envolverá principalmente con tres
+tipos de fenomenos: la mente humana, conjuntos de programas computacionales,
+y la computadora. 
+
+Cada programa computacional es un modelo, trazado en la mente, de un proceso
+real o mental. Estos procesos, surgen desde los pensamientos y la experiecia humana,
+son numéricamente son inmensos, intrincados en detalle, y al mismo tiempo parcialmente
+comprendidos. 
+
+Ellos estan modelados a nuesta permanente satisfacción la cual es raramente
+lograda por nuestros programas.
+
+Así que incluso cuando nuestros programas son colecciones descretos de símbolos
+cuidadosamente colocados como mosaicos de funciones interconectadas, continuamente
+evolucionan: los cambiamos a la par de nuestra percepción del modelo se profundiza,
+crece y generaliza hasta que al final el modelo alcanza un lugar estable dentro
+de otro modelo con el cual tratamos.
+
+El origen del regocijo que encontramos en las programas computacionales es el continuo
+crecimiento en la menta y de los mecanismos de la computadora expresados como programas y la exploción
+de percepciones que ellos generan. 
+Si el arte es un interprete de nuestros sueños, la computadora los ejecuta en la forma
+de programas!
+
+Con todo su poder, la computadora no es nada amistosa. Sus programas deben
+correctos, y que todo lo que deseamos decir debe ser dicho con todo detalle. 
+Como toda otra actividad simbólica, nos convencemos de la correctes
+en los programas mediante la argumentación. 
+
+
+Lisp itself can be assigned a semantics (another model, by the way),
+and if a program's function can be specified, say, in the predicate calculus,
+the proof methods of logic can be used to make an acceptable correctness
+argument.  
+
+Desafortunadamente, conforme los programas crecen y se complican, como casi siempre
+sucede, la adecuación, consistencia, y correctes de la especificación misma se vuelve sujeto
+de duda, dado que argumentos formales sobre la correctes de los programas rara vez los acompañan.
+
+Dado que los programas grandes crecen apartir de los pequeños, es crucial que desarrollemos un arsenal
+estructuras estandar de aquellas programas que sabemos son correctos --nosotros los llamamos lenguajes--
+y aprender a combinarlos en estructuras mayores usando tecnicas de organización ha probado ser de gran
+valor.
+
+Estas técnicas son tratadas a lo largo de éste libro, y entenderlas, es escencial en la prometedora empresa
+llamada programación. Más que otra cosa, el descubrimiento y dominio de poderosas técnicas de organización
+aceleran nuestra habilidad para crear programas grandes y complejos. Inversamente, ya que escribir grandes
+programas es tan agotador, estamos empujados a inventar nuevos metodos para reducir el conjunto de funciones
+y pormenores a ser puestos en los programas.
+
+A diferencia de los programas, los computadores deben obedecer las leyes de la física. Si se desea que ellos
+actuen más rapidamente -- menos nanosegundos por cambio de estado --- deben transmitir electrones a menores
+distancias. Para lograrlo se necesitaría eliminar el  calor generado por el gran número de 
+dispositivos juntos en tan pequeño espacio.
+
+Se ha desarrollado un esquisito arte para balancear la multitud de funciones y la densidad de los
+dispositivos. En cualquier momento, el hardware siempre opera a un nivel más primitivo que aquel
+en que se encuentran los programas. Los procesos que transforman nuestros programas lisp en programas ``maquina''
+son por si mismos modelos abstractos en que programamos. Su estudio y creacion dan una gran cantidad
+de conocimiento en la organización de estos modelos abstractos en los cuales programamos.
+
+Por supuesto que la computadora por si misma puede ser modelada. Pienselo: el comportamiento
+de pequeñas piezas electrónicas están modeladas por la mecánica cuántica descrita por
+ecuaciones diferenciales cuyo comportamiento es capturado detalladamente por 
+aproximaciones representados en programas computaciones ejecutados en en computadoras
+compuestas de @dots{}!
+
+No se trata simplemente de una cuestión de conveniencia táctica identificar separadamente
+cada uno de las tres facetas. Aunque, como algunos dicen, todo está en la cabeza, ésta
+separación lógica conlleva una aceleración del trafico simbólico entre cada, cuya
+riqueza, vitalidad, y potencial es superado en experiencia humana únicamente
+al transcurrir la vida misma.
+
+En el mejor de los casos, las relaciones entre los 3 panoramas son metaestables. Las computadoras
+nunca son lo sufientemente grandes y rapidas. Cada avance en las tecnologías de hardware nos lleva
+a empresas mayores en la programción de software, nuevos principios organizacionales, y a un enriquecimiento
+de modelos abstractos. Cada lector deberia preguntarce a sí mismo de vez en vez, ``Con que fin?, hacia que
+fin? ``  - aunque no tan seguido como para dejar perder la diversión debido a tales preguntas filosóficas.
+
+Entre los programas que escribimos, algunos ( aunque nunca son suficientes) desempeñan alguna función matematica
+muy precisa, como buscar el máximo dentro de una secuencia de números, determinar primaridad, o encontrar
+la raiz cuadrada. A tales programas los llamamos algoritmos, y con gran detalles son conocidos por su 
+comportamiento optimo, particularmente con respecto de dos parámetros: tiempo de ejecución y requerimientos del
+espacio de almacenamiento. Un programador debe adquirir buenos algoritmos e idiomas.
+
+Incluso aunque algunos programas se resistan a una especificación precisa, es la responsabilidad del 
+programador estimar, y siempre tratar de mejorar, su desempeño.
+
+Lisp es un sobreviviente, habiendo estado en uso cerca de un cuarto de siglo. Entre los lenguajes
+de programación en actividad únicamente Fortran tiene una vida mayor. Ambos lenguajes
+han cubierto las necesidades de programación en importantes areas de trabajo, por ejemplo Fortran
+para computación cienctífica y de ingeniería, Lisp para inteligencia artificial. Éstas dos areas continuarán siendo
+importantes, y sus programadores son tan devotos a éstos lenguajes que podrian seguir estando en uso por al menos
+otro cuarto de siglo.
+
+Lisp cambia. Scheme es un dialecto usado en éste libro el cual  a evolucionado apartir del Lisp original y difiere
+de éste último en varias formas importantes, incluye alcance estático para
+la asignación de variables y permite a las funciones producir funciones
+como valores de retorno. En su estrctura semántica Scheme se encuentra tan emparentado con  Algol 60
+como lo estuvieron las primeras versiones de Lisp. Algo 60, nunca volvio a ser un lenguaje activo, sin embargo
+vive en los genes de Scheme y Pascal. Sería dificil encontrar dos lenguajes que sean la moneda de intercambio 
+de dos culturas tan diferentes que las reunidas alrededor de éstos lenguajes. Podríamos ver a Pascal como un
+lenguaje para crear piramides --imponentes, asombrosas, estructuras estáticas creadas por ejércitos que apilan
+pesados bloques en su lugar. Lisp es para crear organismos --majestuosos, impresionantes, estructuas dinámicas creadas
+por escuadrones llenando llenando  --- de organismos más simples en su lugar. Los principios organizacionales usados son los mismos en ambos casos, excepto por una importante y extraordinaria diferencia: 
+La libertad de exportar funcionalidades confiada al programador en Lisp, es más de un orden de magnitud mayor
+que aquel encontrado en los proyectos con pascal. Los programas lisp inflan las librerias con funciones
+cuya utilidad traciende a la aplicación que las originó.. Las listas, estructuras de datos nativas de Lisp, es
+mayormente responsable por dicho crecimiento de utilidad. La aplicabilidad natural de las listas se reflejan
+en funciones que son  sorprendentemente no idiosincráticas.   En Pascal la gran cantidad de declaraciones
+de estructuras de datos  inducen a una especialización por parte de las funciones que las procesan, implicando
+una inhibicióne e incluso penalización a la coperación casual. Es mucho mejor tener 100 funciones que operen
+sobre una estructura de datos, que tener 10 funciones que operen sobre 10 estructuras de datos. Como resultado tenemos que las pirámides deben permanecer por milenios; los organismos deben evolucionar o morir.
+
+Para ilustrar la diferencia, compara el tratamiento de materiales y
+ejercicios dentro de este libro con cualquiera de mis primeros cursos
+usando Pascal. No te dejes llevar por la ilución de que éste libro es
+digerible únicamente en el @acronym{MIT}, Éste es precisamente lo que
+un libro serio en programación en Lisp debe ser, sin importar de donde
+o quien sea el estudiante.
+
+Nota que este es un libro sobre programción en general, a diferencia
+de la mayoría de los libros sobre Lisp, las cuales son usados como
+preparación para trabajar en inteligencia artificial. Despues de todo,
+las preocupaciones críticas sobre ingeniería de software e
+inteligencia artificial tienden a solaparce a medida que el sistema
+bajo investigación se vuelve más grande.
+
+Ésto explica por que existe un crecimiento del interes en Lisp fuera
+del campo de inteligencia artificial.
+
+Por sus objetivos, uno podría esperar, que la investigación en inteligencia artifial 
+genere problemas relevantes en programación. En otras culturas de programación
+ésta avalancha de problemas se refleja en la generación de nuevos lenguajes. De hecho, en 
+cualquier gran proyecto de programación,  principio util de organización es controlar e isolar
+el tráfico dentro de las módulos de las tareas con la invención de nuevos lenguajes. Éstos lenguajes tienden
+a ser menos primitivos a medida que uno se aproxima a los limites del sistema en que nosotros, los humanos,
+interactuamos más seguido. Como resultado, tales sistemas contienen replicadas muchas veces,funciones complejas 
+para el tratamiento del lenguaje. Debido a la sintaxis y semántica tan simple de Lisp la tarea de analizarlo resulta
+una tarea elemental. Debido a lo anterior la tarea del analisis sintáctico (parsing)  casi no juega ningun
+rol en la programacion en Lisp, y la construccion de procesadores de lenguaje raramente  es un impedimento
+para mantener el ritmo de crecimiento y cambios de los grandes sistemas Lisp. Finalmente, ésta simplicidad
+de la sintaxis y semantica es la responsable de las preocupaciones y libertades para todos
+los programadores en Lisp. Ningun programa en Lisp mayor a unas cuantas lineas puede  ser escrito sin ser saturado
+con funciones descrecionales. Inventa y adapta; ten adaptaciones y reinventa! Brindamos por los programadores
+que escriben sus pensamientos dentro de parentesis anidados!
+
+
+@noindent
+Alan J. Perlis@*
+New Haven, Connecticut
+
+@node    Preface, Preface 1e, Foreword, Top
+@unnumbered Preface to the Second Edition
+
+@quotation
+Será  posible que no haya nada parecido al software, que esté destinado a ser descartado: 
+que siempre tendremos que verlo como una burbuja de jabón?
+---Alan J. Perlis
+@end quotation
+
+El material en presente en éste libro han sido los fundamentos los temas
+de introducción en el @acronym{MIT} desde 1980. Hemos estado enseñando éste material
+por cuadro años cuando la primera edición fue publicada, y doce años más han
+transcurrido desde la aparición de ésta segunda edición. Éstamos contentos de que 
+nuestro trabajo haya sido adoptado e incorporado en otros textos. Hemos visto a nuestros
+estudiantes tomar las ideas y programas en este libro y crearlos en el núcleo de 
+nuevos sistemas y lenguajes de cómputo.  En la realización de un antiguo juego de palabras, 
+nuestros estudiantes se han convertido en nuestros constructores. Somos afortunados
+de tener tan capacez estudiantes y tan consumados constructores.
+
+En la preparación de ésta edición, hemos incorporado cientos de aclaraciones
+sugeridas por nuestra propia experiencia en la enseñanza y los comentos de colegas
+en el @acrnym{MIT} y en otros lados. Hemos redisñado la mayoria de los sistemas de programación
+principales en éste libro, incluyendo los sistemas de aritmética genérica; y hemos reescrito todos los
+programas de  ejemplo para asegurar que cualquier implementación que cumpla @acronym{IEE} Scheme estándar 
+(@!acronym{IEEE} 1990) podrá ejecutar el código.
+
+
+Ésta edición pone énfasis en varios nuevos temas. El más importante es el rol central que jugado por 
+las diferentes formas de lidias con tiempo y modelos computacionales:l objetos con estado, programación concurrente,
+programación funcional, evaluación perezosa, y programación no determinística. Incluimos varias secciones nuevas
+sobre concurencia y no determinismo, tratando de integrar éstos temas por todo el libro.
+
+
+La primera edición de éste libro siguió cuidadosamente el temario de un semestre en el @acronym{MIT}. Con todo 
+el  material nuevo en ésta segunda edición, no será posible curbir todo en únicamente un semestre, por tanto 
+el maestro tendrá que escoger que tomar y que no. En nuestra propia experiencia de enseñansa, a veces nos saltamos la sección sobre programación lógica  (section @ref{4.4}), tenemos estudiantes usando el simulador de la maquina de registros pero no cubrimos su implementación (section @ref{5-2}), únicamente damos una rápida vista al tema sobre la construcción del compiladores (@ref{5-5}). Incluso con ésto, todavia es un curso intensivo. Algunos instructores tal vez quisieran únicamente cubrir los primeros tres o cuatro capítulos, dejando el resto del material para cursos posteriores.
+
+El sitio Web  @url{http://www-mitpress.mit.edu/sicp/} provee soporte para usuarios de éste libro. Éste incluye
+programas del libro, materiales suplementarios e implementaciones ejecutables del dialecto de Lisp, Scheme.
+
+@node    Prefacio 1ra Edición, Agradecimientos, PrefacioPreface, Arriba
+@unnumbered Preface to the First Edition
+
+@quotation
+Una computadora es como un violin. Puedes imaginar a un novato tratando primero uno fonógrafo y despues 
+un violin.El último, dice, suena terrible. Éste es el argumento que escuchamos de nuestros humanistas, y 
+la mayoría de nuestros científicos computacionales. Los programas computacionales son buenos, dicen, para 
+propósitos particulares, sin embargo no son flexibles. Tampoco el violin, o una máquina de escribir, hasta
+que se aprenda a usarlo.
+
+---Marvin Minsky, ``Por que la programación es un buen medio para expresar ideas pobremente comprendidas o no muy bien formuladass''
+@end quotation
+``La estructura e interpretación de programas computacionales'' es el material 
+de iniciación en ciencias de la computación en el Instituto Tecnológico de Massachusetts. Es requerido que
+todos los estudiantes de ingeniría electrica o ciencias de la computación tomen éste curso,  se concidera
+como un cuarto del ``núcleo curricular común', el cual tambien incluye temas 
+sobre circuitos y sistemas lineales, además otro sobre diseño de sistemas digitales. Hemos estado
+involucrados en el desarrollo de éste asunto desde 1978, y hemos estado enseñando
+éste material tal como se encuenta ahora desde el otoño del 1980 con entre 600 y 700 estudiantes
+por año.
+La mayoria de estos estudiantes han tenido poco o ninguna enseñanza formal a priori en computación., aunque
+muchos de ellos haya jugado con computadoras un poco y menos han tenido mucha experiencia programando 
+o diseñando hardware.
+
+El diseño de este tema de introducción a las ciencias de la computación reflaja dos grandes preocupaciones. Primero,
+que los lenguajes de programación no son solo una forma de lograr que una computadora realice una tarea, si no que 
+es en realidad una novedosa forma de expresar ideas sobre metodología. Por tanto, programas deben ser escritos
+para ser leidos por personas, e incidentalmente para ser ejecutadas por máquinas. Segundo, creemos que el material
+expuesto por éste tema en éste nivel, no es la sintaxis de las contrucciones sintacticas de un lenguaje de 
+programación en particular, ni ingeniosos algoritmos para calcular alguna funcion en particular eficientemente, más bien las técnicas usadas para controlar la complejidad intelectual de los grandes sistemas de software.
+
+Nuestro objetivo es que los estudiantes que completen éste tema deban tener un buen
+sentido del gusto del estilo y estética de la programación. Ellos deben tener
+dominio sobre las técnicas de control de complejidad mayores. Ellos deben ser capaces de leer
+un programa de 50 hojas de longitud, if está escrito en un estilo ejemplar. Ellos deben saber 
+que no necesitan leer, y que no necesitan entender en cualquier momento. Deben sentirce seguros
+al modificar un programa, reteniendo el espíritu y estilo del autor original.
+
+Éstas habilidades no son únicas de la programación de computadoras. Las técnicas que enseñamos
+son comunes a todo el diseño de ingeniería. Contralamos la complejidad, creando abstracciones que
+oculten detalles cuando sea apropiado. Controlamos complejidad, estableciendo interfaces que
+nos permiten construir sistemas, combinando piezas estandar, bien documentadas en una forma
+``mescla y encaja''. Controlamos complejidad al establecer nuevos lenguajes para describir
+un diseño, cada uno de los cuales enfatiza un particular aspecto del diseño y desenfatiza otros.
+
+
+Lo que hay por debajo de nuestra aproximación a éste tema es nuestra convicción de 
+que ``las ciencias de la computación'' no es una ciencia y que su signifado
+tiene poco que ver con las computadoras. La revolución informática, es una revolución en
+la manera en que pensamos y en la forma que expresamos lo que pensamos. La escencia de éste
+cambio es lo que podría ser llamado @newterm{epistemología procedural}---el estudio de
+la estructura del conociemiento desde un punto de vista imperativo, en oposición al punto
+de vista declarativo tomado por las ramas clasicas de las matemáticas.
+Las matemáticas proveen un entorno para tratar precisamente con la noción de ``que es'' , 
+la computación provee un entorno para tratar precisamente con la noción de ``como hacerlo.''
+
+Enseñando nuestro material usamos un dialecto del leguaje de programación Lisp. Formalmente
+nunca enseñamos el lenguaje, debido a que no necesitamos hacerlo. Solo lo usamos, y los 
+estudiantes lo aprenden luego de unos pocos dias. Ésta es una de las grandes ventajas
+de los lenguajes parecidos a Lisp: Tienen muy pocas formas de componer expresiones, y casi 
+ninguna estructura sintáctica. Todas las propiedades formales pueden ser cubiertas en una hora, al
+igual que las reglas de ajedrez. Despues de un corto tiempo nos olvidamos de los detalles
+de la sintaxis del lenguaje ( por que no tiene) y nos topamos con lo que 
+realmente importa ---idear que queremos computar, como dividiremos el problema en partes 
+manejables, y como trabajaremos sobre esas partes. Otra ventaja de Lisp es que soporta
+(aunque no fuerza) más de una estrategia para descomponer programas de gran escala
+estrategias para la  descomposición modular de sistemas que cualquier otro lenguaje 
+de programación que conoscamos soporta. Podemos crear abstraciones de datos y procedurales, 
+podemos usar funciones de orden alto para capturar patrones de uso comun, podemos modelar
+estado local usando asignacion y mutación de datos, podemos enlazar partes de un programa con 
+streams y evaluación retrasada, y podemos implementar facilmente lenguajes empotrados.
+Todo ésto está embebido en un entorno interactivo con excelente soporte para el diseño incremental de
+programas, su contrucción, prueba y revisión. Agradecemos a todas las generaciones de magos de Lisp, empezando
+con John McCarthy, quien puso de moda una estupenda herramienta  con poder y elegancia sin precedentes.
+
+El dialecto de Lisp que usamos es Scheme, en un intento de lograr juntar el poder y elegancia de Lisp y Algol. De
+Lisp tomamos el poder metalinguístico que deriva de su sintaxis tan simple, la representación uniforme de programas
+como objetos de datos, y el colector de basura y colector de datos alojados. De Algol tomamos el alcance
+léxico y la estructura de bloques, los cuales son legados de los pioneros el diseño de los lenguajes de programación
+quienes estuvieron en el comité de Algol. 
+Scheme, the dialect of Lisp that we use, is an attempt to bring together the
+power and elegance of Lisp and Algol.  From Lisp we take the metalinguistic
+power that derives from the simple syntax, the uniform representation of
+programs as data objects, and the garbage-collected heap-allocated data.  From
+Algol we take lexical scoping and block structure, which are gifts from the
+pioneers of programming-language design who were on the Algol committee.  We
+wish to cite John Reynolds and Peter Landin for their insights into the
+relationship of Church's @i{[lambda]} calculus to the structure of programming
+languages.  We also recognize our debt to the mathematicians who scouted out
+this territory decades before computers appeared on the scene.  These pioneers
+include Alonzo Church, Barkley Rosser, Stephen Kleene, and Haskell Curry.
+
+@node       Reconocimientos, Capítulo 1, Prefacio 1ra ed, Arriba
+@unnumbered Acknowledgements
+
+Nos gustaría agradecer a todas las personas que nos apoyaron a desarrollar éste libro y su curricula.
+
+Nuestra materia es un claro descendiente de ``6.231,'' un materia sobre liguística de programación y el cálculo @i{lambda}
+enseñado en el @acronym{MIT} a finales de 1960 por Jack Wozencraft y Arthur Evans, Jr.
+
+Tenemos una gran deuda con Robert Fano, quien reorganizó la curricula introductoria en Ingeniería Electrica y Ciencias 
+de la Computación del @acronym{MIT} para enfatizar los principios de la ingeniria de diseño. El nos guió para que empezaramos
+ésta empresa y escribió el primer conjunto de notas de los temas de los cuales se desarrolló éste libro.
+
+Mucho del estilo y estética de la programación que tratamos de enseñar fue desarrollada en conjunto con Guy Lewis Steele Jr. , 
+quien colaboró con Gerald Jay Sussman en el desarrollo inicial del lenguaje de programación Scheme. Adicionalmente, David Turner, 
+Peter Henderson, Dan Friedman, David Wise, y Will Clinger nos han enseñado muchas de las técnicas de la programación funcional de la comunidad que aparece en éste libro.
+
+Joel Moses nos enseño como estructurar grandes sistemas. Sus experiencia con el sistema Macsyma para computación simbólica
+nos enseño que uno debe evitar la complejidad en el control y concentrarse en organizar los datos para que reflejen la verdadera
+estructura del mundo que está siendo modelado.
+
+Marvin Minsky y Seymour Papert formaron muchas de las actitudes sobre la programación y su lugar en nuestras vidas intelectuales.  A ellos les debemos el saber que la computación provee medios de expresión para explorar ideas de otro modo sería muy complejo
+de abordar prescisamente.  Ellos enfantizan que la habilidad de un estudiante para escribir y modificar programas provee un 
+poderoso medio en el cual explorar se combierte en una actividad natural.
+
+Estamos fuertemente de acuerdo con Alan Perlies que la programación es muy divertida y que mejor hemos de tener cuidado de
+apoyar la diversión de la programación. Parte de que sea divertido se deriva de observar a los grandes maestros trabajando. Somos
+afortunados de haber sido aprendices de programacióno a los pies de Bill Gosper y Richard Greenblat.
+
+Es dificil identificar todas las peronas quienes han contribuido al desarrollo de nuestro curriculum. Agradecemos a los
+profesores, instructores, y tutores quienes han trabajado con nosotros los pasados quince años y puesto tantas horas
+extra en nuestra materia, especialmente Bill Siebert, Albert Meyer, Joe Stoy, Randy Davis, Louis Braida, Eric Grimson, Rod Brooks, Lynn Stein, y Peter Szolovits. Nos gustaría agradecer especialmente la  sobresaliente contribución a la enseñansa de Franklyn Turbak, ahora en Wellesley; su trabajo en la instrucción de pregrado ha puesto un estandar al cual todos podemos aspirar. Estamos 
+agradecidos a Jerry Saltzer y Jimm Miller por ayudarnos a lidiar con los misterios de la concurrencia, y a Peter Szolovits y David McAllester por sus contribuciones en la exposición de la evaluación no determinística en @ref{Chapter 4}.
+
+Muchas personas han puesto un esfuerzo significativo para presentar éste material en otras universidades. Alguanas de las 
+personas con que hemos trabajado muy cercanamente son Jacob Katzenelson en el Tecnion, Hardy Mayers en la Universidad de 
+California en Irvine, Joe Stoy en Oxford, Elisha Sacks en Purdue, y Jan Komorowski en la Universidad Norwegian de Ciencia y 
+Tecnología. Estamos excepcionalmente orgullosos de éste tema en otras universidades, incluyhendo Kenneth Yip en Yale, Brian Harvey
+en la Universidad de California en Berkeley, y Dan Huttenlocher en Cornell.
+
+Al Moy@'e organizo para nosotros la enseñanza de éste material a los ingenieros de Hellet-Packard, así como la producción de
+cintas de video de esas clases. Nos gustaría agradecer a los talentosos instructores, en particular a Jim Miller, Bill Siebert, y Mike Eisenberg, quien han diseñado los cursos de educación continua incorporando éstas cintas y enseñandolas en universidades
+e industrias alrededor de todo el mundo.
+
+Muchos educadores en otros paises han puesto un significativo esfuerzo traduciendo la primera edición. Michel Briand, Perre Chamard, y André Pic produjeron una edición en frances; Sussane Daniels-Herold produjeron una edición en Aleman; y Fumio Motoyoshi produjeron una edición en japones. No sabemos quien produjo la edición en chino, pero consideramos un honor, haber sido seleccionados 
+como el tema una traducción ``no autorizada''.
+
+Es dificil enumerar todas las personas quen han hecho contribuciones técnicas al desarrollo de los sistemas Scheme que usamos
+para propósitos de enseñaza. Además de Guy Steele, entre los principales magos se han incluido Cris Hanson, Joe Bowbeer, Jim Miller, Guillermo Rozas y Stephen Adams. Otros quienes han puesto un tiempo significativo son Richard Stallman, Alan Bawden, Kent Pitman
+, Jon Taft, Neil  Mayle, John Lamping, Gwyn Osnos, Tracy Larrabee, George Carrette, Soma
+Chaudhuri, Bill Chiarchiaro, Steven Kirsch, Leigh Klotz, Wayne Noss, Todd Cass,
+Patrick O'Donnell, Kevin Theobald, Daniel Weise, Kenneth Sinclair, Anthony
+Courtemanche, Henry M. Wu, Andrew Berlin, and Ruth Shyu.
+
+Nos gustaría agradecer, no solo por la implementación del @acronym{MIT}, a todas las personas quienes trabajaron en 
+el estandard @acronym{IEEE} de Scheme, incluyendo a William Clinger y a Jonathan Rees, quien editó el @acrnym{R^4RS}, y a Chris Haynes, David Bartley, Chris Hanson, y Jim Miller, quienes prepararon el estandar @acronym{IEEE}. 
+
+Dan Friedman ha sido un viejo lider de la comunidad de Scheme. La mayoría del trabajo de la comunidad va desde
+los problemas en el diseño del lenguaje hasta abarcar incluso inovaciones significativas en el ambito educacional, 
+tal como las las curriculas de bachillerato basadas en el EdScheme de Schemer's Inc., y los maravillosos libros de Mike Eisenberg
+,Brian Harve y Matthew Wright.
+
+Apreciamos el trabajo de aquellos quienes contribuyeron a que este libro se hiciera realidad, especialmente a Terry Ehling, 
+Larry Cohen, y Paul Bethge en @acronym{MIT} Press. Ella Mazel encontro la maravillosa imagen de la portada. Estamos particularmente agradecidos a Bernard y Ella Mazel por su ayuda con el diseño del libro en su segunda edición, tambien al extraordinario mago del @TeX{} David Jones. Tambien estamos en deuda a todos aquellos lectores quienes hicieron perspicaces comentarios en el nuevo borrados: Jacob Katzenelson, Hardy Mayer, Jim Miller, y especialmente Brian Harvey, quien hizo en éste libro lo que Jolie sobre su libro @cite{Simply Scheme}.
+
+Finalmente, nos gustariía reconocer la ayuda de las organizaciones que han apoyado éste trabajo al pasar de los años, por parte de  Hewlett-Packard: Ira Goldstein y Joel Birnbaum, por parte de @acronym{DARPA}: Bob Kahn.
+
+@node    Capitulo 1, Capitulo 2, Agradecimientos, Arriba
+
+@chapter Creando abstracciones mediante procedimientos
