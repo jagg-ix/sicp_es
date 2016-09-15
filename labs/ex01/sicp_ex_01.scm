@@ -1,5 +1,5 @@
 10                 ; numeric symbol, evals to numeral with value 10
-(+ 5 3 4 )         ; eval sum, it passes 5, 3, 4 as parameters returns 11 
+(+ 5 3 4 )         ; eval sum, it passes 5, 3, 4 as parameters returns 12
 (- 9 1)            ; eval function substraction, gets 9,1 as parameters returns 8
 (/ 6 2)            ; eval div function with params 6,2, returns 3
 
@@ -13,6 +13,6 @@
 
 ;  evaluate sum function with value 3 +  4 +  (eval (* 3 4)
 ;  it should return 7 + 12 = 19
-(+ a b (* a b) 
+(+ a b (* a b) )
 (= a b)            ; this should return false , represented by symbol #f
 
