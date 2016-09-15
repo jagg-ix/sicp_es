@@ -1,0 +1,13 @@
+Exercise 1.1
+
+What is the result printed by the interpreter in response to each expression?, Assume that the sequence is to be evaluated in the order in which it is presented.
+
+10
+(+ 5 3 4 )
+(- 9 1)
+(/ 6 2)
+(+ (* 2 4)(- 4 6))
+(define a 3)
+(define b (+ a 1))
+(+ a b (* a b)
+(= a b)
