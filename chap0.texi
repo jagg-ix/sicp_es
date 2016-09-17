@@ -55,7 +55,7 @@ h* SICP: (sicp). Estructura e Interpretacion de programas de ordenador
 @setshortcontentsaftertitlepage
 
 @titlepage
-@titlefont{Estructura e Interpretacion}
+@titlefont{Estructura e Interpretacin}
 @sp 0.5
 @title  de programas computaciones
 @sp 0.2

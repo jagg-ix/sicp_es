@@ -102,9 +102,9 @@ escritos con la ayuda de herramientas de sistema escritos en Lisp (Abelson et al
 }
 Debido a su caracter experimental y su énfasis en manipulación de símbolos, Lisp fue al principio
 muy ineficiente para realizar cálculos numéricos, al menos en comparación con Fortran. Sin embargo
-al paso de los años, se han desarrollado compiladores de Lisp los cuales traducen programas Lisp a código
-máquina que puede realizar operaciones matemáticas de manera eficiente.  And for special applications, Lisp has
-been used with great effectiveness.@footnote{One such special application was a
+al paso de los años, se han desarrollado compiladores de Lisp los cuales traducen a código
+máquina que puede realizar operaciones matemáticas de manera eficiente.  Lisp ha sido usado para aplicaciones especiales
+con gran exito.@footnote{One such special application was a
 breakthrough computation of scientific importance---an integration of the
 motion of the Solar System that extended previous results by nearly two orders
 of magnitude, and demonstrated that the dynamics of the Solar System is
