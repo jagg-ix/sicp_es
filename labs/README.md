@@ -6,6 +6,7 @@
 * List of Solutions to Exercises 
 [1.1](https://github.com/jagg-ix/sicp_es/tree/master/labs/ex01/)
 [1.2](https://github.com/jagg-ix/sicp_es/tree/master/labs/ex1-2)
+[1.3](https://github.com/jagg-ix/sicp_es/tree/master/labs/ex1-3)
 
 
 
