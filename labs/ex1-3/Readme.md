@@ -4,6 +4,7 @@
 - Define a function to select biggest 2 vars from 3 vars given.
 - Combine both 
 
+```scheme
 (define (biggest2 x y z)
  (cond ((and (> x y) (> y z)) (list x y))
        ((and (> x z) (> z y)) (list x z))
