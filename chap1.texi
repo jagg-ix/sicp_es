@@ -6,7 +6,8 @@ En las ocasiones donde la mente ejerce su poder sobre ideas simples, claramemnte
 ideas simples dentro de una compuesta, de ésta manera se crean todas las ideas complejas.
 
 Donde la mente ejerce su verdadero poder sobre las ideas simples son mayormente: 1. Combinando varias ideas 
-simples para fomar una compuesta, así estan hechas todas las ideas complejas. 2. La segunda, es juntando  dos ideas, simples o complejas, entrelazandolas y poder verlas a la vez, without uniting them into one, by which it gets
+simples para fomar una compuesta, así estan hechas todas las ideas complejas. 2. La segunda, es juntando  dos ideas, simples o complejas,
+ entrelazandolas y poder verlas a la vez, without uniting them into one, by which it gets
 all its ideas of relations.  3.  The third is separating them from all other
 ideas that accompany them in their real existence: this is called abstraction,
 and thus all its general ideas are made.
@@ -104,7 +105,14 @@ Debido a su caracter experimental y su énfasis en manipulación de símbolos, Lisp
 muy ineficiente para realizar cálculos numéricos, al menos en comparación con Fortran. Sin embargo
 al paso de los años, se han desarrollado compiladores de Lisp los cuales traducen a código
 máquina que puede realizar operaciones matemáticas de manera eficiente.  Lisp ha sido usado para aplicaciones especiales
-con gran exito.@footnote{One such special application was a
+con gran exito.@footnote{Una de las aplicaciones especiales fue un parte aguas en el computo cientifico --una integracion 
+sobre el movimiento del sistema solar que extendia resultados previous, que los sobrepasaba por al menos dos ordenes de 
+magnitud, y demostro que la dinamica del sistema solar es caotica. Estos calculos fueron posibles unicamente por nuevos
+alagoritmos de integracion, un compilador de uso especifico, todos elloso usando special-purpose compiler, and a special-purpose computer all implemented with
+the aid of software tools written in Lisp (Abelson et al. 1992; Sussman and
+Wisdom 1992).}
+
+@footnote{One such special application was a
 breakthrough computation of scientific importance---an integration of the
 motion of the Solar System that extended previous results by nearly two orders
 of magnitude, and demonstrated that the dynamics of the Solar System is
