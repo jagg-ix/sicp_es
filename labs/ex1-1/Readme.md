@@ -1,7 +1,7 @@
 ## Exercise 1-1
 
 What is the result printed by the interpreter in response to each expression?, Assume that the sequence is to be evaluated in the order in which it is presented.
-
+```scheme
 10
 (+ 5 3 4 )
 (- 9 1)
