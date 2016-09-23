@@ -12,7 +12,7 @@ all its ideas of relations.  3.  The third is separating them from all other
 ideas that accompany them in their real existence: this is called abstraction,
 and thus all its general ideas are made.
 
----John Locke, @emph{An Essay Concerning Human Understanding} (1690)
+---John Locke, @emph{Un ensayo sobre el rasonamiento humano} (1690)
 @end quotation
 Estamos apunto de estudiar una idea: el @newterm{proceso computacional}. Los procesos
 computacionales son seres abstractos que habitan las computadoras. A medida que 
@@ -105,36 +105,25 @@ Debido a su caracter experimental y su énfasis en manipulación de símbolos, Lisp
 muy ineficiente para realizar cálculos numéricos, al menos en comparación con Fortran. Sin embargo
 al paso de los años, se han desarrollado compiladores de Lisp los cuales traducen a código
 máquina que puede realizar operaciones matemáticas de manera eficiente.  Lisp ha sido usado para aplicaciones especiales
-con gran exito.@footnote{Una de las aplicaciones especiales fue un parte aguas en el computo cientifico --una integracion 
+con gran exito.
+
+@footnote{Una de las aplicaciones especiales fue un parte aguas en el computo cientifico --una integracion 
 sobre el movimiento del sistema solar que extendia resultados previous, que los sobrepasaba por al menos dos ordenes de 
 magnitud, y demostro que la dinamica del sistema solar es caotica. Estos calculos fueron posibles unicamente por nuevos
-alagoritmos de integracion, un compilador de uso especifico, todos elloso usando special-purpose compiler, and a special-purpose computer all implemented with
-the aid of software tools written in Lisp (Abelson et al. 1992; Sussman and
-Wisdom 1992).}
+algoritmos de integracion, un compilador de uso especifico, todo esto usando herramientas de software escrito en 
+lisp(Abelson et al. 1992; Sussman y Wisdom 1992).} Aunque lisp todavia no ha superado su reputacion de ser un lenguaje 
+muy ineficiente, ahora es usado para muchas aplicaciones donde la eficiencia no es un factor critico. Por ejemplo, Lisp 
+es usado como lenguaje para interpretes de comandos, lenguaje de extensiones para editores de texto.
 
-@footnote{One such special application was a
-breakthrough computation of scientific importance---an integration of the
-motion of the Solar System that extended previous results by nearly two orders
-of magnitude, and demonstrated that the dynamics of the Solar System is
-chaotic.  This computation was made possible by new integration algorithms, a
-special-purpose compiler, and a special-purpose computer all implemented with
-the aid of software tools written in Lisp (Abelson et al. 1992; Sussman and
-Wisdom 1992).}  Although Lisp has not yet overcome its old reputation as
-hopelessly inefficient, Lisp is now used in many applications where efficiency
-is not the central concern.  For example, Lisp has become a language of choice
-for operating-system shell languages and for extension languages for editors
-and computer-aided design systems.
+Si Lisp no es un lenguaje popular, entonces por que se usa como marco de referencia 
+para una discusion sobre programacion ? La respuesta radica en que posee caracteristicas
+unicas que lo hacen un excelente medio para el estudio de construcciones importantes de 
+programacion, estructuras de datos y su relacion con ciertas caracteristicas linguisticas que
+la soportan. La caracteristica mas significativa es la descripcion de procesos en Lisp, llamado @newterm{procedimientos}, pueden 
+ser representados y manipulados como un dato mas en Lisp. La importancia de esto radica en la existencia de tecnicas de
+programacion y dise~no cuyos fundamentos se basan en la habilidad de difuminar las diferencias entre datos pasivos y codigo activo.
 
-If Lisp is not a mainstream language, why are we using it as the framework for
-our discussion of programming?  Because the language possesses unique features
-that make it an excellent medium for studying important programming constructs
-and data structures and for relating them to the linguistic features that
-support them.  The most significant of these features is the fact that Lisp
-descriptions of processes, called @newterm{procedures}, can themselves be
-represented and manipulated as Lisp data.  The importance of this is that there
-are powerful program-design techniques that rely on the ability to blur the
-traditional distinction between ``passive'' data and ``active'' processes.  As
-we shall discover, Lisp's flexibility in handling procedures as data makes it
+As we shall discover, Lisp's flexibility in handling procedures as data makes it
 one of the most convenient languages in existence for exploring these
 techniques.  The ability to represent procedures as data also makes Lisp an
 excellent language for writing programs that must manipulate other programs as
