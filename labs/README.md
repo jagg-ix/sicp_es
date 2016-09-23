@@ -11,3 +11,7 @@
 [1.4](https://github.com/jagg-ix/sicp_es/tree/master/labs/ex1-4)
 [1.5](https://github.com/jagg-ix/sicp_es/tree/master/labs/ex1-5)
 [1.6](https://github.com/jagg-ix/sicp_es/tree/master/labs/ex1-6)
+
+
+* Berkeley CS61A 2011 version
+[CS61A 2011](http://inst.eecs.berkeley.edu/~cs61a/su11/)
