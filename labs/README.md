@@ -10,3 +10,4 @@
 [1.3](https://github.com/jagg-ix/sicp_es/tree/master/labs/ex1-3)
 [1.4](https://github.com/jagg-ix/sicp_es/tree/master/labs/ex1-4)
 [1.5](https://github.com/jagg-ix/sicp_es/tree/master/labs/ex1-5)
+[1.6](https://github.com/jagg-ix/sicp_es/tree/master/labs/ex1-6)
