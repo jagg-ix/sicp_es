@@ -13,3 +13,11 @@
   ; should stop when going down certain floor limit.
 )
 
+(define (average xy)
+  (/ (+ x y ) 2))
+
+(define (good-enough? guess x)
+  (< (abs (- square guess) x)) 0.001)
+
+(define (sqrt x)
+  (sqrt-iter 1.0 x))

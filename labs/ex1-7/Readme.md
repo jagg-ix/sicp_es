@@ -12,3 +12,6 @@ the change is a very small fraction of the guess.
 
 Design a square-root procedure tahat uses this kind of end test. Does this work
 better for small and large numbers?
+
+# http://www.math.harvard.edu/library/sternberg/slides/lec1.pdf
+Babylonian method to find a squar root
