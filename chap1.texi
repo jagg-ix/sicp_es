@@ -146,23 +146,38 @@ de programacion poderoso tiene al menos  estos tres mecanismos:
 
 @table @newterm
 
-@item primitive expressions
+@item expresiones primitivas
 which represent the simplest entities the language is concerned with,
-
-@item means of combination
-by which compound elements are built from simpler ones, and
-
-@item means of abstraction
-by which compound elements can be named and manipulated as units.
+los cuales represetan las entidades mas elementales en el lenguaje.
+@item metodos para crear combinaciones de elementos
+mediante los cuales, elementos compuestos son creados apartir de otros  mas simples, y
+@item metodos para crear abstraccion
+con los cuales by which compound elements can be named and manipulated as units.
 
 @end table
 
-In programming, we deal with two kinds of elements: procedures and data. (Later
-we will discover that they are really not so distinct.)  Informally, data is
-``stuff'' that we want to manipulate, and procedures are descriptions of the
-rules for manipulating the data.  Thus, any powerful programming language
-should be able to describe primitive data and primitive procedures and should
-have methods for combining and abstracting procedures and data.
+En programacion, trabajamos con dos tipos de elementos: procedimientos y data. 
+(Despues descubriremos que realmente no son tan distintos.) Informalmente, los datos son
+``cosas''  que deseamos manipular. 
+
+Por otro lado, los procedimientos son descripciones de las reglas para manipular
+los datos. Por tanto, cualquier lenguaje de programacion deberia tener metodos para
+la descripcion de datos y procedimientos primitivos. 
+
+Ademas de esto, un lenguaje de programacion deberia tener metodos para combinar y
+abstraer procedimientos ademas de datos.
+
+En este capitulo trabajaremos unicamente con datos numericos simples, de manera que
+solo nos enfocaremos con las reglas para crear procedimientos.@footnote{El caracterizar
+los numeros como ``datos simples'', es realmente un enga~no. De hecho, el tratamiento
+numerico es uno de los aspectos mas intrincado de cualquier lenguaje de programacion.
+Algunos problemas tipicos son estos: Algunos sistemas de computo hacen diferencia entre 
+@newterm{enteros, como el 2, de @newterm{numeros reales} como el 2.71.
+
+Cual es la diferencia entre  el numero real 2.00 y el numero entero 2 ?
+Se deben usar los mismos procedimientos sobre los numeros enteros y sobre
+los numeros reales ?
+
 
 In this chapter we will deal only with simple numerical data so that we can
 focus on the rules for building procedures.@footnote{The characterization of
