@@ -202,37 +202,33 @@ same rules allow us to build procedures to manipulate compound data as well.
 @end menu
 
 @node	1-1-1, 1-1-2, 1-1, 1-1
-@subsection Expressions
+@subsection Expresiones
 
-One easy way to get started at programming is to examine some typical
-interactions with an interpreter for the Scheme dialect of Lisp.  Imagine that
-you are sitting at a computer terminal.  You type an @newterm{expression}, and
-the interpreter responds by displaying the result of its @newterm{evaluating}
-that expression.
+Una forma facil de empezar a programar es revisar como son las interacciones
+en un interprete de Scheme. Imagina estar sentado en una terminal de computadora.
+Inicias tecleand una @newterm{expresion}, y
+el interprete responde desplegando el resultado de  @newterm{evaluar}
+la expresion.
 
-One kind of primitive expression you might type is a number.  (More precisely,
-the expression that you type consists of the numerals that represent the number
-in base 10.)  If you present Lisp with a number
+Un tipo primitivo de exprpesion que podrias teclear es un numero.  (O mas precisamente, la exprpesion que tecleas consiste en los numerales que representan un numero en base 10.)  Si tecleas el numero
 
 @lisp
 486
 @end lisp
 
 @noindent
-the interpreter will respond by printing @footnote{Throughout this book, when
-we wish to emphasize the distinction between the input typed by the user and
-the response printed by the interpreter, we will show the latter in slanted
-characters.}
+el interprete respondera imprimiendo @footnote{Aunque en este libro, cuando  
+deseamos emfatizar la distincion entre la entrada dada por el usuario y la respuesta
+impresa por el interprete, se mostrara esta ultima con caracteres inclinados.}
 
 @lisp
 @i{486}
 @end lisp
 
-Expressions representing numbers may be combined with an expression
-representing a primitive procedure (such as @code{+} or @code{*}) to form a
-compound expression that represents the application of the procedure to those
-numbers.  For example:
-
+Las exppresiones que representan numeros podrian se combinados con una expresion
+que represente un procedimiento basico sobre ellos (como @code{+} o @code{*}) para formar
+una exppresion compuesta que representa el applicar los procedimientos sobre esos numeros.
+Por ejemplo:
 @lisp
 (+ 137 349)
 @i{486}
@@ -250,19 +246,20 @@ numbers.  For example:
 @i{12.7}
 @end lisp
 
-Expressions such as these, formed by delimiting a list of expressions within
-parentheses in order to denote procedure application, are called
-@newterm{combinations}.  The leftmost element in the list is called the
-@newterm{operator}, and the other elements are called @newterm{operands}.  The
-value of a combination is obtained by applying the procedure specified by the
-operator to the @newterm{arguments} that are the values of the operands.
+Expresiones como estas, se forman al delimitar una lista de expresiones dentro
+de un parentesis de manera que denote que se esta aplicando un procedimiento,
+a esto se le conoce como @newterm{combinaciones}.  
 
-The convention of placing the operator to the left of the operands is known as
-@newterm{prefix notation}, and it may be somewhat confusing at first because it
-departs significantly from the customary mathematical convention.  Prefix
-notation has several advantages, however.  One of them is that it can
-accommodate procedures that may take an arbitrary number of arguments, as in
-the following examples:
+El primer elemento a la izquierda se le llama 
+@newterm{operador}, y el resto de los elementos son llamados los  @newterm{operandos}. 
+El valor de una combinaacion se obtiene al aplicar el procedimiento especificado por el 
+operador a los  @newterm{argumentos}, los cuales se obtienen de evaluar los operandos.
+
+Laa convencion de ubicar el operador como primer elemento (desde la izquierda) es conocido
+como @newterm{notacion prefija}, y aunque al principio puede parecer confusa por ser diferente
+a la forma mas comun de las expresiones matematicas. Aunque la notacion prefija tiene varias ventajas.
+Una de ellas es que soporta procedimientos que tienen cualquier numero arbitrario de argumentos, tal
+como los siguientes ejemplpos:
 
 @lisp
 (+ 21 35 12 7)
@@ -272,21 +269,22 @@ the following examples:
 @i{1200}
 @end lisp
 
-No ambiguity can arise, because the operator is always the leftmost element and
-the entire combination is delimited by the parentheses.
+Nunca hay ninguna ambiguedad, ya que el operador siempre es el primero especificado (de izquierda a derecha)
+y la combinacion esta delimitada por parentesis.
 
-A second advantage of prefix notation is that it extends in a straightforward
-way to allow combinations to be @i{nested}, that is, to have combinations whose
-elements are themselves combinations:
+Una segunda ventaja de la notacion prefija es que se puede extender de una manera simple y directa
+para permitir combinaciones @i{anidadas}, esto es, el tener combinaciones cuyos elementos son otras 
+combinaciones:
 
 @lisp
 (+ (* 3 5) (- 10 6))
 @i{19}
 @end lisp
 
-There is no limit (in principle) to the depth of such nesting and to the
-overall complexity of the expressions that the Lisp interpreter can evaluate.
-It is we humans who get confused by still relatively simple expressions such as
+No hay limite (en principio) en que tan profundo se pueden anidar las expresiones ni en la complejidad
+total que el interprete de scheme puede evaluar.
+
+Las personas son quienes pueden condundirse con exppresiones relativamente simplese como
 
 @lisp
 (+ (* 3 (+ (* 2 4) (+ 3 5))) (+ (- 10 7) 6))
