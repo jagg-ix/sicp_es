@@ -291,8 +291,8 @@ Las personas son quienes pueden condundirse con exppresiones relativamente simpl
 @end lisp
 
 @noindent
-which the interpreter would readily evaluate to be 57.  We can help ourselves
-by writing such an expression in the form
+a lo cual el interprete rapidamente  respondera  57 como resultado de su evaluacion. Aunque podemos
+ayudarnos escribiendo las expresiones de la siguiente forma
 
 @lisp
 (+ (* 3
